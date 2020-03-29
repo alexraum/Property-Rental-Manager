@@ -3,6 +3,12 @@
  */
 package edu.ncsu.csc216.business.model.properties;
 
+import java.time.LocalDate;
+
+import edu.ncsu.csc216.business.list_utils.SortedList;
+import edu.ncsu.csc216.business.model.contracts.Lease;
+import edu.ncsu.csc216.business.model.stakeholders.Client;
+
 /**
  * @author Alex Raum
  *
@@ -45,7 +51,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * @return
 	 */
 	@Override
-	public SortedList<Lease> removeServiceFromStarting(LocalDate date) {
+	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		return null;
 	}
 	

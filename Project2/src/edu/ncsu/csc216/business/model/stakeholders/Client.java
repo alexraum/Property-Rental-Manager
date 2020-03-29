@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.business.model.stakeholders;
 
 import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
+import edu.ncsu.csc216.business.model.contracts.Lease;
 
 /**
  * @author Alex Raum
