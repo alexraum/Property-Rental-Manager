@@ -107,7 +107,7 @@ public abstract class RentalUnit {
 	 * @param j
 	 * @return
 	 */
-	public abstract Lease reserve(Client client, LocalDate date, int i, int j) throws RentalDateException;
+	public abstract Lease reserve(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException;
 	
 	/**
 	 * 
