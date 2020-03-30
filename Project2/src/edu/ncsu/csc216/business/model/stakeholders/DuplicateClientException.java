@@ -11,6 +11,11 @@ public class DuplicateClientException extends Exception {
 
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
 	 * @param message
 	 */
 	public DuplicateClientException(String message) {

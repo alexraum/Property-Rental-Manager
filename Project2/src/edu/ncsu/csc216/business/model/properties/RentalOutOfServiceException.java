@@ -11,6 +11,11 @@ public class RentalOutOfServiceException extends Exception {
 
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
 	 * @param message
 	 */
 	public RentalOutOfServiceException(String message) {

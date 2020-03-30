@@ -11,6 +11,11 @@ public class DuplicateRoomException extends Exception {
 	
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
 	 * @param message
 	 */
 	public DuplicateRoomException(String message) {

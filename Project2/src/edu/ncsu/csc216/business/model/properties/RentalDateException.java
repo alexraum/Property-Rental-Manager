@@ -11,6 +11,11 @@ public class RentalDateException extends Exception {
 
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
 	 * @param message
 	 */
 	public RentalDateException(String message) {
