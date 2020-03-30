@@ -171,7 +171,7 @@ public abstract class RentalUnit {
 	 * 
 	 * @param lease
 	 */
-	public void addLease(Lease lease) {
+	public void addLease(Lease lease) throws RentalCapacityException, RentalDateException {
 		
 	}
 	
