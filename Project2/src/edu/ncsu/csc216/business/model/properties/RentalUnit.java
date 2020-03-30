@@ -118,14 +118,14 @@ public abstract class RentalUnit {
 	 * @param k
 	 * @return
 	 */
-	public abstract Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k) throws RentalCapacityException, RentalDateException;
+	public abstract Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k);
 	
 	/**
 	 * 
 	 * @param startDate
 	 * @param endDate
 	 */
-	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalCapacityException, RentalDateException {
+	public void checkDates(LocalDate startDate, LocalDate endDate) {
 		
 	}
 	
@@ -136,7 +136,7 @@ public abstract class RentalUnit {
 	 * @param i
 	 * @param j
 	 */
-	protected void checkLeaseConditions(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException {
+	protected void checkLeaseConditions(Client client, LocalDate date, int i, int j) {
 		
 	}
 	
@@ -145,7 +145,7 @@ public abstract class RentalUnit {
 	 * @param date
 	 * @return
 	 */
-	public SortedList<Lease> removeFromServiceStarting(LocalDate date) throws RentalCapacityException, RentalDateException {
+	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		return null;
 	}
 	
@@ -154,7 +154,7 @@ public abstract class RentalUnit {
 	 * @param date
 	 * @return
 	 */
-	protected int cutoffIndex(LocalDate date) throws RentalCapacityException, RentalDateException {
+	protected int cutoffIndex(LocalDate date) {
 		return 0;
 	}
 	
@@ -163,7 +163,7 @@ public abstract class RentalUnit {
 	 * @param i
 	 * @return
 	 */
-	public Lease cancelLeaseByNumber(int i) throws RentalCapacityException, RentalDateException {
+	public Lease cancelLeaseByNumber(int i) {
 		return null;
 	}
 	
@@ -171,7 +171,7 @@ public abstract class RentalUnit {
 	 * 
 	 * @param lease
 	 */
-	public void addLease(Lease lease) throws RentalCapacityException, RentalDateException {
+	public void addLease(Lease lease) {
 		
 	}
 	
