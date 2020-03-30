@@ -22,7 +22,7 @@ public class HotelSuite extends RentalUnit {
 	 * 
 	 * @param s
 	 */
-	public HotelSuite(String s) {
+	public HotelSuite(String s) throws RentalCapacityException, RentalDateException {
 		this(s, 0);
 	}
 	
@@ -31,7 +31,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param s
 	 * @param i
 	 */
-	public HotelSuite(String s, int i) {
+	public HotelSuite(String s, int i) throws RentalCapacityException, RentalDateException {
 		super(s, i);
 	}
 	
