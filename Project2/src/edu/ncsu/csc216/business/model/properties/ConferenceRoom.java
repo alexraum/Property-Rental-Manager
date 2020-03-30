@@ -25,7 +25,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * @param s
 	 * @param i
 	 */
-	public ConferenceRoom(String s, int i) throws RentalCapacityException, RentalDateException {
+	public ConferenceRoom(String s, int i) {
 		super(s, i);
 	}
 	

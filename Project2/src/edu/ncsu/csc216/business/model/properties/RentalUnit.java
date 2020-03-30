@@ -40,7 +40,7 @@ public abstract class RentalUnit {
 	 * @param s
 	 * @param i
 	 */
-	public RentalUnit(String s, int i) throws RentalCapacityException, RentalDateException {
+	public RentalUnit(String s, int i) {
 		
 	}
 	

@@ -29,7 +29,7 @@ public class Office extends RentalUnit {
 	 * @param s
 	 * @param i
 	 */
-	public Office(String s, int i) throws RentalCapacityException, RentalDateException {
+	public Office(String s, int i) {
 		super(s, i);
 	}
 	
