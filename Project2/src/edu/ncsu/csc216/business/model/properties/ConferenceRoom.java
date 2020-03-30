@@ -33,7 +33,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * 
 	 */
 	@Override
-	public Lease reserve(Client client, LocalDate date, int i, int j) {
+	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		return null;
 	}
 	
@@ -41,7 +41,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * 
 	 */
 	@Override
-	public Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int j) {
+	public Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int j) throws RentalCapacityException, RentalDateException {
 		return null;
 	}
 	
