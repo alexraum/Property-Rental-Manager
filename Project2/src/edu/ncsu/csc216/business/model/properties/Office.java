@@ -37,7 +37,7 @@ public class Office extends RentalUnit {
 	 * 
 	 */
 	@Override
-	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalDateException, RentalCapacityException {
+	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
 		return null;
 	}
 	
