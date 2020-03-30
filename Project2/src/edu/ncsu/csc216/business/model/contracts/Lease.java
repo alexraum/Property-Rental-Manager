@@ -5,8 +5,6 @@ package edu.ncsu.csc216.business.model.contracts;
 
 import java.time.LocalDate;
 
-import edu.ncsu.csc216.business.model.properties.RentalCapacityException;
-import edu.ncsu.csc216.business.model.properties.RentalDateException;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
@@ -41,7 +39,7 @@ public class Lease implements Comparable<Lease> {
 	 * @param endDate
 	 * @param i
 	 */
-	public Lease(Client client, RentalUnit unit, LocalDate startDate, LocalDate endDate, int i) throws RentalCapacityException, RentalDateException {
+	public Lease(Client client, RentalUnit unit, LocalDate startDate, LocalDate endDate, int i) {
 		
 	}
 	
@@ -54,7 +52,7 @@ public class Lease implements Comparable<Lease> {
 	 * @param endDate
 	 * @param j
 	 */
-	public Lease(int i, Client client, RentalUnit unit, LocalDate startDate, LocalDate endDate, int j) throws RentalCapacityException, RentalDateException {
+	public Lease(int i, Client client, RentalUnit unit, LocalDate startDate, LocalDate endDate, int j) {
 		
 	}
 	

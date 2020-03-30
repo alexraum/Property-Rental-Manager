@@ -40,7 +40,7 @@ public abstract class RentalUnit {
 	 * @param s
 	 * @param i
 	 */
-	public RentalUnit(String s, int i) {
+	public RentalUnit(String s, int i) throws RentalCapacityException, RentalDateException {
 		
 	}
 	
@@ -107,7 +107,7 @@ public abstract class RentalUnit {
 	 * @param j
 	 * @return
 	 */
-	public abstract Lease reserve(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException;
+	public abstract Lease reserve(Client client, LocalDate date, int i, int j);
 	
 	/**
 	 * 
@@ -171,7 +171,7 @@ public abstract class RentalUnit {
 	 * 
 	 * @param lease
 	 */
-	public void addLease(Lease lease) throws RentalCapacityException, RentalDateException {
+	public void addLease(Lease lease) {
 		
 	}
 	
