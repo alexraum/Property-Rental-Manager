@@ -39,7 +39,7 @@ public class HotelSuite extends RentalUnit {
 	 * 
 	 */
 	@Override
-	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
+	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalDateException {
 		return null;
 	}
 	

@@ -107,7 +107,7 @@ public abstract class RentalUnit {
 	 * @param j
 	 * @return
 	 */
-	public abstract Lease reserve(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException;
+	public abstract Lease reserve(Client client, LocalDate date, int i, int j) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException; 
 	
 	/**
 	 * 
@@ -118,7 +118,7 @@ public abstract class RentalUnit {
 	 * @param k
 	 * @return
 	 */
-	public abstract Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k) throws RentalCapacityException, RentalDateException;
+	public abstract Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k) throws RentalDateException, RentalCapacityException;
 	
 	/**
 	 * 
@@ -136,7 +136,7 @@ public abstract class RentalUnit {
 	 * @param i
 	 * @param j
 	 */
-	protected void checkLeaseConditions(Client client, LocalDate date, int i, int j) {
+	protected void checkLeaseConditions(Client client, LocalDate date, int i, int j) throws RentalOutOfServiceException {
 		
 	}
 	
