@@ -12,7 +12,7 @@ import edu.ncsu.csc216.business.model.stakeholders.Client;
  * @author Alex Raum
  *
  */
-public class Lease {
+public class Lease implements Comparable<Lease> {
 	
 	/** */
 	private static int confirmationCounter;
