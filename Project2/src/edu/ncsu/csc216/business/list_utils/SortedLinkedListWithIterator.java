@@ -4,23 +4,26 @@
 package edu.ncsu.csc216.business.list_utils;
 
 /**
- * @author Alex Raum
+ * Implements the SortedList interface with a data structure of linked Nodes.
+ * @author Alex Raum, Walker Clem
  *
  */
 public class SortedLinkedListWithIterator<E extends Comparable<E>> implements SortedList<E> {
 
-	/** */
+	/** Node object */
 	private Node<E> head;
 	
 	/**
-	 * 
+	 * Constructor
 	 */
 	public SortedLinkedListWithIterator() {
 		
 	}
 	
-	/**
+	/** 
+	 * Returns the size
 	 * 
+	 * @return the size
 	 */
 	@Override
 	public int size() {
@@ -29,7 +32,9 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Returns whether the list is empty
 	 * 
+	 * @return if it is empty
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -38,7 +43,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Returns whether the list contains object e
 	 * 
+	 * @param e the object to check
+	 * 
+	 * @return whether the object contains
 	 */
 	@Override
 	public boolean contains(E e) {
@@ -47,7 +56,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Adds an item to the list
 	 * 
+	 * @param e the object to add
+	 * 
+	 * @return if the object is added
 	 */
 	@Override
 	public boolean add(E e) {
@@ -56,7 +69,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
-	 * 
+	 * Clears the list
 	 */
 	@Override
 	public void clear() {
@@ -65,7 +78,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Gets the item from an index
 	 * 
+	 * @param index the index of the item
+	 * 
+	 * @return the element
 	 */
 	@Override
 	public E get(int index) {
@@ -74,7 +91,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Remove an item at index
 	 * 
+	 * @param index the index of the element to remove
+	 * 
+	 * @return if the element is removed
 	 */
 	@Override
 	public E remove(int index) {
@@ -83,7 +104,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Shorten the list
 	 * 
+	 * @param start of the truncate
+	 * 
+	 * @return the truncated sorted list
 	 */
 	@Override
 	public SortedList<E> truncate(int start) {
@@ -92,7 +117,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * Returns the index of an element
 	 * 
+	 * @param the element
+	 * 
+	 * @return the index of the element
 	 */
 	@Override
 	public int indexOf(E e) {
@@ -101,7 +130,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 	
 	/**
-	 * 
+	 * Translates the list to a string
 	 */
 	@Override
 	public String toString() {
@@ -109,26 +138,31 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
+	 * The iterator
 	 * 
+	 * @return the new iterator
 	 */
 	public SimpleListIterator<E> iterator() {
 		return null;
 	}
 	
 	/**
-	 * 
-	 * @author Alex Raum
+	 * The node object
+	 * @author Alex Raum, Walker Clem
 	 *
 	 */
 	private static class Node<E> {
 		
-		/** */
+		/** the e object */
 		E value;
-		/** */
+		/** the next node object */
 		private Node<E> next;
 		
 		/**
+		 * Creates a node
 		 * 
+		 * @param value the value of the node
+		 * @param next the next node
 		 */
 		public Node(E value, Node<E> next) {
 			
@@ -136,24 +170,26 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 	
 	/**
-	 * 
-	 * @author Alex Raum
+	 * The cursor object
+	 * @author Alex Raum, Walker Clem
 	 *
 	 */
 	private class Cursor implements SimpleListIterator<E> {
 		
-		/** */
+		/** the travelor node */
 		private Node<E> traveler;
 		
 		/**
-		 * 
+		 * the cursor constructor
 		 */
 		public Cursor() {
 			
 		}
 		
 		/**
+		 * if the cursor has a next
 		 * 
+		 * @return if the cursor has a next
 		 */
 		@Override
 		public boolean hasNext() {
@@ -161,7 +197,9 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 		}
 		
 		/**
+		 * the next object 
 		 * 
+		 * @return the next object
 		 */
 		@Override
 		public E next() {

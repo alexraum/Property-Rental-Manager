@@ -4,34 +4,37 @@
 package edu.ncsu.csc216.business.list_utils;
 
 /**
- * @author Alex Raum
+ * Implements the SimpleList interface with an array data structure.
+ * @author Alex Raum, Walker Clem
  *
  */
 public class SimpleArrayList<E> implements SimpleList<E> {
 
-	/** */
+	/** List Resize */
 	private static final int RESIZE = 0; // need to double check this value with TA
-	/** */
+	/**  List object */
 	private Object[] list;
-	/** */
+	/** List size */
 	private int size;
 	
 	/*
-	 * 
+	 * Constructor for the ArrayList
 	 */
 	public SimpleArrayList() {
 		
 	}
 	
 	/**
-	 * 
+	 * Constructor with a capactiy set
 	 */
 	public SimpleArrayList(int capacity) {
 
 	}
 	
 	/** 
+	 * Returns the size
 	 * 
+	 * @return the size
 	 */
 	@Override
 	public int size() {
@@ -39,7 +42,9 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
+	 * Returns whether the list is empty
 	 * 
+	 * @return if it is empty
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -47,15 +52,23 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
+	 * Returns whether the list contains object e
 	 * 
+	 * @param e the object to check
+	 * 
+	 * @return whether the object contains
 	 */
 	@Override
-	public boolean contains(E e) {
+	public boolean contains(E e) { 
 		return false;
 	}
 	
 	/**
+	 * Adds an item to the list
 	 * 
+	 * @param e the object to add
+	 * 
+	 * @return if the object is added
 	 */
 	@Override
 	public boolean add(E e) {
@@ -63,7 +76,11 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
+	 * Gets the item from an index
 	 * 
+	 * @param idx the index of the item
+	 * 
+	 * @return the element
 	 */
 	@Override
 	public E get(int idx) {
@@ -71,7 +88,12 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
+	 * Adds an item at position e
 	 * 
+	 * @param pos the position of the elemeent
+	 * @param e the element
+	 * 
+	 * @return if the element was added
 	 */
 	@Override
 	public void add(int pos, E e) {
@@ -79,7 +101,11 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
+	 * Remove an item at index
 	 * 
+	 * @param index the index of the element to remove
+	 * 
+	 * @return if the element is removed
 	 */
 	@Override
 	public E remove(int index) {
@@ -87,7 +113,11 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
+	 * Returns the index of an element
 	 * 
+	 * @param the element
+	 * 
+	 * @return the index of the element
 	 */
 	@Override
 	public int indexOf(E e) {

@@ -7,45 +7,47 @@ import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 
 /**
- * @author Alex Raum
+ * The client object
+ * @author Alex Raum, Walker Clem
  *
  */
 public class Client {
 	
-	/** */
+	/** name of client */
 	private String name;
-	/** */
+	/** id of client */
 	private String id;
-	/** */
+	/** leases for client */
 	private SimpleArrayList myLeases;
 	
 	/**
-	 * 
-	 * @param name
-	 * @param id
+	 * Client constructor
+	 * @param name of client
+	 * @param id of client
 	 */
 	public Client(String name, String id) {
 		
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the name of client
+	 * @return the name
 	 */
 	public String getName() {
 		return null;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the id of client
+	 * @return the id
 	 */
 	public String getId() {
 		return null;
 	}
 	
 	/**
-	 * 
+	 * Hashcode
+	 * @return the hash
 	 */
 	@Override
 	public int hashCode() {
@@ -53,7 +55,9 @@ public class Client {
 	}
 	
 	/**
-	 * 
+	 * Equals
+	 * @param o the object to compare
+	 * @return if equals
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -61,8 +65,8 @@ public class Client {
 	}
 	
 	/**
-	 * 
-	 * @param l
+	 * Adds a new lease
+	 * @param l the lease
 	 */
 	public void addNewLease(Lease l) {
 		

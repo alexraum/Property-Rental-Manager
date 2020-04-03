@@ -11,36 +11,37 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 
 /**
- * @author Alex Raum
+ * Manages the properties
+ * @author Alex Raum, Walker Clem
  *
  */
 public class PropertyManager implements Landlord {
 
-	/** */
+	/** the earliest date */
 	public static final LocalDate EARILEST_DATE = null; // need to double check this value with TA
-	/** */
+	/** the latest date */
 	public static final LocalDate LATEST_DATE = null; // need to double check this value with TA
-	/** */
+	/** the kind of filter  */
 	private String kindFilter;
-	/** */
+	/** filter if in service */
 	private boolean inServiceFilter;
-	/** */
+	/** instance of property manager */
 	private PropertyManager instance;
-	/** */
+	/** list of customers */
 	private SimpleArrayList customerBase;
-	/** */
+	/** list of rooms */
 	private SortedLinkedListWithIterator rooms;
 	
 	/**
-	 * 
-	 * @return
+	 * Gets an instance of property manager
+	 * @return the instance
 	 */
 	public static PropertyManager getInstance() {
 		return null;
 	}
 	
 	/**
-	 * 
+	 * Adds a new client
 	 */
 	@Override
 	public Client addNewClient(String name, String id) throws DuplicateClientException {
@@ -48,7 +49,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * Adds a new unit
 	 */
 	@Override
 	public RentalUnit addNewUnit(String kind, String location, int capacity) throws DuplicateRoomException {
@@ -56,20 +57,20 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
-	 * @param client
-	 * @param i
-	 * @param unit
-	 * @param startDate
-	 * @param endDate
-	 * @param j
+	 * Adds a lease
+	 * @param client the client
+	 * @param i first number
+	 * @param unit the unit
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param j the second number
 	 */
 	public void addLeaseFromFile(Client client, int i, RentalUnit unit, LocalDate startDate, LocalDate endDate, int j) {
 		
 	}
 	
 	/**
-	 * 
+	 * Cancel the lease
 	 */
 	@Override
 	public void cancelClientsLease(int clientIndex, int leaseIndex) {
@@ -78,7 +79,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * Return the room to service
 	 */
 	@Override
 	public void returnToService(int propertyIndex) {
@@ -87,7 +88,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * Remove the room from service
 	 */
 	@Override
 	public RentalUnit removeFromService(int propertyIndex, LocalDate start) {
@@ -96,7 +97,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * Close the rental 
 	 */
 	@Override
 	public void closeRentalUnit(int propertyIndex) {
@@ -105,7 +106,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * Create a new lease
 	 */
 	@Override
 	public Lease createLease(int clientIndex, int propertyIndex, LocalDate start, int duration, int people) {
@@ -113,7 +114,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * List the clients
 	 */
 	@Override
 	public String[] listClients() {
@@ -122,7 +123,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * List the leases for client
 	 */
 	@Override
 	public String[] listClientLeases(int clientIndex) {
@@ -131,7 +132,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * list the rental units 
 	 */
 	@Override
 	public String[] listRentalUnits() {
@@ -140,7 +141,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * List the leases for rental units
 	 */
 	@Override
 	public String[] listLeasesForRentalUnit(int propertyIndex) {
@@ -149,16 +150,16 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
-	 * @param location
-	 * @return
+	 * Gets the unit at the location
+	 * @param location the location
+	 * @return the unit
 	 */
 	public RentalUnit getUnitAtLocation(String location) {
 		return null;
 	}
 	
 	/**
-	 * 
+	 * Filters the units
 	 */
 	@Override
 	public void filterRentalUnits(String filter1, boolean filter2) {
@@ -167,7 +168,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * 
+	 * Clears the data of units and clients
 	 */
 	@Override
 	public void flushAllData() {
