@@ -18,7 +18,8 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testSize() {
-		fail("Not yet implemented");
+		SimpleArrayList<String> list = new SimpleArrayList<String>();
+		assertEquals(0, list.size());
 	}
 
 	/**
@@ -26,7 +27,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testIsEmpty() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -34,7 +35,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testContains() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testAddE() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testGet() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testAddIntE() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -66,7 +67,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class SimpleArrayListTest {
 	 */
 	@Test
 	public void testIndexOf() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }

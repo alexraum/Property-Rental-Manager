@@ -11,7 +11,7 @@ package edu.ncsu.csc216.business.list_utils;
 public class SimpleArrayList<E> implements SimpleList<E> {
 
 	/** List Resize */
-	private static final int RESIZE = 0; // need to double check this value with TA
+	private static final int RESIZE = 12; // need to double check this value with TA
 	/**  List object */
 	private Object[] list;
 	/** List size */
@@ -21,14 +21,19 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * Constructor for the ArrayList
 	 */
 	public SimpleArrayList() {
-		
+		this(RESIZE);
 	}
 	
 	/**
-	 * Constructor with a capactiy set
+	 * Constructor with a capacity set
 	 */
+	@SuppressWarnings("unchecked")
 	public SimpleArrayList(int capacity) {
-
+		if (capacity < 0) {
+			throw new IllegalArgumentException();
+		}
+		list = (E[])(new Object[capacity]);
+		this.size = 0;
 	}
 	
 	/** 
@@ -38,7 +43,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 */
 	@Override
 	public int size() {
-		return 0;
+		if (this.size > Integer.MAX_VALUE) {
+			return Integer.MAX_VALUE;
+		}
+		return this.size;
 	}
 	
 	/**
@@ -48,7 +56,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return false;
+		return size == 0;
 	}
 	
 	/**
@@ -60,7 +68,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 */
 	@Override
 	public boolean contains(E e) { 
-		return false;
+		return indexOf(e) != -1;
 	}
 	
 	/**
@@ -69,10 +77,17 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * @param e the object to add
 	 * 
 	 * @return if the object is added
+	 * 
+	 * @throws IllegalArgumentException if the list already contains e
 	 */
 	@Override
 	public boolean add(E e) {
-		return false;
+		if (contains(e)) {
+			throw new IllegalArgumentException();
+		}
+		this.list[size] = e;
+		this.size++;
+		return true;
 	}
 	
 	/**
@@ -81,10 +96,16 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * @param idx the index of the item
 	 * 
 	 * @return the element
+	 * 
+	 * @throws IllegalArgumentException if the index is out of range
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public E get(int idx) {
-		return null;
+		if (idx < 0 || idx >= size()) {
+			throw new IllegalArgumentException();
+		}
+		return (E)(list[idx]);
 	}
 	
 	/**
@@ -94,10 +115,27 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * @param e the element
 	 * 
 	 * @return if the element was added
+	 * 
+	 * @throws NullPointerException If the specified element is null
+	 * @throws IllegalArgumentException If the specified element is already in the list
+	 * @throws IndexOutOfBoundsException If the index is out of range
 	 */
 	@Override
 	public void add(int pos, E e) {
-		
+		if (e == null) {
+			throw new NullPointerException();
+		}
+		if (contains(e)) {
+			throw new IllegalArgumentException();
+		}
+		if (pos < 0 || pos > size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		for (int i = size(); i > pos; i--) {
+			list[i] = list[i - 1];
+		}
+		list[pos] = e;
+		this.size++;
 	}
 	
 	/**
@@ -106,10 +144,22 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * @param index the index of the element to remove
 	 * 
 	 * @return if the element is removed
+	 * 
+	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public E remove(int index) {
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		E elem = (E)(list[index]);
+		for (int i = index; i < size() - 1; i++) {
+			list[i] = list[i + 1];
+		}
+		list[size() - 1] = null;
+		this.size--;
+		return elem;
 	}
 	
 	/**
@@ -121,7 +171,12 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 */
 	@Override
 	public int indexOf(E e) {
-		return 0;
+		for (int i = 0; i < this.size; i++) {
+			if (list[i] == e) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 }
