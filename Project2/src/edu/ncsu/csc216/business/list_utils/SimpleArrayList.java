@@ -97,13 +97,13 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * 
 	 * @return the element
 	 * 
-	 * @throws IllegalArgumentException if the index is out of range
+	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public E get(int idx) {
 		if (idx < 0 || idx >= size()) {
-			throw new IllegalArgumentException();
+			throw new IndexOutOfBoundsException();
 		}
 		return (E)(list[idx]);
 	}
@@ -172,7 +172,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	@Override
 	public int indexOf(E e) {
 		for (int i = 0; i < this.size; i++) {
-			if (list[i] == e) {
+			if (list[i].equals(e)) {
 				return i;
 			}
 		}

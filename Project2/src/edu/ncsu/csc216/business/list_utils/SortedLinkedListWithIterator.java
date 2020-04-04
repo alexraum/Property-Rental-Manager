@@ -17,7 +17,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Constructor
 	 */
 	public SortedLinkedListWithIterator() {
-		
+		this.head = null;
 	}
 	
 	/** 
@@ -27,8 +27,13 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = 0;
+		Node<E> current = this.head;
+		while (current != null) {
+			current = current.next;
+			count++;
+		}
+		return count;
 	}
 
 	/**
@@ -38,8 +43,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size() == 0;
 	}
 
 	/**
@@ -51,8 +55,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	@Override
 	public boolean contains(E e) {
-		// TODO Auto-generated method stub
-		return false;
+		return indexOf(e) != -1;
 	}
 
 	/**
@@ -73,7 +76,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		this.head = null;
 
 	}
 
@@ -83,11 +86,19 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * @param index the index of the item
 	 * 
 	 * @return the element
+	 * 
+	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@Override
 	public E get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		Node<E> current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return current.value;
 	}
 
 	/**
@@ -96,11 +107,27 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * @param index the index of the element to remove
 	 * 
 	 * @return if the element is removed
+	 * 
+	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@Override
 	public E remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		E elem;
+		if (index == 0) {
+			elem = head.value;
+			head = head.next;
+		} else {
+			Node<E> current = head;
+			for (int i = 0; i < (index - 1); i++) {
+				current = current.next;
+			}
+			elem = current.next.value;
+			current.next = current.next.next;
+		}
+		return elem;
 	}
 
 	/**
@@ -109,11 +136,28 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * @param start of the truncate
 	 * 
 	 * @return the truncated sorted list
+	 * 
+	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public SortedList<E> truncate(int start) {
-		// TODO Auto-generated method stub
-		return null;
+		if (start < 0 || start > size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		SortedList<E> tail;
+		if (start == 0) {
+			tail = (SortedList<E>)head;
+			this.head = null;
+		} else {
+			Node<E> current = head;
+			for (int i = 0; i < (start - 1); i++) {
+				current = current.next;
+			}
+			tail = (SortedList<E>)current.next;
+			current.next = null;
+		}
+		return tail;
 	}
 
 	/**
@@ -125,16 +169,35 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	@Override
 	public int indexOf(E e) {
-		// TODO Auto-generated method stub
-		return 0;
+		Node<E> current = head;
+		for (int i = 0; i < size(); i++) {
+			if (current.value == e) {
+				return i;
+			}
+			current = current.next;
+		}
+		return -1;
 	}
 	
 	/**
 	 * Translates the list to a string
+	 * 
+	 * @return a String representation of the list
 	 */
 	@Override
 	public String toString() {
-		return null;
+		if (head == null) {
+			return "[]";
+		} else {
+			String list = "[" + head.value;
+			Node<E> current = head.next;
+			while (current != null) {
+				list += ", " + current.value;
+				current = current.next;
+			}
+			list += "]";
+			return list;
+		}
 	}
 
 	/**
