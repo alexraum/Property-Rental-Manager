@@ -16,19 +16,6 @@ import org.junit.Test;
 public class SimpleArrayListTest {
 
 	/**
-	 * Checks the functionality of the Constructor
-	 */
-	@Test
-	public void testConstructor() {
-		try {
-			SimpleArrayList<String> list = new SimpleArrayList<String>(0);
-			fail();
-		} catch (IllegalArgumentException e) {
-			assertNull(e.getMessage());
-		}
-	}
-	
-	/**
 	 * Test method for {@link edu.ncsu.csc216.business.list_utils.SimpleArrayList#size()}.
 	 */
 	@Test
@@ -176,18 +163,6 @@ public class SimpleArrayListTest {
 		list.add("nectarine");
 		list.add("apricot");
 		assertEquals(2, list.indexOf("apricot"));
-	}
-	
-	/**
-	 * Checks the functionality of the growArray method
-	 */
-	public void testGrowArray() {
-		SimpleArrayList<String> list = new SimpleArrayList<String>();
-		assertTrue(list.add("blueberry"));
-		assertTrue(list.add("blackberry"));
-		assertTrue(list.add("raspberry"));
-		list.growArray();
-		assertEquals(3, list.size());
 	}
 
 }
