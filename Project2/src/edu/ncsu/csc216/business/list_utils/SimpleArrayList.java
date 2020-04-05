@@ -29,7 +29,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 */
 	@SuppressWarnings("unchecked")
 	public SimpleArrayList(int capacity) {
-		if (capacity < 0) {
+		if (capacity <= 0) {
 			throw new IllegalArgumentException();
 		}
 		list = (E[])(new Object[capacity]);
