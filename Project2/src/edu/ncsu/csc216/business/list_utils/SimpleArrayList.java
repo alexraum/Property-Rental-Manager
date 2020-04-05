@@ -78,6 +78,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * 
 	 * @return if the object is added
 	 * 
+	 * @throws NullPointerException If the specified element is null
 	 * @throws IllegalArgumentException if the list already contains e
 	 */
 	@Override
@@ -87,6 +88,9 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 		}
 		if (contains(e)) {
 			throw new IllegalArgumentException();
+		}
+		if (size() == list.length) {
+			growArray();
 		}
 		this.list[size] = e;
 		this.size++;
@@ -133,6 +137,9 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 		}
 		if (pos < 0 || pos > size()) {
 			throw new IndexOutOfBoundsException();
+		}
+		if (size() == list.length) {
+			growArray();
 		}
 		for (int i = size(); i > pos; i--) {
 			list[i] = list[i - 1];
@@ -182,4 +189,17 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 		return -1;
 	}
 	
+	
+	/**
+	 * Resizes the array to create more storage
+	 */
+	@SuppressWarnings("unchecked")
+	public void growArray() {
+		int newSize = size + RESIZE;
+		E[] newList = (E[])(new Object[newSize]);
+		for (int i = 0; i < size; i++) {
+			newList[i] = (E)(list[i]);
+		}
+		list = newList;
+	}
 }
