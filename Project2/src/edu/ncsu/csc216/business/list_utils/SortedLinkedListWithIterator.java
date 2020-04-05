@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc216.business.list_utils;
 
+import java.util.NoSuchElementException;
+
 /**
  * Implements the SortedList interface with a data structure of linked Nodes.
  * @author Alex Raum, Walker Clem
@@ -206,7 +208,8 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * @return the new iterator
 	 */
 	public SimpleListIterator<E> iterator() {
-		return null;
+		Cursor iterator = new Cursor();
+		return iterator;
 	}
 	
 	/**
@@ -228,7 +231,8 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 		 * @param next the next node
 		 */
 		public Node(E value, Node<E> next) {
-			
+			this.value = value;
+			this.next = next;
 		}
 	}
 	
@@ -246,27 +250,33 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 		 * the cursor constructor
 		 */
 		public Cursor() {
-			
+			traveler = head;
 		}
 		
 		/**
-		 * if the cursor has a next
+		 * if the cursor has a next element
 		 * 
-		 * @return if the cursor has a next
+		 * @return if the cursor has a next element
 		 */
 		@Override
 		public boolean hasNext() {
-			return false;
+			return traveler != null;
 		}
 		
 		/**
-		 * the next object 
+		 * the next element
 		 * 
-		 * @return the next object
+		 * @return the next element
+		 * @throws NoSuchElementException if the list has already been traversed
 		 */
 		@Override
 		public E next() {
-			return null;
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			E value = traveler.value;
+			traveler = traveler.next;
+			return value;
 		}
 	}
 }

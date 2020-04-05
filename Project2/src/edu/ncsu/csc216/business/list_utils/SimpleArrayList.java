@@ -11,7 +11,7 @@ package edu.ncsu.csc216.business.list_utils;
 public class SimpleArrayList<E> implements SimpleList<E> {
 
 	/** List Resize */
-	private static final int RESIZE = 12; // need to double check this value with TA
+	private static final int RESIZE = 12;
 	/**  List object */
 	private Object[] list;
 	/** List size */
