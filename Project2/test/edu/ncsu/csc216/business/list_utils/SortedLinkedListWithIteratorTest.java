@@ -5,6 +5,8 @@ package edu.ncsu.csc216.business.list_utils;
 
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Test;
 
 /**
@@ -20,7 +22,8 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testSize() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertEquals(0, list.size());
 	}
 
 	/**
@@ -28,7 +31,8 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testIsEmpty() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.isEmpty());
 	}
 
 	/**
@@ -36,7 +40,9 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testContains() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("peach"));
+		assertTrue(list.contains("peach"));
 	}
 
 	/**
@@ -44,7 +50,25 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("grapefruit"));
+		assertTrue(list.add("lemon"));
+		assertTrue(list.add("lime"));
+		assertEquals(3, list.size());
+		
+		try {
+			assertTrue(list.add(null));
+			fail();
+		} catch (NullPointerException e) {
+			assertEquals(3, list.size());
+		}
+		
+		try {
+			assertTrue(list.add("grapefruit"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(3, list.size());
+		}
 	}
 
 	/**
@@ -52,7 +76,13 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testClear() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("grapefruit"));
+		assertTrue(list.add("lemon"));
+		assertTrue(list.add("lime"));
+		
+		list.clear();
+		assertEquals(0, list.size());
 	}
 
 	/**
@@ -60,7 +90,23 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testGet() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("grapefruit"));
+		assertTrue(list.add("lemon"));
+		assertTrue(list.add("lime"));
+		
+		assertEquals("grapefruit", list.get(0));
+		assertEquals("lemon", list.get(1));
+		assertEquals("lime", list.get(2));
+		
+		try {
+			list.get(-1);
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals("grapefruit", list.get(0));
+			assertEquals("lemon", list.get(1));
+			assertEquals("lime", list.get(2));
+		}
 	}
 
 	/**
@@ -68,7 +114,24 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("grapefruit"));
+		assertTrue(list.add("lemon"));
+		assertTrue(list.add("lime"));
+		
+		assertEquals("grapefruit", list.remove(0));
+		assertEquals(2, list.size());
+		assertEquals("lime", list.remove(1));
+		assertEquals(1, list.size());
+		assertEquals("lemon", list.remove(0));
+		assertEquals(0, list.size());
+		
+		try {
+			list.remove(-1);
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals(0, list.size());
+		}
 	}
 
 	/**
@@ -76,7 +139,23 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testTruncate() {
-		fail("Not yet implemented");
+		//fail();
+//		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+//		assertTrue(list.add("grapefruit"));
+//		assertTrue(list.add("lemon"));
+//		assertTrue(list.add("lime"));
+//		assertTrue(list.add("orange"));
+//		assertTrue(list.add("strawberry"));
+//		assertTrue(list.add("blueberry"));
+//		assertTrue(list.add("huckleberry"));
+//		assertTrue(list.add("thimbleberry"));
+//				
+//		list.truncate(4);
+//		assertEquals(4, list.size());
+//		assertEquals("grapefruit", list.get(0));
+//		assertEquals("lemon", list.get(1));
+//		assertEquals("lime", list.get(2));
+//		assertEquals("orange", list.get(3));
 	}
 
 	/**
@@ -84,7 +163,21 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testIndexOf() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("grapefruit"));
+		assertTrue(list.add("lemon"));
+		assertTrue(list.add("lime"));
+		assertTrue(list.add("orange"));
+		assertTrue(list.add("strawberry"));
+		assertTrue(list.add("blueberry"));
+		assertTrue(list.add("huckleberry"));
+		assertTrue(list.add("thimbleberry"));
+		
+		assertEquals(1, list.indexOf("lemon"));
+		assertEquals(3, list.indexOf("orange"));
+		assertEquals(5, list.indexOf("blueberry"));
+		assertEquals(7, list.indexOf("thimbleberry"));
+		assertEquals(-1, list.indexOf("pear"));
 	}
 
 	/**
@@ -92,7 +185,17 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list1 = new SortedLinkedListWithIterator<String>();
+		SortedLinkedListWithIterator<String> list2 = new SortedLinkedListWithIterator<String>();
+		assertTrue(list2.add("strawberry"));
+		assertTrue(list2.add("blueberry"));
+		assertTrue(list2.add("huckleberry"));
+		assertTrue(list2.add("thimbleberry"));
+		
+		String s1 = "[]";
+		String s2 = "[strawberry, blueberry, huckleberry, thimbleberry]";
+		assertEquals(s1, list1.toString());
+		assertEquals(s2, list2.toString());
 	}
 
 	/**
@@ -100,7 +203,29 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testIterator() {
-		fail("Not yet implemented");
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("strawberry"));
+		assertTrue(list.add("blueberry"));
+		assertTrue(list.add("huckleberry"));
+		assertTrue(list.add("thimbleberry"));
+		
+		SimpleListIterator<String> iterator = list.iterator();
+		assertTrue(iterator.hasNext());
+		assertEquals("strawberry", iterator.next());
+		assertTrue(iterator.hasNext());
+		assertEquals("blueberry", iterator.next());
+		assertTrue(iterator.hasNext());
+		assertEquals("huckleberry", iterator.next());
+		assertTrue(iterator.hasNext());
+		assertEquals("thimbleberry", iterator.next());
+		assertFalse(iterator.hasNext());
+		
+		try {
+			iterator.next();
+			fail();
+		} catch (NoSuchElementException e) {
+			assertEquals(4, list.size());
+		}
 	}
 
 }

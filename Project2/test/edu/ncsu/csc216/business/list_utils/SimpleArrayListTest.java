@@ -47,7 +47,7 @@ public class SimpleArrayListTest {
 	 * Test method for {@link edu.ncsu.csc216.business.list_utils.SimpleArrayList#add(java.lang.Object)}.
 	 */
 	@Test
-	public void testAddE() {
+	public void testAdd() {
 		SimpleArrayList<String> list = new SimpleArrayList<String>();
 		assertTrue(list.add("papaya"));
 		assertTrue(list.add("kiwi"));
