@@ -139,7 +139,7 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testTruncate() {
-		//fail();
+		fail();
 //		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
 //		assertTrue(list.add("grapefruit"));
 //		assertTrue(list.add("lemon"));
