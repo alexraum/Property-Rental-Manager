@@ -82,6 +82,9 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 */
 	@Override
 	public boolean add(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
 		if (contains(e)) {
 			throw new IllegalArgumentException();
 		}
