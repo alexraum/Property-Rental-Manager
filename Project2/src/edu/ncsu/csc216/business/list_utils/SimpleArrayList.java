@@ -139,7 +139,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
-	 * Remove an item at index
+	 * Removes an item at index
 	 * 
 	 * @param index the index of the element to remove
 	 * 

@@ -8,8 +8,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * @author Alex Raum
- *
+ * The SimpleArrayListTest class checks the functionality of methods in the
+ * SimpleArrayListClass.
+ * 
+ * @author Alex Raum, Walker Clem
  */
 public class SimpleArrayListTest {
 
@@ -29,7 +31,6 @@ public class SimpleArrayListTest {
 	public void testIsEmpty() {
 		SimpleArrayList<String> list = new SimpleArrayList<String>();
 		assertTrue(list.isEmpty());
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -40,7 +41,6 @@ public class SimpleArrayListTest {
 		SimpleArrayList<String> list = new SimpleArrayList<String>();
 		list.add("peach");
 		assertTrue(list.contains("peach"));
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -59,7 +59,6 @@ public class SimpleArrayListTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals(3, list.size());
 		}	
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -81,7 +80,6 @@ public class SimpleArrayListTest {
 			assertEquals("kiwi", list.get(1));
 			assertEquals("mango", list.get(2));
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -123,7 +121,6 @@ public class SimpleArrayListTest {
 			assertEquals("orange", list.get(1));		
 			assertEquals("apple", list.get(2));
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -146,7 +143,6 @@ public class SimpleArrayListTest {
 		} catch (IndexOutOfBoundsException e) {
 			assertEquals("strawberry", list.get(0));
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -160,7 +156,6 @@ public class SimpleArrayListTest {
 		list.add("nectarine");
 		list.add("apricot");
 		assertEquals(2, list.indexOf("apricot"));
-		//fail("Not yet implemented");
 	}
 
 }

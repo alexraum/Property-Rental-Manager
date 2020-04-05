@@ -14,7 +14,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	private Node<E> head;
 	
 	/**
-	 * Constructor
+	 * The Constructor
 	 */
 	public SortedLinkedListWithIterator() {
 		this.head = null;
@@ -239,7 +239,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	private class Cursor implements SimpleListIterator<E> {
 		
-		/** the travelor node */
+		/** the traveler node */
 		private Node<E> traveler;
 		
 		/**
