@@ -139,23 +139,23 @@ public class SortedLinkedListWithIteratorTest {
 	 */
 	@Test
 	public void testTruncate() {
-		fail();
-//		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
-//		assertTrue(list.add("grapefruit"));
-//		assertTrue(list.add("lemon"));
-//		assertTrue(list.add("lime"));
-//		assertTrue(list.add("orange"));
-//		assertTrue(list.add("strawberry"));
-//		assertTrue(list.add("blueberry"));
-//		assertTrue(list.add("huckleberry"));
-//		assertTrue(list.add("thimbleberry"));
-//				
-//		list.truncate(4);
-//		assertEquals(4, list.size());
-//		assertEquals("grapefruit", list.get(0));
-//		assertEquals("lemon", list.get(1));
-//		assertEquals("lime", list.get(2));
-//		assertEquals("orange", list.get(3));
+		SortedLinkedListWithIterator<String> list = new SortedLinkedListWithIterator<String>();
+		assertTrue(list.add("grapefruit"));
+		assertTrue(list.add("lemon"));
+		assertTrue(list.add("lime"));
+		assertTrue(list.add("orange"));
+		assertTrue(list.add("strawberry"));
+		assertTrue(list.add("blueberry"));
+		assertTrue(list.add("huckleberry"));
+		assertTrue(list.add("thimbleberry"));
+		
+		SortedList<String> tailList = list.truncate(4);
+		assertEquals(4, list.size());
+		assertEquals("grapefruit", list.get(0));
+		assertEquals("lime", list.get(2));
+		assertEquals(4, tailList.size());
+		assertEquals("blueberry", tailList.get(1));
+		assertEquals("thimbleberry", tailList.get(3));
 	}
 
 	/**

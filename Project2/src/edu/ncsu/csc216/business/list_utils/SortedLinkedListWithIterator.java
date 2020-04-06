@@ -157,25 +157,26 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public SortedList<E> truncate(int start) {
 		if (start < 0 || start > size()) {
 			throw new IndexOutOfBoundsException();
 		}
-		SortedList<E> tail;
+		Node<E> tail;
 		if (start == 0) {
-			tail = (SortedList<E>)head;
+			tail = head;
 			this.head = null;
 		} else {
 			Node<E> current = head;
 			for (int i = 0; i < (start - 1); i++) {
 				current = current.next;
 			}
-			tail = (SortedList<E>)current.next;
+			tail = current.next;
 			current.next = null;
 		}
-		return tail;
+		SortedLinkedListWithIterator<E> tailList = new SortedLinkedListWithIterator<E>();
+		tailList.head = tail;
+		return tailList;
 	}
 
 	/**
