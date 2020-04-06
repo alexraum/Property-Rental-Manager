@@ -160,7 +160,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	@Override
 	public SortedList<E> truncate(int start) {
 		if (start < 0 || start > size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IllegalArgumentException();
 		}
 		Node<E> tail;
 		if (start == 0) {
