@@ -151,10 +151,10 @@ public class SortedLinkedListWithIteratorTest {
 		
 		SortedList<String> tailList = list.truncate(4);
 		assertEquals(4, list.size());
-		assertEquals("grapefruit", list.get(0));
-		assertEquals("lime", list.get(2));
+		assertEquals("blueberry", list.get(0));
+		assertEquals("huckleberry", list.get(2));
 		assertEquals(4, tailList.size());
-		assertEquals("blueberry", tailList.get(1));
+		assertEquals("orange", tailList.get(1));
 		assertEquals("thimbleberry", tailList.get(3));
 	}
 
@@ -173,9 +173,9 @@ public class SortedLinkedListWithIteratorTest {
 		assertTrue(list.add("huckleberry"));
 		assertTrue(list.add("thimbleberry"));
 		
-		assertEquals(1, list.indexOf("lemon"));
-		assertEquals(3, list.indexOf("orange"));
-		assertEquals(5, list.indexOf("blueberry"));
+		assertEquals(3, list.indexOf("lemon"));
+		assertEquals(5, list.indexOf("orange"));
+		assertEquals(0, list.indexOf("blueberry"));
 		assertEquals(7, list.indexOf("thimbleberry"));
 		assertEquals(-1, list.indexOf("pear"));
 	}
@@ -193,7 +193,7 @@ public class SortedLinkedListWithIteratorTest {
 		assertTrue(list2.add("thimbleberry"));
 		
 		String s1 = "[]";
-		String s2 = "[strawberry, blueberry, huckleberry, thimbleberry]";
+		String s2 = "[blueberry, huckleberry, strawberry, thimbleberry]";
 		assertEquals(s1, list1.toString());
 		assertEquals(s2, list2.toString());
 	}
@@ -211,11 +211,11 @@ public class SortedLinkedListWithIteratorTest {
 		
 		SimpleListIterator<String> iterator = list.iterator();
 		assertTrue(iterator.hasNext());
-		assertEquals("strawberry", iterator.next());
-		assertTrue(iterator.hasNext());
 		assertEquals("blueberry", iterator.next());
 		assertTrue(iterator.hasNext());
 		assertEquals("huckleberry", iterator.next());
+		assertTrue(iterator.hasNext());
+		assertEquals("strawberry", iterator.next());
 		assertTrue(iterator.hasNext());
 		assertEquals("thimbleberry", iterator.next());
 		assertFalse(iterator.hasNext());
