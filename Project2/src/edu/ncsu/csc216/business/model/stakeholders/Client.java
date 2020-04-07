@@ -58,29 +58,52 @@ public class Client {
 	}
 	
 	/**
-	 * Hashcode
+	 * Creates a unique hash code for the Client
 	 * 
-	 * @return the hash
+	 * @return the hash code for the Client
 	 */
 	@Override
 	public int hashCode() {
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((myLeases == null) ? 0 : myLeases.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 	
 	/**
-	 * Checks two Client objects for equality by comparing
-	 * their id's.
+	 * Compares the Client to another object to determine if they are equal.
 	 * 
-	 * @param o the object to compare this Client
-	 * @return true if the id's are the same
+	 * @return boolean representing if the Client is equal to the object
+	 * that it was compared to
 	 */
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Client) {
-			Client client = (Client) o;
-			return getId() == client.getId();
-		}
-		return false;
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Client))
+			return false;
+		Client other = (Client) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		// may need to change later
+		if (myLeases == null) {
+			if (other.myLeases != null)
+				return false;
+		} else if (!myLeases.equals(other.myLeases))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 	
 	/**
@@ -103,11 +126,19 @@ public class Client {
 	 */
 	public String[] listLeases() {
 		// TODO need to check if interpretation of implementation is correct
+//		String[] leases = new String[myLeases.size()];
+//		for (int i = 0; i < myLeases.size(); i++) {
+//			Lease lease = myLeases.get(i);
+//			leases[i] = lease.getConfirmationNumber() + " | " + lease.getStart()
+//			+ " to " + lease.getEnd() + " | " + lease.getNumOccupants() + " | " 
+//			+ getName() + " " + getId();
+//		}
+//		return leases;
 		String[] leases = new String[myLeases.size()];
 		for (int i = 0; i < myLeases.size(); i++) {
-			Lease lease = myLeases.get(i);
-			leases[i] = "" + lease.getConfirmationNumber() + lease.getStart()
-			+ lease.getEnd() + lease.getNumOccupants() + getName() + getId();
+			String[] data = myLeases.get(i).leaseData();
+			leases[i] = data[0] + " | " + data[1] + " | " 
+			+ data[2] + " | " + data[4] + " " + data[5];
 		}
 		return leases;
 	}
@@ -124,7 +155,6 @@ public class Client {
 		if (index < 0 || index >= this.myLeases.size()) {
 			throw new IllegalArgumentException();
 		}
-		// TODO cancel this Lease in the RentalUnit myLeases list
 		return this.myLeases.remove(index);
 	}
 	

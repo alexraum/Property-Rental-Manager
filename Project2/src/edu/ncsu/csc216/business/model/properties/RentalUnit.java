@@ -83,7 +83,24 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @return which one comes first
 	 */
 	public int compareTo(RentalUnit unit) {
-		return 0;
+		int thisRoom;
+		int room;
+		if (getFloor() > unit.getFloor() ) {
+			return 1;
+		} else if (getFloor() < unit.getFloor()) {
+			return -1;
+		} else {
+			thisRoom = getRoom();
+			room = unit.getRoom();
+		}
+		if (thisRoom > room) {
+			return 1;
+		} else if (thisRoom < room) {
+			return -1;
+		} else {
+			return 0;	
+		}
+
 	}
 	
 	/**
