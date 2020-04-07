@@ -25,20 +25,20 @@ public class Client {
 	 * @param name of client
 	 * @param id of client
 	 */
-	public Client(String name, String id) throws DuplicateClientException {
-		if (name.isBlank()) {
-			throw new IllegalArgumentException();
-		}
-		if (id.length() < 3) {
-			throw new IllegalArgumentException();
-		}
-		this.name = name;
-		this.id = id;
-		myLeases = new SimpleArrayList<Lease>();
-		if (myLeases.contains(id)) {
-			throw new DuplicateClientException("Client already added");
-		}
-		
+	public Client(String name, String id) {
+//		if (name.isBlank()) {
+//			throw new IllegalArgumentException();
+//		}
+//		if (id.length() < 3) {
+//			throw new IllegalArgumentException();
+//		}
+//		this.name = name;
+//		this.id = id;
+//		myLeases = new SimpleArrayList<Lease>();
+//		if (myLeases.contains(id)) {
+//			throw new DuplicateClientException("Client already added");
+//		}
+//		
 	}
 	
 	/**
