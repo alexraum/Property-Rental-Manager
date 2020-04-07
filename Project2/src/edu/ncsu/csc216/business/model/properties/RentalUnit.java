@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.business.model.properties;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
 import edu.ncsu.csc216.business.list_utils.SortedList;
@@ -14,7 +15,7 @@ import edu.ncsu.csc216.business.model.stakeholders.Client;
  * @author Alex Raum, Walker Clem
  *
  */
-public abstract class RentalUnit {
+public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 
 	/** the max floor */
 	public static final int MAX_FLOOR = 45;
@@ -40,8 +41,16 @@ public abstract class RentalUnit {
 	 * @param s the name of the room
 	 * @param i the id of the room
 	 */
-	public RentalUnit(String s, int i) {
-		
+	public RentalUnit(String location, int capacity) {
+		if (capacity <= 0) {
+			throw new IllegalArgumentException();
+		}
+		Scanner scan = new Scanner(location);
+		scan.useDelimiter("-");
+		this.floor = scan.nextInt();
+		this.room = scan.nextInt();
+		scan.close();
+		this.capacity = capacity;
 	}
 	
 	/**
@@ -49,7 +58,7 @@ public abstract class RentalUnit {
 	 * @return the capacity
 	 */
 	public int getCapacity() {
-		return 0;
+		return this.capacity;
 	}
 	
 	/**
@@ -57,7 +66,7 @@ public abstract class RentalUnit {
 	 * @return floor num
 	 */
 	public int getFloor() {
-		return 0;
+		return this.floor;
 	}
 	
 	/**
@@ -65,7 +74,7 @@ public abstract class RentalUnit {
 	 * @return room num
 	 */
 	public int getRoom() {
-		return 0;
+		return this.room;
 	}
 	
 	/**
@@ -208,7 +217,7 @@ public abstract class RentalUnit {
 	
 	/**
 	 * equals
-	 * @param o the object to chekc
+	 * @param o the object to check
 	 * @return if equals
 	 */
 	@Override

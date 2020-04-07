@@ -5,11 +5,14 @@ package edu.ncsu.csc216.business.model.contracts;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 /**
- * @author Alex Raum
+ * LeaseTest provides methods to check the functionality of the Lease class. 
  *
+ * @author Alex Raum
  */
 public class LeaseTest {
 
@@ -18,6 +21,8 @@ public class LeaseTest {
 	 */
 	@Test
 	public void testSetEndDateEarlier() {
+		LocalDate start = LocalDate.of(1989, 2, 6);
+		LocalDate end = LocalDate.of(2020, 4, 6);
 		fail("Not yet implemented");
 	}
 

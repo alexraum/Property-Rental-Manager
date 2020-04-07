@@ -155,7 +155,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * 
 	 * @return the truncated sorted list
 	 * 
-	 * @throws IndexOutOfBoundsException if the index is out of range
+	 * @throws IllegalArgumentException if the index is out of range
 	 */
 	@Override
 	public SortedList<E> truncate(int start) {
