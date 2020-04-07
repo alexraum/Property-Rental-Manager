@@ -132,6 +132,7 @@ public class Lease implements Comparable<Lease> {
 	 * @param date the new date
 	 */
 	public void setEndDateEarlier(LocalDate date) {
+		// TODO need to check 
 		if (date.isBefore(this.startDate)) {
 			throw new IllegalArgumentException();
 		}
@@ -158,7 +159,7 @@ public class Lease implements Comparable<Lease> {
 	/**
 	 * Resets the confirmation number
 	 * 
-	 * @param number the Lease to reset
+	 * @param newCounter the value to reset the counter to
 	 */
 	public static void resetConfirmationNumbering(int newCounter) {
 		if (newCounter < 0 || newCounter > MAX_CONF_NUM) {
@@ -170,19 +171,19 @@ public class Lease implements Comparable<Lease> {
 	/**
 	 * Compares Leases
 	 * 
-	 * @param l the Lease to compare to 
+	 * @param lease the Lease to compare to 
 	 * @return which Lease is first
 	 */
-	public int compareTo(Lease l) {
+	public int compareTo(Lease lease) {
 		int thisConfNum;
 		int confNum;
-		if (this.startDate.compareTo(l.getStart()) < 0) {
+		if (this.startDate.compareTo(lease.getStart()) < 0) {
 			return 1;
-		} else if (this.startDate.compareTo(l.getStart()) > 0) {
+		} else if (this.startDate.compareTo(lease.getStart()) > 0) {
 			return -1;
 		} else {
 			thisConfNum = getConfirmationNumber();
-			confNum = l.getConfirmationNumber();
+			confNum = lease.getConfirmationNumber();
 		}
 		if (thisConfNum > confNum) {
 			return 1;

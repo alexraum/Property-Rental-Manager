@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
 
 /**
  * Implements the SortedList interface with a data structure of linked Nodes.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class SortedLinkedListWithIterator<E extends Comparable<E>> implements SortedList<E> {
 
