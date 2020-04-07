@@ -174,22 +174,27 @@ public class Lease implements Comparable<Lease> {
 	 * @return which Lease is first
 	 */
 	public int compareTo(Lease lease) {
-		int thisConfNum;
-		int confNum;
-		if (this.startDate.compareTo(lease.getStart()) < 0) {
-			return 1;
-		} else if (this.startDate.compareTo(lease.getStart()) > 0) {
-			return -1;
+		if (!startDate.equals(lease.startDate)) {
+			return startDate.compareTo(lease.startDate);
 		} else {
-			thisConfNum = getConfirmationNumber();
-			confNum = lease.getConfirmationNumber();
+			return confirmationNumber - lease.confirmationNumber;
 		}
-		if (thisConfNum > confNum) {
-			return 1;
-		} else if (thisConfNum < confNum) {
-			return -1;
-		} else {
-			return 0;
-		}
+//		int thisConfNum;
+//		int confNum;
+//		if (this.startDate.compareTo(lease.getStart()) < 0) {
+//			return 1;
+//		} else if (this.startDate.compareTo(lease.getStart()) > 0) {
+//			return -1;
+//		} else {
+//			thisConfNum = getConfirmationNumber();
+//			confNum = lease.getConfirmationNumber();
+//		}
+//		if (thisConfNum > confNum) {
+//			return 1;
+//		} else if (thisConfNum < confNum) {
+//			return -1;
+//		} else {
+//			return 0;
+//		}
 	}
 }

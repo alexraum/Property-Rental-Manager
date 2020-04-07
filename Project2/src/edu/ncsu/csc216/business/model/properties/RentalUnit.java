@@ -10,6 +10,7 @@ import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
 import edu.ncsu.csc216.business.list_utils.SortedList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
+import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
  * @author Alex Raum, Walker Clem
@@ -34,12 +35,14 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	/** the room capacity */
 	private int capacity;
 	/** the leases list */
-	protected SortedLinkedListWithIterator myLeases;
+	protected SortedLinkedListWithIterator<Lease> myLeases;
 	
 	/**
 	 * Constructor for the Rental unit
-	 * @param s the name of the room
-	 * @param i the id of the room
+	 * 
+	 * @param location String that contains the floor and room number
+	 * of the RentalUnit
+	 * @param capacity the capacity of the RentalUnit
 	 */
 	public RentalUnit(String location, int capacity) {
 		if (capacity <= 0) {
@@ -55,6 +58,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	
 	/**
 	 * Gets the capacity of the room
+	 * 
 	 * @return the capacity
 	 */
 	public int getCapacity() {
@@ -62,16 +66,18 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	}
 	
 	/**
-	 * Gets the floor num
-	 * @return floor num
+	 * Gets the floor number
+	 * 
+	 * @return floor number
 	 */
 	public int getFloor() {
 		return this.floor;
 	}
 	
 	/**
-	 * Gets the room num
-	 * @return room num
+	 * Gets the room number
+	 * 
+	 * @return room number
 	 */
 	public int getRoom() {
 		return this.room;
@@ -79,6 +85,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	
 	/**
 	 * Compares 2 units
+	 * 
 	 * @param unit the unit to compare to
 	 * @return which one comes first
 	 */
@@ -107,7 +114,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * Returns the room to service
 	 */
 	public void returnToService() {
-		
+		this.inService = true;
 	}
 	
 	/**
@@ -115,14 +122,14 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @return in service
 	 */
 	public boolean isInService() {
-		return false;
+		return this.inService;
 	}
 	
 	/**
 	 * take the room out of service
 	 */
 	public void takeOutOfService() {
-		
+		this.inService = false;
 	}
 	
 	/**
@@ -158,7 +165,15 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @throws RentalDateException if the date is wrong
 	 */
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
-		
+		if (endDate.isAfter(PropertyManager.EARILEST_DATE)) {
+			throw new RentalDateException("Lease date cannot start before" + PropertyManager.EARILEST_DATE);
+		}
+		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
+			throw new RentalDateException("Lease date cannot end after" + PropertyManager.LATEST_DATE);
+		}
+		if (startDate.isAfter(endDate)) {
+			throw new RentalDateException("End date for lease cannot be after the start date");
+		}
 	}
 	
 	/**
