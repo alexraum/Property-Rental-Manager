@@ -3,6 +3,7 @@
  */
 package edu.ncsu.csc216.business.model.properties;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import edu.ncsu.csc216.business.list_utils.SortedList;
@@ -79,7 +80,22 @@ public class HotelSuite extends RentalUnit {
 	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
-		return null;
+		SortedList<Lease> list = super.removeFromServiceStarting(date);
+		for (int i = 0; i < myLeases.size(); i++) {
+			Lease l = myLeases.get(i);
+			if (l.getEnd().compareTo(date) >= 0 && date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+				l.setEndDateEarlier(date);
+			}
+			if (l.getEnd().compareTo(date) >= 0 && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+				while (!date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+					date = date.minusDays(1);
+				}
+				l.setEndDateEarlier(date);
+			}
+			// TODO If either of these lease modifications would force the lease to cover only
+			// one day rather than at least one week, then the lease is canceled.
+		}
+		return list;
 	}
 	
 	/**

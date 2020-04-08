@@ -93,9 +93,12 @@ public class LeaseTest {
 		
 		Lease lease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
 		assertEquals(2, lease.getConfirmationNumber());
-		Lease.resetConfirmationNumbering(0);
-		assertEquals(0, lease.getConfirmationNumber());
-		//fail("Not yet implemented");
+		
+		try {
+			Lease.resetConfirmationNumbering(-1);
+		} catch (IllegalArgumentException e) {
+			assertEquals(2, lease.getConfirmationNumber());
+		}
 	}
 
 	/**

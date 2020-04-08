@@ -211,8 +211,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 			throw new IllegalArgumentException();
 		}
 		if (!isInService()) {
-			// TODO determine what the exception message needs to be
-			throw new RentalOutOfServiceException("Rental unit out of service");
+			throw new RentalOutOfServiceException("Rental unit not in service");
 		}
 	}
 	
@@ -223,10 +222,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @return the lease
 	 */
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
-		// TODO determine if we need to cancel leases and reset end
-		// dates based on type in this method
 		takeOutOfService();
-		// TODO determine what is meant by "removed Leases should subsequently be cancelled" (does cancelled simply equate to removed from the list?)
 		SortedLinkedListWithIterator<Lease> removed = new SortedLinkedListWithIterator<Lease>();
 		int cutoff = cutoffIndex(date);
 		if (cutoff > 0) {
@@ -234,16 +230,6 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		} else {
 			return removed;
 		}
-//		for (int i = 0; i < myLeases.size(); i++) {
-//			Lease l = myLeases.get(i);
-//			if (l.getEnd().compareTo(date) >= 0) {
-//				l.setEndDateEarlier(date);
-//			}
-//			// check to see if endDate is now before startDate, if so the Lease is cancelled
-//			if (l.getEnd().isBefore(l.getStart())) {
-//				myLeases.remove(i);
-//			}
-		
 		return removed;
 	}
 	

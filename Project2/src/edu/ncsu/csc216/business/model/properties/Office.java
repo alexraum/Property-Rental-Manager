@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.business.model.properties;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import edu.ncsu.csc216.business.list_utils.SortedList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
@@ -86,7 +87,21 @@ public class Office extends RentalUnit {
 	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
-		return null;
+		SortedList<Lease> list = super.removeFromServiceStarting(date);
+		for (int i = 0; i < myLeases.size(); i++) {
+			Lease l = myLeases.get(i);
+			if (l.getEnd().compareTo(date) >= 0) {
+				Month m = date.getMonth();
+				while (date.getMonth().equals(m)) {
+					date = date.minusDays(1);
+				}
+				l.setEndDateEarlier(date);
+			}
+			if (l.getEnd().isBefore(l.getStart())) {
+				list.add(myLeases.remove(i));
+			}
+		}
+		return list;
 	}
 	
 	/**

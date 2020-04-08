@@ -48,7 +48,6 @@ public class Lease implements Comparable<Lease> {
 	 * @param the number of occupants for the lease
 	 */
 	public Lease(Client owner, RentalUnit property, LocalDate startDate, LocalDate endDate, int numOccupants) {
-		// TODO may need to pre-increment confirmationCounter instead
 		this(confirmationCounter++, owner, property, startDate, endDate, numOccupants);
 	}
 	
@@ -138,7 +137,6 @@ public class Lease implements Comparable<Lease> {
 	 * @param date the new date
 	 */
 	public void setEndDateEarlier(LocalDate date) {
-		// TODO Need to check if all logic and checks of rental types and end dates occurs here (HOW DO WE DETERMINE THE RENTAL KIND?)
 		if (date.isAfter(endDate) || date.isBefore(startDate)) {
 			throw new IllegalArgumentException();
 		}

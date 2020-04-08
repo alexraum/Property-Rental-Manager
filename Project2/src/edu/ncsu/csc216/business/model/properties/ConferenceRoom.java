@@ -76,12 +76,10 @@ public class ConferenceRoom extends RentalUnit {
 		SortedList<Lease> list = super.removeFromServiceStarting(date);
 		for (int i = 0; i < myLeases.size(); i++) {
 			Lease l = myLeases.get(i);
-			
+			if (l.getEnd().compareTo(date) >= 0) {
+				l.setEndDateEarlier(date.minusDays(1));
+			}
 		}
-		
-		// TODO implement logic here
-		
-		
 		return list;
 	}
 	
