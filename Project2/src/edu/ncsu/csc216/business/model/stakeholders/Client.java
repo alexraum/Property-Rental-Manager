@@ -75,9 +75,10 @@ public class Client {
 	}
 	
 	/**
-	 * Compares the Client to another object to determine if they are equal.
+	 * Compares this Client to another object to determine if they are equal.
 	 * 
-	 * @return boolean representing if the Client is equal to the object
+	 * @param obj an object for this Client to be compared to
+	 * @return boolean representing if this Client is equal to the parameter
 	 * that it was compared to
 	 */
 	@Override
@@ -94,7 +95,7 @@ public class Client {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		// may need to change later
+		// TODO may need to remove myLeases field from equals method
 		if (myLeases == null) {
 			if (other.myLeases != null)
 				return false;
@@ -127,7 +128,6 @@ public class Client {
 	 * @return an array of Strings containing details of each Lease
 	 */
 	public String[] listLeases() {
-		// TODO need to check if interpretation of implementation is correct
 //		String[] leases = new String[myLeases.size()];
 //		for (int i = 0; i < myLeases.size(); i++) {
 //			Lease lease = myLeases.get(i);

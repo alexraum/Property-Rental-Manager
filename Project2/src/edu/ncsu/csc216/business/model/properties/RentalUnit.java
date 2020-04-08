@@ -90,24 +90,28 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @return which one comes first
 	 */
 	public int compareTo(RentalUnit unit) {
-		int thisRoom;
-		int room;
-		if (getFloor() > unit.getFloor() ) {
-			return 1;
-		} else if (getFloor() < unit.getFloor()) {
-			return -1;
+		if (getFloor() != unit.getFloor()) {
+			return getFloor() - unit.getFloor();
 		} else {
-			thisRoom = getRoom();
-			room = unit.getRoom();
+			return getRoom() - unit.getRoom();
 		}
-		if (thisRoom > room) {
-			return 1;
-		} else if (thisRoom < room) {
-			return -1;
-		} else {
-			return 0;	
-		}
-
+//		int thisRoom;
+//		int room;
+//		if (getFloor() > unit.getFloor() ) {
+//			return 1;
+//		} else if (getFloor() < unit.getFloor()) {
+//			return -1;
+//		} else {
+//			thisRoom = getRoom();
+//			room = unit.getRoom();
+//		}
+//		if (thisRoom > room) {
+//			return 1;
+//		} else if (thisRoom < room) {
+//			return -1;
+//		} else {
+//			return 0;	
+//		}
 	}
 	
 	/**
@@ -119,7 +123,9 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	
 	/**
 	 * If the room is in service
-	 * @return in service
+	 * 
+	 * @return a boolean indicating if the 
+	 * unit is in service
 	 */
 	public boolean isInService() {
 		return this.inService;
@@ -159,17 +165,21 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	public abstract Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k) throws RentalDateException, RentalCapacityException;
 	
 	/**
-	 * Checks the dates
-	 * @param startDate the date to start
-	 * @param endDate the date to end
-	 * @throws RentalDateException if the date is wrong
+	 * Checks the start and end dates to ensure that they
+	 * are valid and that they don't conflict.
+	 * 
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @throws RentalDateException if the either date is outside 
+	 * of the earliest and latest date range or if the start date
+	 * is earlier than the end date
 	 */
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
 		if (endDate.isAfter(PropertyManager.EARILEST_DATE)) {
-			throw new RentalDateException("Lease date cannot start before" + PropertyManager.EARILEST_DATE);
+			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARILEST_DATE);
 		}
 		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
-			throw new RentalDateException("Lease date cannot end after" + PropertyManager.LATEST_DATE);
+			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
 		}
 		if (startDate.isAfter(endDate)) {
 			throw new RentalDateException("End date for lease cannot be after the start date");
@@ -177,83 +187,171 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	}
 	
 	/**
-	 * Checks the lease condition
-	 * @param client the client
-	 * @param date the date
-	 * @param i the first number
-	 * @param j the second number
+	 * Checks the conditions for a potential Lease to ensure
+	 * that they are met
+	 * 
+	 * @param client the Client of the Lease
+	 * @param date the start date of the Lease
+	 * @param duration the duration of the Lease
+	 * @param numOccupants the number of occupants 
+	 * @throws RentalOutOfServiceException if any of the 
+	 * conditions are not met 
 	 */
-	protected void checkLeaseConditions(Client client, LocalDate date, int i, int j) throws RentalOutOfServiceException {
-		
+	protected void checkLeaseConditions(Client client, LocalDate startDate, int duration, int numOccupants) throws RentalOutOfServiceException {
+		if (client == null || startDate == null || duration < 1 || numOccupants < 1) {
+			throw new IllegalArgumentException();
+		}
+		if (!isInService()) {
+			// TODO determine what the exception message needs to be
+			throw new RentalOutOfServiceException("Rental unit out of service");
+		}
 	}
 	
 	/**
 	 * Removes from service
+	 * 
 	 * @param date start date
 	 * @return the lease
 	 */
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
+		// TODO determine if we need to cancel leases and reset end
+		// dates based on type in this method
+		takeOutOfService();
 		return null;
 	}
 	
 	/**
-	 * The cut off
-	 * @param date cut off date
-	 * @return the index
+	 * Returns the index of the first Lease with a start date on
+	 * or after the parameter date.
+	 * 
+	 * @param date for the Lease dates to be compared to
+	 * @return the index of the first date on or after the 
+	 * parameter date
 	 */
 	protected int cutoffIndex(LocalDate date) {
-		return 0;
+		for (int i = 0; i < myLeases.size(); i++) {
+			if (myLeases.get(i).getStart().compareTo(date) >= 0) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	/**
-	 * Cancel the lease 
-	 * @param i number to cancel for
-	 * @return the lease
+	 * Cancel the Lease in the my Leases list with the corresponding 
+	 * confirmation number.
+	 * 
+	 * @param confirmationNumber the confirmation number of the
+	 * Lease to be canceled
+	 * @return the Lease that has been canceled
 	 */
-	public Lease cancelLeaseByNumber(int i) {
-		return null;
+	public Lease cancelLeaseByNumber(int confirmationNumber) {
+		// TODO need to determine if we need to remove occupants and clear up
+		// time frame in this method (see UC10)
+		for (int i = 0; i < myLeases.size(); i++) {
+			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
+				return myLeases.remove(i);
+			}
+		}
+		throw new IllegalArgumentException();
 	}
 	
 	/**
-	 * adds a lease
-	 * @param lease to add
+	 * Adds a Lease to the myLeases field.
+	 *
+	 * @param lease the Lease to be add
 	 */
 	public void addLease(Lease lease) {
-		
+		if (!inService) {
+			return;
+		}
+		// TODO verify if this interpretation of the 
+		// requirements is correct
+		if (!this.equals(lease.getProperty())) {
+			throw new IllegalArgumentException();
+		}
+		// TODO verify if we need to check exceeding capacity, date conflicts, etc.
+		// before in this method before adding Lease to list
+		this.myLeases.add(lease);
 	}
 	
 	/**
-	 * lists the leases
-	 * @return the leases
+	 * Returns the list of Leases for this rental unit 
+	 * as an array of Strings.
+	 * 
+	 * @return each Lease for this RentalUnit stored in
+	 * an array
 	 */
 	public String[] listLeases() {
-		return null;
+		String[] leases = new String[myLeases.size()];
+		for (int i = 0; i < myLeases.size(); i++) {
+			String[] data = myLeases.get(i).leaseData();
+			leases[i] = data[0] + " | " + data[1] + " | " 
+			+ data[2] + " | " + data[3];
+		}
+		return leases;
 	}
 	
 	/**
-	 * Gets the description
-	 * @return the description
+	 * Gets the description of the RentalUnit as a String
+	 * 
+	 * @return the description of the RentalUnit as a String
 	 */
 	public String getDescription() {
-		return null;
+		if (isInService()) {
+			return floor + "-" + room + " | " + capacity;
+		} else {
+			return floor + "-" + room + " | " + capacity + " Unavailable";
+		}
 	}
 	
 	/**
-	 * Hashcode
-	 * @return the hash
+	 * Creates a unique hash code for the RentalUnit
+	 * 
+	 * @return the hash code for the RentalUnit
 	 */
 	@Override
 	public int hashCode() {
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + capacity;
+		result = prime * result + floor;
+		result = prime * result + (inService ? 1231 : 1237);
+		result = prime * result + ((myLeases == null) ? 0 : myLeases.hashCode());
+		result = prime * result + room;
+		return result;
 	}
 	
 	/**
-	 * equals
-	 * @param o the object to check
-	 * @return if equals
+	 * Compares this RentalUnit to another object to determine if they are equal.
+	 * 
+	 * @param obj an object for this RentalUnit to be compared to
+	 * @return boolean representing if this RentalUnit is equal to the parameter
+	 * that it was compared to
 	 */
 	@Override
-	public boolean equals(Object o) {
-		return false;
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof RentalUnit))
+			return false;
+		RentalUnit other = (RentalUnit) obj;
+		if (capacity != other.capacity)
+			return false;
+		if (floor != other.floor)
+			return false;
+		if (inService != other.inService)
+			return false;
+		// TODO may need to remove myLeases field from equals method
+		if (myLeases == null) {
+			if (other.myLeases != null)
+				return false;
+		} else if (!myLeases.equals(other.myLeases))
+			return false;
+		if (room != other.room)
+			return false;
+		return true;
 	}
 }

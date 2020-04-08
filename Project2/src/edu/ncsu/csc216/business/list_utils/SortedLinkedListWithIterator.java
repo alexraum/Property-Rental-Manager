@@ -231,8 +231,8 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	
 	/**
 	 * The node object
+	 * 
 	 * @author Alex Raum, Walker Clem
-	 *
 	 */
 	private static class Node<E> {
 		
@@ -255,8 +255,8 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	
 	/**
 	 * The cursor object
+	 * 
 	 * @author Alex Raum, Walker Clem
-	 *
 	 */
 	private class Cursor implements SimpleListIterator<E> {
 		
