@@ -50,9 +50,17 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		}
 		Scanner scan = new Scanner(location);
 		scan.useDelimiter("-");
-		this.floor = scan.nextInt();
-		this.room = scan.nextInt();
+		int floor = scan.nextInt();
+		int room = scan.nextInt();
 		scan.close();
+		if (floor > MAX_FLOOR || floor < MIN_FLOOR) {
+			throw new IllegalArgumentException();
+		}
+		if (room > MAX_ROOM || room < MIN_ROOM) {
+			throw new IllegalArgumentException();
+		}
+		this.floor = floor;
+		this.room = room;
 		this.capacity = capacity;
 	}
 	
@@ -217,7 +225,14 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		// TODO determine if we need to cancel leases and reset end
 		// dates based on type in this method
 		takeOutOfService();
-		return null;
+		// TODO determine what is meant by "removed Leases should subsequently be cancelled" (does cancelled simply equate to removed from the list?)
+		SortedList<Lease> removed = myLeases.truncate(cutoffIndex(date));
+		for (int i = 0; i < myLeases.size(); i++) {
+			if (myLeases.get(i).getEnd().compareTo(date) >= 0) {
+				
+			}
+		}
+		return removed;
 	}
 	
 	/**
