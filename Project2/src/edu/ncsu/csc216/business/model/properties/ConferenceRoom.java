@@ -73,7 +73,16 @@ public class ConferenceRoom extends RentalUnit {
 	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
-		return null;
+		SortedList<Lease> list = super.removeFromServiceStarting(date);
+		for (int i = 0; i < myLeases.size(); i++) {
+			Lease l = myLeases.get(i);
+			
+		}
+		
+		// TODO implement logic here
+		
+		
+		return list;
 	}
 	
 	/**
@@ -82,6 +91,6 @@ public class ConferenceRoom extends RentalUnit {
 	 */
 	@Override
 	public String getDescription() {
-		return null;
+		return "Conference Room: " + super.getDescription();
 	}
 }

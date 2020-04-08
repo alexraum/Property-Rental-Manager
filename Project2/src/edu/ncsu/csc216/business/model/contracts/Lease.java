@@ -139,35 +139,38 @@ public class Lease implements Comparable<Lease> {
 	 */
 	public void setEndDateEarlier(LocalDate date) {
 		// TODO Need to check if all logic and checks of rental types and end dates occurs here (HOW DO WE DETERMINE THE RENTAL KIND?)
-//		if (date.isBefore(this.startDate)) {
-//			throw new IllegalArgumentException();
-//		}
-		if (getProperty() instanceof HotelSuite && date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-			this.endDate = date;
-		} else if (getProperty() instanceof HotelSuite && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-//			 end date is set to the Sunday immediately before the cutoff date
-			while (!date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-				date.minusDays(1);
-			}
-			this.endDate = date;
+		if (date.isAfter(endDate) || date.isBefore(startDate)) {
+			throw new IllegalArgumentException();
 		}
-//		if (either of these lease modifications would force the lease to cover only one day rather than at least one week) {
-//			the lease is cancelled
+		this.endDate = date;
+		
+		
+		
+//		if (getProperty() instanceof HotelSuite && date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+//			this.endDate = date;
+//		} else if (getProperty() instanceof HotelSuite && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+//			while (!date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+//				date = date.minusDays(1);
+//			}
+//			this.endDate = date;
 //		}
-		if (getProperty() instanceof ConferenceRoom) {
-			this.endDate = date.minusDays(1);
-		}
-		if (getProperty() instanceof Office) {
-//			end date is set to the last day of the month immediately before the cutoff date
-			Month m = date.getMonth();
-			while (date.getMonth().equals(m)) {
-				date.minusDays(1);
-			}
-			this.endDate = date;
-		}
-//		if (this.endDate is now before this.startDate) {
-//			the lease is cancelled
+////		if (either of these lease modifications would force the lease to cover only one day rather than at least one week) {
+////			the lease is cancelled
+////		}
+//		if (getProperty() instanceof ConferenceRoom) {
+//			this.endDate = date.minusDays(1);
 //		}
+//		if (getProperty() instanceof Office) {
+////			end date is set to the last day of the month immediately before the cutoff date
+//			Month m = date.getMonth();
+//			while (date.getMonth().equals(m)) {
+//				date = date.minusDays(1);
+//			}
+//			this.endDate = date;
+//		}
+////		if (this.endDate is now before this.startDate) {
+////			the lease is cancelled
+////		}
 	}
 	
 	/**
@@ -180,8 +183,7 @@ public class Lease implements Comparable<Lease> {
 		leaseData[0] = this.confirmationNumber + "";
 		leaseData[1] = this.startDate + " to " + endDate;
 		leaseData[2] = this.numOccupants + "";
-		leaseData[3] = this.property.getDescription() + ": " +
-		this.property.getFloor() + "-" + this.property.getRoom();
+		leaseData[3] = this.property.getDescription();
 		leaseData[4] = this.owner.getName();
 		leaseData[5] = this.owner.getId();
 		return leaseData;

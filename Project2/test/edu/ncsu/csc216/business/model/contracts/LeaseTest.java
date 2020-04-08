@@ -28,32 +28,34 @@ public class LeaseTest {
 	public void testSetEndDateEarlier() {
 		Client client = new Client("Alex Raum", "maraum");
 		ConferenceRoom room = new ConferenceRoom("3-11", 20);
-		HotelSuite suite = new HotelSuite("20-20", 2);
-		Office office = new Office("21-21", 100);
-		LocalDate roomStart = LocalDate.of(2020, 4, 8);
-		LocalDate roomEnd = LocalDate.of(2020, 4, 15);
-		LocalDate newRoomEnd = LocalDate.of(2020, 4, 14);
-		LocalDate suiteStart = LocalDate.of(2020, 4, 12);
-		LocalDate suiteEnd = LocalDate.of(2020, 4, 26);
-		LocalDate newSuiteEnd = LocalDate.of(2020, 4, 24);
-		LocalDate officeStart = LocalDate.of(2020, 5, 1);
-		LocalDate officeEnd = LocalDate.of(2020, 6, 30);
-		LocalDate newOfficeEnd = LocalDate.of(2020, 6, 15);
-		int numRoomOccupants = 18;
-		int numSuiteOccupants = 1;
-		int numOfficeOccupants = 75;
-		Lease roomLease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
-		Lease suiteLease = new Lease(client, suite, suiteStart, suiteEnd, numSuiteOccupants);
-		Lease officeLease = new Lease(client, office, officeStart, officeEnd, numOfficeOccupants);
+		LocalDate start = LocalDate.of(2020, 4, 8);
+		LocalDate end = LocalDate.of(2020, 4, 15);
+		LocalDate newEnd = LocalDate.of(2020, 4, 14);
+		int occupants = 18;
+		Lease lease = new Lease(client, room, start, end, occupants);
+
+		lease.setEndDateEarlier(newEnd);
+		assertEquals(LocalDate.of(2020, 4, 14), lease.getEnd());
 		
-		roomLease.setEndDateEarlier(newRoomEnd);
-		assertEquals(LocalDate.of(2020, 4, 13), roomLease.getEnd());
+		try {
+			lease.setEndDateEarlier(LocalDate.of(2020, 4, 7));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(18, lease.getNumOccupants());
+		}
 		
-		suiteLease.setEndDateEarlier(newSuiteEnd);
-		assertEquals(LocalDate.of(2020, 4, 19), suiteLease.getEnd());
+		try {
+			lease.setEndDateEarlier(LocalDate.of(2020, 4, 16));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(18, lease.getNumOccupants());
+		}
 		
-		officeLease.setEndDateEarlier(newOfficeEnd);
-		assertEquals(LocalDate.of(2020, 5, 31), officeLease.getEnd());
+//		suiteLease.setEndDateEarlier(newSuiteEnd);
+//		assertEquals(LocalDate.of(2020, 4, 19), suiteLease.getEnd());
+//		
+//		officeLease.setEndDateEarlier(newOfficeEnd);
+//		assertEquals(LocalDate.of(2020, 5, 31), officeLease.getEnd());
 	}
 
 	/**
@@ -61,7 +63,21 @@ public class LeaseTest {
 	 */
 	@Test
 	public void testLeaseData() {
-		//fail("Not yet implemented");
+		Client client = new Client("Alex Raum", "maraum");
+		ConferenceRoom room = new ConferenceRoom("12-11", 20);
+		LocalDate roomStart = LocalDate.of(2020, 4, 8);
+		LocalDate roomEnd = LocalDate.of(2020, 4, 15);
+		int numRoomOccupants = 18;
+		
+		Lease roomLease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
+		String[] leaseData = roomLease.leaseData();
+		
+		assertEquals("0", leaseData[0]);
+		assertEquals("2020-04-08 to 2020-04-15", leaseData[1]);
+		assertEquals("18", leaseData[2]);
+		assertEquals("Conference Room: 12-11 | 20", leaseData[3]);
+		assertEquals("Alex Raum", leaseData[4]);
+		assertEquals("maraum", leaseData[5]);
 	}
 
 	/**
@@ -69,6 +85,16 @@ public class LeaseTest {
 	 */
 	@Test
 	public void testResetConfirmationNumbering() {
+		Client client = new Client("Alex Raum", "maraum");
+		ConferenceRoom room = new ConferenceRoom("12-11", 20);
+		LocalDate roomStart = LocalDate.of(2020, 4, 8);
+		LocalDate roomEnd = LocalDate.of(2020, 4, 15);
+		int numRoomOccupants = 18;
+		
+		Lease lease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
+		assertEquals(2, lease.getConfirmationNumber());
+		Lease.resetConfirmationNumbering(0);
+		assertEquals(0, lease.getConfirmationNumber());
 		//fail("Not yet implemented");
 	}
 

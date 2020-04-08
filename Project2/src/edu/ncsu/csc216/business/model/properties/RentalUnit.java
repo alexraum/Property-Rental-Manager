@@ -59,6 +59,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		if (room > MAX_ROOM || room < MIN_ROOM) {
 			throw new IllegalArgumentException();
 		}
+		this.inService = true;
 		this.floor = floor;
 		this.room = room;
 		this.capacity = capacity;
@@ -226,17 +227,23 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		// dates based on type in this method
 		takeOutOfService();
 		// TODO determine what is meant by "removed Leases should subsequently be cancelled" (does cancelled simply equate to removed from the list?)
-		SortedList<Lease> removed = myLeases.truncate(cutoffIndex(date));
-		for (int i = 0; i < myLeases.size(); i++) {
-			Lease l = myLeases.get(i);
-			if (l.getEnd().compareTo(date) >= 0) {
-				l.setEndDateEarlier(date);
-			}
-			// check to see if endDate is now before startDate, if so the Lease is cancelled
-			if (l.getEnd().isBefore(l.getStart())) {
-				myLeases.remove(i);
-			}
+		SortedLinkedListWithIterator<Lease> removed = new SortedLinkedListWithIterator<Lease>();
+		int cutoff = cutoffIndex(date);
+		if (cutoff > 0) {
+			removed = (SortedLinkedListWithIterator<Lease>) myLeases.truncate(cutoff);
+		} else {
+			return removed;
 		}
+//		for (int i = 0; i < myLeases.size(); i++) {
+//			Lease l = myLeases.get(i);
+//			if (l.getEnd().compareTo(date) >= 0) {
+//				l.setEndDateEarlier(date);
+//			}
+//			// check to see if endDate is now before startDate, if so the Lease is cancelled
+//			if (l.getEnd().isBefore(l.getStart())) {
+//				myLeases.remove(i);
+//			}
+		
 		return removed;
 	}
 	
