@@ -20,20 +20,25 @@ public class HotelSuite extends RentalUnit {
 	public static final int MAX_CAPACITY = 2;
 	
 	/**
-	 * Constructor for the hotel room
-	 * @param s the name of the room
+	 * Small Constructor for the HotelSuite class
+	 * 
+	 * @param location the location of the room
 	 */
-	public HotelSuite(String s) {
-		this(s, 0);
+	public HotelSuite(String location) {
+		this(location, 0);
 	}
 	
 	/**
-	 * Constructor for the hotel room
-	 * @param s the name of the room
-	 * @param i the id of the room
+	 * The main Constructor for the HotelSuite class
+	 * 
+	 * @param location the location of the Suite
+	 * @param capacity the capacity of the Suite
 	 */
-	public HotelSuite(String s, int i) {
-		super(s, i);
+	public HotelSuite(String location, int capacity) {
+		super(location, capacity);
+		if (capacity > MAX_CAPACITY) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/**

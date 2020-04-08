@@ -5,6 +5,7 @@ package edu.ncsu.csc216.business.model.contracts;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
 import edu.ncsu.csc216.business.model.properties.HotelSuite;
@@ -138,16 +139,17 @@ public class Lease implements Comparable<Lease> {
 	 */
 	public void setEndDateEarlier(LocalDate date) {
 		// TODO Need to check if all logic and checks of rental types and end dates occurs here (HOW DO WE DETERMINE THE RENTAL KIND?)
-		if (date.isBefore(this.startDate)) {
-			throw new IllegalArgumentException();
-		}
+//		if (date.isBefore(this.startDate)) {
+//			throw new IllegalArgumentException();
+//		}
 		if (getProperty() instanceof HotelSuite && date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
 			this.endDate = date;
-		} else {
+		} else if (getProperty() instanceof HotelSuite && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
 //			 end date is set to the Sunday immediately before the cutoff date
-			while (!this.endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-				this.endDate.minusDays(1);
+			while (!date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+				date.minusDays(1);
 			}
+			this.endDate = date;
 		}
 //		if (either of these lease modifications would force the lease to cover only one day rather than at least one week) {
 //			the lease is cancelled
@@ -157,9 +159,11 @@ public class Lease implements Comparable<Lease> {
 		}
 		if (getProperty() instanceof Office) {
 //			end date is set to the last day of the month immediately before the cutoff date
-			while (this.endDate.getMonth().equals(date.getMonth())) {
-				this.endDate.minusDays(1);
+			Month m = date.getMonth();
+			while (date.getMonth().equals(m)) {
+				date.minusDays(1);
 			}
+			this.endDate = date;
 		}
 //		if (this.endDate is now before this.startDate) {
 //			the lease is cancelled

@@ -22,12 +22,16 @@ public class ConferenceRoom extends RentalUnit {
 	public static final int MAX_DURATION = 7;
 	
 	/**
-	 * Constructor for the conference room
-	 * @param s the name of the room
-	 * @param i the id of the room
+	 * Constructor for the ConferenceRoom class
+	 * 
+	 * @param location the location of the room
+	 * @param capacity the capacity of the room
 	 */
-	public ConferenceRoom(String s, int i) {
-		super(s, i);
+	public ConferenceRoom(String location, int capacity) {
+		super(location, capacity);
+		if (capacity > MAX_CAPACITY) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/**

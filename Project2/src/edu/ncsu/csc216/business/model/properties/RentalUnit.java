@@ -228,10 +228,14 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		// TODO determine what is meant by "removed Leases should subsequently be cancelled" (does cancelled simply equate to removed from the list?)
 		SortedList<Lease> removed = myLeases.truncate(cutoffIndex(date));
 		for (int i = 0; i < myLeases.size(); i++) {
-			if (myLeases.get(i).getEnd().compareTo(date) >= 0) {
-				myLeases.get(i).setEndDateEarlier(date);
+			Lease l = myLeases.get(i);
+			if (l.getEnd().compareTo(date) >= 0) {
+				l.setEndDateEarlier(date);
 			}
 			// check to see if endDate is now before startDate, if so the Lease is cancelled
+			if (l.getEnd().isBefore(l.getStart())) {
+				myLeases.remove(i);
+			}
 		}
 		return removed;
 	}

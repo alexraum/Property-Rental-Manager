@@ -26,12 +26,16 @@ public class Office extends RentalUnit {
 	private int[][] calendar;
 	
 	/**
-	 * Constructor for the office
-	 * @param s the name of the room
-	 * @param i the id of the room
+	 * Constructor for the Office class
+	 * 
+	 * @param location the location of the Office
+	 * @param capacity the capacity of the Office
 	 */
-	public Office(String s, int i) {
-		super(s, i);
+	public Office(String location, int capacity) {
+		super(location, capacity);
+		if (capacity > MAX_CAPACITY) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/**
