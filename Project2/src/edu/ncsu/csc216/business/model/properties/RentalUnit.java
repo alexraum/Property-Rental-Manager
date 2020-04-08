@@ -229,8 +229,9 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		SortedList<Lease> removed = myLeases.truncate(cutoffIndex(date));
 		for (int i = 0; i < myLeases.size(); i++) {
 			if (myLeases.get(i).getEnd().compareTo(date) >= 0) {
-				
+				myLeases.get(i).setEndDateEarlier(date);
 			}
+			// check to see if endDate is now before startDate, if so the Lease is cancelled
 		}
 		return removed;
 	}

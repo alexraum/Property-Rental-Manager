@@ -3,8 +3,12 @@
  */
 package edu.ncsu.csc216.business.model.contracts;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
+import edu.ncsu.csc216.business.model.properties.HotelSuite;
+import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
@@ -137,7 +141,29 @@ public class Lease implements Comparable<Lease> {
 		if (date.isBefore(this.startDate)) {
 			throw new IllegalArgumentException();
 		}
-		this.endDate = date;
+		if (getProperty() instanceof HotelSuite && date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+			this.endDate = date;
+		} else {
+//			 end date is set to the Sunday immediately before the cutoff date
+			while (!this.endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+				this.endDate.minusDays(1);
+			}
+		}
+//		if (either of these lease modifications would force the lease to cover only one day rather than at least one week) {
+//			the lease is cancelled
+//		}
+		if (getProperty() instanceof ConferenceRoom) {
+			this.endDate = date.minusDays(1);
+		}
+		if (getProperty() instanceof Office) {
+//			end date is set to the last day of the month immediately before the cutoff date
+			while (this.endDate.getMonth().equals(date.getMonth())) {
+				this.endDate.minusDays(1);
+			}
+		}
+//		if (this.endDate is now before this.startDate) {
+//			the lease is cancelled
+//		}
 	}
 	
 	/**
