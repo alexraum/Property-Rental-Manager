@@ -18,7 +18,9 @@ public class ClientTest {
 	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		Client client = new Client("Alex Raum", "maraum");
+		Client client2 = new Client("Alex Raum", "maraum");
+		assertTrue(client.equals(client2));
 	}
 
 	/**

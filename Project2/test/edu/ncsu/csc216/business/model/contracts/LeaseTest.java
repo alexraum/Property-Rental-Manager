@@ -87,17 +87,22 @@ public class LeaseTest {
 	public void testResetConfirmationNumbering() {
 		Client client = new Client("Alex Raum", "maraum");
 		ConferenceRoom room = new ConferenceRoom("12-11", 20);
+		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
 		LocalDate roomStart = LocalDate.of(2020, 4, 8);
+		LocalDate roomStart2 = LocalDate.of(2020, 4, 15);
 		LocalDate roomEnd = LocalDate.of(2020, 4, 15);
 		int numRoomOccupants = 18;
 		
+		Lease.resetConfirmationNumbering(0);
 		Lease lease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
-		assertEquals(2, lease.getConfirmationNumber());
+		assertEquals(0, lease.getConfirmationNumber());
+		Lease lease2 = new Lease(client, room2, roomStart2, roomEnd, numRoomOccupants);
+		assertEquals(1, lease2.getConfirmationNumber());
 		
 		try {
 			Lease.resetConfirmationNumbering(-1);
 		} catch (IllegalArgumentException e) {
-			assertEquals(2, lease.getConfirmationNumber());
+			assertEquals(0, lease.getConfirmationNumber());
 		}
 	}
 
@@ -106,6 +111,21 @@ public class LeaseTest {
 	 */
 	@Test
 	public void testCompareTo() {
+		Client client = new Client("Alex Raum", "maraum");
+		ConferenceRoom room = new ConferenceRoom("12-11", 20);
+		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
+		ConferenceRoom room3 = new ConferenceRoom("16-11", 20);
+		LocalDate roomStart = LocalDate.of(2020, 4, 8);
+		LocalDate roomStart2 = LocalDate.of(2020, 4, 15);
+		LocalDate roomEnd = LocalDate.of(2020, 4, 15);
+		int numRoomOccupants = 18;
+		int numRoomOccupants2 = 19;
+		
+		Lease lease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
+		Lease lease2 = new Lease(client, room2, roomStart2, roomEnd, numRoomOccupants);
+		Lease lease3 = new Lease(client, room3, roomStart, roomEnd, numRoomOccupants2);
+		assertTrue(lease.compareTo(lease2) != 0);
+		assertTrue(lease.compareTo(lease3) != 0);
 		//fail("Not yet implemented");
 	}
 

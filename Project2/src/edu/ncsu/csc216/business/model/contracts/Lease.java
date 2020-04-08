@@ -188,7 +188,7 @@ public class Lease implements Comparable<Lease> {
 	}
 	
 	/**
-	 * Resets the confirmation number
+	 * Resets the confirmation counter to the given parameter
 	 * 
 	 * @param newCounter the value to reset the counter to
 	 */
