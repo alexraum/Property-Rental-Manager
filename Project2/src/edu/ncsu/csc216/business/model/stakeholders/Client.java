@@ -41,8 +41,8 @@ public class Client {
 		       throw new IllegalArgumentException();
 		    }
 		}
-		this.name = name;
-		this.id = id;
+		this.name = name.trim();
+		this.id = id.trim();
 		myLeases = new SimpleArrayList<Lease>();
 	}
 	
