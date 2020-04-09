@@ -76,6 +76,8 @@ public class ClientTest {
 		
 		client1.addNewLease(lease);
 		client1.cancelLeaseAt(0);
+		
+		assertEquals(client1.listLeases().length, 0);
 	}
 
 	/**
@@ -93,5 +95,7 @@ public class ClientTest {
 
 		client1.addNewLease(lease);
 		client1.cancelLeaseWithNumber(5);
+		
+		assertEquals(client1.listLeases().length, 0);
 	}
 }
