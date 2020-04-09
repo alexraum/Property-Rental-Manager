@@ -182,7 +182,8 @@ public class Lease implements Comparable<Lease> {
 		leaseData[0] = String.format("%06d", this.confirmationNumber) + "";
 		leaseData[1] = this.startDate + " to " + endDate;
 		leaseData[2] = this.numOccupants + "";
-		leaseData[3] = this.property.getDescription();
+		int num = this.property.getDescription().indexOf("|");
+		leaseData[3] = this.property.getDescription().substring(0, num - 1);
 		leaseData[4] = this.owner.getName();
 		leaseData[5] = this.owner.getId();
 		return leaseData;
