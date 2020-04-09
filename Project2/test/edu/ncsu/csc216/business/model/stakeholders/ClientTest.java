@@ -26,6 +26,9 @@ public class ClientTest {
 		Client client = new Client("Alex Raum", "maraum");
 		Client client2 = new Client("Alex Raum", "maraum");
 		assertTrue(client.equals(client2));
+		assertFalse(client.hashCode() == client2.hashCode());
+		assertFalse(client.equals(null));
+		assertFalse(client.equals(""));
 	}
 
 	/**
@@ -34,6 +37,8 @@ public class ClientTest {
 	@Test
 	public void testAddNewLease() {
 		Client client1 = new Client("Alex Raum", "maraum");
+		Client client2 = new Client("Walker Clem", "waclem");
+
 		ConferenceRoom room = new ConferenceRoom("14-11", 20);
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
@@ -43,6 +48,13 @@ public class ClientTest {
 		client1.addNewLease(lease);
 		String[] leases = client1.listLeases();
 		assertEquals("4 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11 | 20", leases[0]);
+		
+		try {
+			client1.addNewLease(new Lease(client2, room, start, end, occupants));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("4 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11 | 20", leases[0]);
+		}
 	}
 
 	/**
@@ -94,7 +106,7 @@ public class ClientTest {
 		Lease lease = new Lease(client1, room, start, end, occupants);
 
 		client1.addNewLease(lease);
-		client1.cancelLeaseWithNumber(5);
+		client1.cancelLeaseWithNumber(6);
 		
 		assertEquals(client1.listLeases().length, 0);
 	}
