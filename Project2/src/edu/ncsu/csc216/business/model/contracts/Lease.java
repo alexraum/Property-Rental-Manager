@@ -48,7 +48,7 @@ public class Lease implements Comparable<Lease> {
 	 * @param the number of occupants for the lease
 	 */
 	public Lease(Client owner, RentalUnit property, LocalDate startDate, LocalDate endDate, int numOccupants) {
-		this(confirmationCounter++, owner, property, startDate, endDate, numOccupants);
+		this(++confirmationCounter, owner, property, startDate, endDate, numOccupants);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class Lease implements Comparable<Lease> {
 			confirmationCounter = 0;
 		}
 		if (confirmationNumber > confirmationCounter) {
-			confirmationNumber = ++confirmationCounter;
+			confirmationCounter = ++confirmationNumber;
 		}
 		this.confirmationNumber = confirmationNumber;
 		this.owner = owner;
