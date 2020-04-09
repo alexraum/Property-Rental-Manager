@@ -72,7 +72,7 @@ public class LeaseTest {
 		Lease roomLease = new Lease(client, room, roomStart, roomEnd, numRoomOccupants);
 		String[] leaseData = roomLease.leaseData();
 		
-		assertEquals("0", leaseData[0]);
+		assertEquals("000000", leaseData[0]);
 		assertEquals("2020-04-08 to 2020-04-15", leaseData[1]);
 		assertEquals("18", leaseData[2]);
 		assertEquals("Conference Room: 12-11 | 20", leaseData[3]);
