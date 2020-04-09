@@ -36,6 +36,11 @@ public class Client {
 		if (id.length() < 3 || name.isBlank()) {
 			throw new IllegalArgumentException();
 		}
+		for (char c : id.toCharArray()) {
+		    if (Character.isWhitespace(c)) {
+		       throw new IllegalArgumentException();
+		    }
+		}
 		this.name = name;
 		this.id = id;
 		myLeases = new SimpleArrayList<Lease>();
