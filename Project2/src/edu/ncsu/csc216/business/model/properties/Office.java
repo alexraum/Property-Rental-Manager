@@ -5,10 +5,12 @@ package edu.ncsu.csc216.business.model.properties;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 import edu.ncsu.csc216.business.list_utils.SortedList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
+import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
  * The office object
@@ -39,33 +41,27 @@ public class Office extends RentalUnit {
 		}
 	}
 	
-	/**
-	 * Reserves the office room
-	 * @param client the client to lease to
-	 * @param date the date to lease to
-	 * @param i the first number
-	 * @param j the second number
-	 * @throws RentalCapacityException if the capacity is too high
-	 * @throws RentalDateException if the date is wrong
-	 * @throws RentalOutOfServiceException if the rental is out of service
-	 * @return a lease
-	 */
 	@Override
-	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
-		return null;
+	public Lease reserve(Client client, LocalDate startDate, int duration, int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
+		LocalDate endDate = startDate.plusWeeks(duration);
+		if (client == null || startDate == null || duration < 1 || occupants < 1) {
+			throw new IllegalArgumentException();
+		}
+		if (this.isInService()) {
+			throw new RentalOutOfServiceException("Not in service");
+		}
+		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || 
+			!(startDate.getDayOfWeek().name().equals("Sunday")) ||
+			!(endDate.getDayOfWeek().name().equals("Sunday"))) {
+			throw new RentalDateException("Invalid date");
+		}
+		if (occupants > MAX_CAPACITY) {
+			throw new RentalCapacityException("Too many occupants");
+		}
+		this.checkDates(startDate, endDate);
+		return new Lease(0, client, this, startDate, endDate, occupants);
 	}
 	
-	/**
-	 * Records the previous lease for the office room
-	 * @param i the first number
-	 * @param client the client to lease to
-	 * @param endDate the date to start
- 	 * @param startDate the date to lease to
-	 * @param k the second number
-	 * @throws RentalCapacityException if the capacity is too high
-	 * @throws RentalDateException if the date is wrong
-	 * @return a lease
-	 */
 	@Override
 	public Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k) throws RentalCapacityException, RentalDateException {
 		return null;
@@ -80,11 +76,6 @@ public class Office extends RentalUnit {
 		return 0;
 	}
 	
-	/**
-	 * Removes the service
-	 * @param date the date to start
-	 * @return the lease info
-	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		SortedList<Lease> list = super.removeFromServiceStarting(date);
@@ -111,26 +102,24 @@ public class Office extends RentalUnit {
 	 * @return the months 
 	 */
 	protected static int getMonthsDuration(LocalDate startDate, LocalDate endDate) {
-		return 0;
+		return (int)ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), endDate.withDayOfMonth(1));
 	}
 	
-	/**
-	 * Gets the description of the room
-	 * @param the description of the room
-	 */
 	@Override
 	public String getDescription() {
-		return null;
+		return "Office: " + super.getDescription();
 	}
 	
-	/**
-	 * Checks the dates
-	 * @param startDate the date to start
-	 * @param endDate the date to end
-	 * @throws RentalDateException if the date is wrong
-	 */
 	@Override
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
-		
+		if (endDate.isAfter(PropertyManager.EARILEST_DATE)) {
+			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARILEST_DATE);
+		}
+		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
+			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
+		}
+		if (startDate.isAfter(endDate)) {
+			throw new RentalDateException("End date for lease cannot be after the start date");
+		}
 	}
 }

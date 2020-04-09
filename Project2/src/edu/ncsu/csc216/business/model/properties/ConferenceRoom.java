@@ -34,43 +34,30 @@ public class ConferenceRoom extends RentalUnit {
 		}
 	}
 	
-	/**
-	 * Reserves the conference room
-	 * @param client the client to lease to
-	 * @param date the date to lease to
-	 * @param i the first number
-	 * @param j the second number
-	 * @throws RentalCapacityException if the capacity is too high
-	 * @throws RentalDateException if the date is wrong
-	 * @throws RentalOutOfServiceException if the rental is out of service
-	 * @return a lease
-	 */
 	@Override
-	public Lease reserve(Client client, LocalDate date, int i, int j) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
-		return null;
+	public Lease reserve(Client client, LocalDate startDate, int duration, int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
+		LocalDate endDate = startDate.plusDays(duration);
+		if (client == null || startDate == null || duration < 1 || occupants < 1) {
+			throw new IllegalArgumentException();
+		}
+		if (this.isInService()) {
+			throw new RentalOutOfServiceException("Not in service");
+		}
+		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {
+			throw new RentalDateException("Invalid date");
+		}
+		if (occupants > MAX_CAPACITY) {
+			throw new RentalCapacityException("Too many occupants");
+		}
+		this.checkDates(startDate, endDate);
+		return new Lease(0, client, this, startDate, endDate, occupants);	
 	}
 	
-	/**
-	 * Records the previous lease for the conference room
-	 * @param i the first number
-	 * @param client the client to lease to
-	 * @param endDate the date to start
- 	 * @param startDate the date to lease to
-	 * @param j the second number
-	 * @throws RentalCapacityException if the capacity is too high
-	 * @throws RentalDateException if the date is wrong
-	 * @return a lease
-	 */
 	@Override
 	public Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int j) throws RentalCapacityException, RentalDateException {
 		return null;
 	}
 	
-	/**
-	 * Removes the service
-	 * @param date the date to start
-	 * @return the lease info
-	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		SortedList<Lease> list = super.removeFromServiceStarting(date);
@@ -83,10 +70,6 @@ public class ConferenceRoom extends RentalUnit {
 		return list;
 	}
 	
-	/**
-	 * Gets the description of the room
-	 * @param the description of the room
-	 */
 	@Override
 	public String getDescription() {
 		return "Conference Room: " + super.getDescription();
