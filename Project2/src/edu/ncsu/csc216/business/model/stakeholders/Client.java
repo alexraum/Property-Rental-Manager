@@ -36,8 +36,15 @@ public class Client {
 		if (id.length() < 3 || name.isBlank()) {
 			throw new IllegalArgumentException();
 		}
-		this.name = name.trim();
-		this.id = id.trim().replaceAll("\\s+","");
+		String newName = name.trim();
+		String newId = id.trim().replaceAll("\\s+","");
+		
+		if (newId.contains(" ")) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.name = newName;
+		this.id = newId;
 		myLeases = new SimpleArrayList<Lease>();
 	}
 	
