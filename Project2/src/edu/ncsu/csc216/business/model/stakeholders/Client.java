@@ -30,10 +30,10 @@ public class Client {
 	public Client(String name, String id) {
 		// TODO need to loop through name and id and check each 
 		// element to see if it an acceptable character
-		if (name.isBlank() || name == null) {
+		if (name == null || id == null) {
 			throw new IllegalArgumentException();
 		}
-		if (id.length() < 3 || id == null) {
+		if (id.length() < 3 || name.isBlank()) {
 			throw new IllegalArgumentException();
 		}
 		this.name = name;
