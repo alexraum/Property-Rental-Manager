@@ -75,7 +75,7 @@ public class LeaseTest {
 		assertEquals("000000", leaseData[0]);
 		assertEquals("2020-04-08 to 2020-04-15", leaseData[1]);
 		assertEquals("18", leaseData[2]);
-		assertEquals("Conference Room: 12-11 | 20", leaseData[3]);
+		assertEquals("Conference Room: 12-11", leaseData[3]);
 		assertEquals("Alex Raum", leaseData[4]);
 		assertEquals("maraum", leaseData[5]);
 	}
