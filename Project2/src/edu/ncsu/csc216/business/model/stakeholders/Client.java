@@ -96,11 +96,11 @@ public class Client {
 		} else if (!id.equals(other.id))
 			return false;
 		// TODO may need to remove myLeases field from equals method
-		if (myLeases == null) {
-			if (other.myLeases != null)
-				return false;
-		} else if (!myLeases.equals(other.myLeases))
-			return false;
+//		if (myLeases == null) {
+//			if (other.myLeases != null)
+//				return false;
+//		} else if (!myLeases.equals(other.myLeases))
+//			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
