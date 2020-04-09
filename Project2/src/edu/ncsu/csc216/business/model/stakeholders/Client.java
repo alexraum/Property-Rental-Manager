@@ -37,7 +37,7 @@ public class Client {
 			throw new IllegalArgumentException();
 		}
 		this.name = name.trim();
-		this.id = id.trim();
+		this.id = id.trim().replaceAll("\\s+","");
 		myLeases = new SimpleArrayList<Lease>();
 	}
 	
