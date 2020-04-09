@@ -45,7 +45,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @param capacity the capacity of the RentalUnit
 	 */
 	public RentalUnit(String location, int capacity) {
-		if (capacity <= 0) {
+		if (capacity < 0) {
 			throw new IllegalArgumentException();
 		}
 		Scanner scan = new Scanner(location);
