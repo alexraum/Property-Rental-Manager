@@ -115,7 +115,7 @@ public class Client {
 	 * @param lease the Lease to be added
 	 */
 	public void addNewLease(Lease lease) {
-		if (!equals(lease.getClient())) {
+		if (!lease.getClient().equals(this)) {
 			throw new IllegalArgumentException();
 		}
 		myLeases.add(lease);
