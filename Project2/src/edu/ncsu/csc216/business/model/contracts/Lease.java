@@ -67,9 +67,9 @@ public class Lease implements Comparable<Lease> {
 			confirmationCounter = 0;
 		}
 		if (confirmationNumber > confirmationCounter) {
-			confirmationCounter = confirmationNumber++;
+			confirmationCounter = ++confirmationNumber;
 		}
-		this.confirmationNumber = confirmationNumber;
+		this.confirmationNumber = confirmationCounter;
 		this.owner = owner;
 		this.property = property;
 		this.startDate = startDate;
