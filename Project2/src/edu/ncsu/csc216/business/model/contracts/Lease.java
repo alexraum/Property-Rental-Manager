@@ -65,6 +65,7 @@ public class Lease implements Comparable<Lease> {
 	public Lease(int confirmationNumber, Client owner, RentalUnit property, LocalDate startDate, LocalDate endDate, int numOccupants) {
 		if (confirmationCounter > MAX_CONF_NUM) {
 			confirmationCounter = 0;
+			confirmationNumber = 0;
 		}
 		if (confirmationNumber > confirmationCounter) {
 			confirmationCounter = confirmationNumber + 1;
