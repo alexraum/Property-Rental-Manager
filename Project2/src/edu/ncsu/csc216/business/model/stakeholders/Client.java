@@ -37,7 +37,7 @@ public class Client {
 			throw new IllegalArgumentException();
 		}
 		String newName = name.trim();
-		String newId = id.trim().replaceAll("\\s+","");
+		String newId = id.trim().replaceAll("\\s","");
 		
 		if (newId.contains(" ")) {
 			throw new IllegalArgumentException();
