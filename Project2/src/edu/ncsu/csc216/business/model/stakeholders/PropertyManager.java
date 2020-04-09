@@ -18,7 +18,7 @@ import edu.ncsu.csc216.business.model.properties.RentalUnit;
 public class PropertyManager implements Landlord {
 
 	/** the earliest date */
-	public static final LocalDate EARILEST_DATE = LocalDate.of(2020, 1, 1); // need to double check this value with TA
+	public static final LocalDate EARLIEST_DATE = LocalDate.of(2020, 1, 1); // need to double check this value with TA
 	/** the latest date */
 	public static final LocalDate LATEST_DATE = LocalDate.of(2029, 12, 31); // need to double check this value with TA
 	/** the kind of filter  */

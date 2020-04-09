@@ -36,12 +36,15 @@ public class Client {
 		if (id.length() < 3 || name.isBlank()) {
 			throw new IllegalArgumentException();
 		}
+		// TODO make sure name has lower or upper case letters or 0-9
+		// TODO make sure ID is alphanumeric or @, #, $ and length > 3
+		// do these checks through REGEX, the function is String.matches()
 		String newName = name.trim();
-		String newId = id.trim().replaceAll("\\s","");
-		
+		String newId = id.trim();
 		if (newId.contains(" ")) {
 			throw new IllegalArgumentException();
 		}
+		
 		
 		this.name = newName;
 		this.id = newId;

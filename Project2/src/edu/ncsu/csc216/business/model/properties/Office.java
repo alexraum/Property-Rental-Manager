@@ -112,8 +112,8 @@ public class Office extends RentalUnit {
 	
 	@Override
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
-		if (endDate.isAfter(PropertyManager.EARILEST_DATE)) {
-			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARILEST_DATE);
+		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
+			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
 		}
 		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
 			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
