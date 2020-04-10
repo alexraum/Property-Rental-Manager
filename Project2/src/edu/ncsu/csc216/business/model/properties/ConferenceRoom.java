@@ -59,7 +59,7 @@ public class ConferenceRoom extends RentalUnit {
 		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 			throw new IllegalArgumentException();
 		}
-		if (this.isInService()) {
+		if (!this.isInService()) {
 			throw new RentalOutOfServiceException("Not in service");
 		}
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {

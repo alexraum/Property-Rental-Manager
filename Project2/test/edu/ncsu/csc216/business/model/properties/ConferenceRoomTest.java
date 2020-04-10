@@ -27,7 +27,6 @@ public class ConferenceRoomTest {
 		Client client = new Client("Alex Raum", "maraum");
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
-		
 		Lease lease = room.reserve(client, start, 7, 20);
 		assertEquals(end, lease.getEnd());
 		
@@ -78,21 +77,4 @@ public class ConferenceRoomTest {
 		assertEquals(end, lease.getEnd());
 		assertEquals(18, lease.getNumOccupants());
 	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.properties.ConferenceRoom#removeFromServiceStarting(java.time.LocalDate)}.
-	 */
-	@Test
-	public void testRemoveFromServiceStarting() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.properties.ConferenceRoom#getDescription()}.
-	 */
-	@Test
-	public void testGetDescription() {
-		fail("Not yet implemented");
-	}
-
 }
