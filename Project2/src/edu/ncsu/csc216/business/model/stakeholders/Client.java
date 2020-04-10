@@ -136,6 +136,12 @@ public class Client {
 		String[] leases = new String[myLeases.size()];
 		for (int i = 0; i < myLeases.size(); i++) {
 			String[] data = myLeases.get(i).leaseData();
+			if (data[2].length() == 1) {
+				data[2] = "  " + data[2];
+			}
+			if (data[2].length() == 2) {
+				data[2] = " " + data[2];
+			}
 			leases[i] = data[0] + " | " + data[1] + " | " 
 			+ data[2] + " | " + data[3];
 		}
