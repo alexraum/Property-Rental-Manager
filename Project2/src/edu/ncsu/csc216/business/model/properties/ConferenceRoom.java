@@ -31,7 +31,6 @@ public class ConferenceRoom extends RentalUnit {
 	 */
 	public ConferenceRoom(String location, int capacity) {
 		super(location, capacity);
-		super.takeOutOfService();
 		if (capacity > MAX_CAPACITY) {
 			throw new IllegalArgumentException();
 		}
