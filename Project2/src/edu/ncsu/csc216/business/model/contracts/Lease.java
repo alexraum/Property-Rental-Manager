@@ -3,13 +3,7 @@
  */
 package edu.ncsu.csc216.business.model.contracts;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
-
-import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
-import edu.ncsu.csc216.business.model.properties.HotelSuite;
-import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 

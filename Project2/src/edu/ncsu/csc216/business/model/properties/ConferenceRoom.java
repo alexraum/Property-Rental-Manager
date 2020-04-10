@@ -55,7 +55,7 @@ public class ConferenceRoom extends RentalUnit {
 	@Override
 	public Lease reserve(Client client, LocalDate startDate, int duration, 
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
-		LocalDate endDate = startDate.plusDays(duration);
+		LocalDate endDate = startDate.plusDays(duration - 1);
 		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 			throw new IllegalArgumentException();
 		}
