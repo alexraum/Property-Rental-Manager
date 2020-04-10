@@ -321,10 +321,14 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @return the description of the RentalUnit as a String
 	 */
 	public String getDescription() {
+		String f = "" + floor;
+		if (f.length() == 1) {
+			f = " " + floor;
+		}
 		if (isInService()) {
-			return floor + "-" + room + " | " + capacity;
+			return f + "-" + room + " | " + capacity;
 		} else {
-			return floor + "-" + room + " | " + capacity + " Unavailable";
+			return f + "-" + room + " | " + capacity + " Unavailable";
 		}
 	}
 	

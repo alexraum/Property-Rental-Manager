@@ -107,7 +107,7 @@ public class Office extends RentalUnit {
 	
 	@Override
 	public String getDescription() {
-		return "Office: " + super.getDescription();
+		return "Office:          " + super.getDescription();
 	}
 	
 	@Override

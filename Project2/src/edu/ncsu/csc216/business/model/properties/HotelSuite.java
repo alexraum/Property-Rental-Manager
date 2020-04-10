@@ -91,7 +91,7 @@ public class HotelSuite extends RentalUnit {
 	
 	@Override
 	public String getDescription() {
-		return "Hotel Suite: " + super.getDescription();
+		return "Hotel Suite:     " + super.getDescription();
 	}
 	
 	@Override
