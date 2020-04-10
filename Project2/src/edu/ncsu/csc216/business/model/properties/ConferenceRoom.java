@@ -56,12 +56,7 @@ public class ConferenceRoom extends RentalUnit {
 	public Lease reserve(Client client, LocalDate startDate, int duration, 
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		LocalDate endDate = startDate.plusDays(duration - 1);
-		if (client == null || startDate == null || duration < 1 || occupants < 1) {
-			throw new IllegalArgumentException();
-		}
-		if (!this.isInService()) {
-			throw new RentalOutOfServiceException("Not in service");
-		}
+		checkLeaseConditions(client, startDate, duration, occupants);
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {
 			throw new RentalDateException("Invalid date");
 		}
