@@ -337,10 +337,10 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + capacity;
+//		result = prime * result + capacity;
 		result = prime * result + floor;
-		result = prime * result + (inService ? 1231 : 1237);
-		result = prime * result + ((myLeases == null) ? 0 : myLeases.hashCode());
+//		result = prime * result + (inService ? 1231 : 1237);
+//		result = prime * result + ((myLeases == null) ? 0 : myLeases.hashCode());
 		result = prime * result + room;
 		return result;
 	}

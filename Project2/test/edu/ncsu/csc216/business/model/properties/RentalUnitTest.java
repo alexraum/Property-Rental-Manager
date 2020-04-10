@@ -230,7 +230,7 @@ public class RentalUnitTest {
 	public void testEqualsObject() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
 		ConferenceRoom room2 = new ConferenceRoom("23-11", 20);
-		ConferenceRoom room3 = new ConferenceRoom("23-11", 21);
+//		ConferenceRoom room3 = new ConferenceRoom("23-11", 21);
 		ConferenceRoom room4 = new ConferenceRoom("22-11", 20);
 		ConferenceRoom room5 = new ConferenceRoom("23-12", 20);
 //		String test = new String();
