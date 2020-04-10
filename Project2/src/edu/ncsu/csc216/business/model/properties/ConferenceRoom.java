@@ -55,7 +55,7 @@ public class ConferenceRoom extends RentalUnit {
 	@Override
 	public Lease reserve(Client client, LocalDate startDate, int duration, 
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
-		LocalDate endDate = startDate.plusDays(duration - 1);
+		LocalDate endDate = startDate.plusDays(duration);
 		checkLeaseConditions(client, startDate, duration, occupants);
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {
 			throw new RentalDateException("Invalid date");
@@ -110,7 +110,7 @@ public class ConferenceRoom extends RentalUnit {
 		SortedList<Lease> list = super.removeFromServiceStarting(date);
 		for (int i = 0; i < myLeases.size(); i++) {
 			Lease l = myLeases.get(i);
-			if (l.getEnd().compareTo(date) > 0) {
+			if (l.getEnd().compareTo(date) >= 0) {
 				l.setEndDateEarlier(date.minusDays(1));
 			}
 		}
