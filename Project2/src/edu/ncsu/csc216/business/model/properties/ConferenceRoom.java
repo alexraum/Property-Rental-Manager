@@ -28,11 +28,12 @@ public class ConferenceRoom extends RentalUnit {
 	 * 
 	 * @param location the location of the room
 	 * @param capacity the capacity of the room
+	 * @throws RentalCapacityException 
 	 */
-	public ConferenceRoom(String location, int capacity) {
+	public ConferenceRoom(String location, int capacity) throws RentalCapacityException {
 		super(location, capacity);
 		if (capacity > MAX_CAPACITY) {
-			throw new IllegalArgumentException();
+			throw new RentalCapacityException("too high of capacity");
 		}
 	}
 	
