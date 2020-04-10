@@ -64,7 +64,7 @@ public class ConferenceRoom extends RentalUnit {
 			throw new RentalCapacityException("Too many occupants");
 		}
 		for (int i = 0; i < myLeases.size(); i++) {
-			if (endDate.isAfter(myLeases.get(i).getStart()) && startDate.isBefore(myLeases.get(i).getEnd())) {
+			if (endDate.compareTo(myLeases.get(i).getStart()) >= 0 && startDate.compareTo(myLeases.get(i).getEnd()) <= 0) {
 				throw new RentalDateException("Invalid date");
 			}
 //			if (endDate.isAfter(myLeases.get(i).getStart()) && endDate.isBefore(myLeases.get(i).getEnd())) {
