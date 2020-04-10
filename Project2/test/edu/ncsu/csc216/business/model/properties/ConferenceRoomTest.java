@@ -27,7 +27,6 @@ public class ConferenceRoomTest {
 		Client client = new Client("Alex Raum", "maraum");
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
-		room.takeOutOfService();
 		Lease lease = room.reserve(client, start, 7, 20);
 		assertEquals(end, lease.getEnd());
 		
