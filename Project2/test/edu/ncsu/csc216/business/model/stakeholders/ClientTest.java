@@ -47,13 +47,13 @@ public class ClientTest {
 		
 		client1.addNewLease(lease);
 		String[] leases = client1.listLeases();
-		assertEquals("000002 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11", leases[0]);
+		assertEquals("000002 | 2020-04-08 to 2020-04-15 |  18 | Conference Room: 14-11", leases[0]);
 		
 		try {
 			client1.addNewLease(new Lease(client2, room, start, end, occupants));
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("000002 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11", leases[0]);
+			assertEquals("000002 | 2020-04-08 to 2020-04-15 |  18 | Conference Room: 14-11", leases[0]);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class ClientTest {
 		
 		client1.addNewLease(lease);
 		String[] leases = client1.listLeases();
-		assertEquals("000001 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11", leases[0]);
+		assertEquals("000001 | 2020-04-08 to 2020-04-15 |  18 | Conference Room: 14-11", leases[0]);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class ClientTest {
 			client1.cancelLeaseWithNumber(000010);
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("000004 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11", client1.listLeases()[0]);
+			assertEquals("000004 | 2020-04-08 to 2020-04-15 |  18 | Conference Room: 14-11", client1.listLeases()[0]);
 		}
 	}
 }
