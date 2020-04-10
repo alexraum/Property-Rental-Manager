@@ -191,7 +191,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		if (endDate.isAfter(PropertyManager.LATEST_DATE)) {
 			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
 		}
-		if (startDate.isAfter(endDate)) {
+		if (startDate.isAfter(endDate.plusDays(1))) {
 			throw new RentalDateException("Start date for lease cannot be after the end date");
 		}
 //		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
