@@ -50,7 +50,7 @@ public class ConferenceRoom extends RentalUnit {
 			throw new RentalCapacityException("Too many occupants");
 		}
 		this.checkDates(startDate, endDate);
-		return new Lease(0, client, this, startDate, endDate, occupants);	
+		return new Lease(0, client, this, startDate, endDate, occupants);
 	}
 	
 	@Override
