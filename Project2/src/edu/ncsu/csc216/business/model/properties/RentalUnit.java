@@ -361,12 +361,12 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		if (!(obj instanceof RentalUnit))
 			return false;
 		RentalUnit other = (RentalUnit) obj;
-		if (capacity != other.capacity)
-			return false;
+//		if (capacity != other.capacity)
+//			return false;
 		if (floor != other.floor)
 			return false;
-		if (inService != other.inService)
-			return false;
+//		if (inService != other.inService)
+//			return false;
 		// TODO may need to remove myLeases field from equals method
 //		if (myLeases == null) {
 //			if (other.myLeases != null)
