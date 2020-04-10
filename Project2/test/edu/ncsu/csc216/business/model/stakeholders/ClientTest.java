@@ -27,7 +27,7 @@ public class ClientTest {
 		Client client2 = new Client("Alex Raum", "maraum");
 		assertTrue(client.equals(client2));
 		assertTrue(client.hashCode() == client2.hashCode());
-		assertFalse(client.equals(null));
+		assertFalse(client == null);
 		assertFalse(client.equals(""));
 	}
 

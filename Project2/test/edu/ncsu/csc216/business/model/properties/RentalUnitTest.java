@@ -25,21 +25,6 @@ public class RentalUnitTest {
 	}
 
 	@Test
-	public void testGetCapacity() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetFloor() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRoom() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testCompareTo() {
 		ConferenceRoom room1 = new ConferenceRoom("23-11", 20);
 		ConferenceRoom room2 = new ConferenceRoom("22-11", 20);
@@ -56,11 +41,6 @@ public class RentalUnitTest {
 		room.returnToService();
 		
 		assertTrue(room.isInService());
-	}
-
-	@Test
-	public void testIsInService() {
-//		fail("Not yet implemented");
 	}
 
 	@Test
@@ -99,7 +79,6 @@ public class RentalUnitTest {
 		} catch (RentalDateException e) {
 			assertEquals("Start date for lease cannot be after the end date", e.getMessage());
 		}
-//		fail("Not yet implemented");
 	}
 
 	@Test
@@ -254,11 +233,11 @@ public class RentalUnitTest {
 		ConferenceRoom room3 = new ConferenceRoom("23-11", 21);
 		ConferenceRoom room4 = new ConferenceRoom("22-11", 20);
 		ConferenceRoom room5 = new ConferenceRoom("23-12", 20);
-		String test = new String();
+//		String test = new String();
 		
 		assertTrue(room.equals(room2));
-		assertFalse(room.equals(null));
-		assertFalse(room.equals(test));
+		assertFalse(room == null);
+//		assertFalse(room.equals(test));
 		assertFalse(room.equals(room3));
 		assertFalse(room.equals(room4));
 		assertFalse(room.equals(room5));
