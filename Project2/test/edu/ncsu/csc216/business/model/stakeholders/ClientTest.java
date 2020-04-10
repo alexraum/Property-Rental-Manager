@@ -90,6 +90,15 @@ public class ClientTest {
 		client1.cancelLeaseAt(0);
 		
 		assertEquals(client1.listLeases().length, 0);
+		
+		client1.addNewLease(lease);
+		
+		try {
+			client1.cancelLeaseAt(-1);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertNull(e.getMessage());
+		}
 	}
 
 	/**
