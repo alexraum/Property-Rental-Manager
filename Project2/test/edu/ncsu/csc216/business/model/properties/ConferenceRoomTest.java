@@ -78,21 +78,4 @@ public class ConferenceRoomTest {
 		assertEquals(end, lease.getEnd());
 		assertEquals(18, lease.getNumOccupants());
 	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.properties.ConferenceRoom#removeFromServiceStarting(java.time.LocalDate)}.
-	 */
-	@Test
-	public void testRemoveFromServiceStarting() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.properties.ConferenceRoom#getDescription()}.
-	 */
-	@Test
-	public void testGetDescription() {
-		fail("Not yet implemented");
-	}
-
 }
