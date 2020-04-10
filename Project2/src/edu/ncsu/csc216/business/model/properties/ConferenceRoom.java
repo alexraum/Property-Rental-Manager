@@ -10,9 +10,11 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
- * The conference room object
+ * The ConferenceRoom class provides all necessary state and behavior 
+ * for a conference room that can be rented by a Client, it is a child
+ * class of RentalUnit.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class ConferenceRoom extends RentalUnit {
 	
@@ -34,8 +36,25 @@ public class ConferenceRoom extends RentalUnit {
 		}
 	}
 	
+	/**
+	 * The reserve method is used to reserve the rental unit for a new Lease
+	 * 
+	 * @param client the client reserving the lease
+	 * @param startDate the start date of the lease
+	 * @param endDate the end date of the lease
+	 * @param duration the duration of the lease
+	 * @param occupants the number of occupants for the lease
+	 * 
+	 * @return the Lease reserving the rental unit
+	 * 
+	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
+	 * occupants over the dates of the proposed lease
+	 * @throws RentalDateException if the start date or computed end dates are not valid
+	 * @throws RentalOutOfServiceException if the rental unit is currently out of service
+	 */
 	@Override
-	public Lease reserve(Client client, LocalDate startDate, int duration, int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
+	public Lease reserve(Client client, LocalDate startDate, int duration, 
+			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		LocalDate endDate = startDate.plusDays(duration);
 		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 			throw new IllegalArgumentException();
@@ -53,11 +72,36 @@ public class ConferenceRoom extends RentalUnit {
 		return new Lease(0, client, this, startDate, endDate, occupants);
 	}
 	
+	/**
+	 * A method for reserving the rental unit of an existing lease
+	 * 
+	 * @param confirmationNumber the confirmation number of the lease
+	 * @param client the client of the lease
+	 * @param startDate the start date of the lease
+	 * @param endDate the end date of the lease 
+	 * @param numOccupants the number of occupants of the lease 
+	 * 
+	 * @return the Lease that the rental unit is being reserved for
+	 * 
+	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
+	 * occupants over the dates of the proposed lease
+	 * @throws RentalDateException if the start date or computed end dates are not valid
+	 */
 	@Override
-	public Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int j) throws RentalCapacityException, RentalDateException {
-		return null;
+	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate,
+			LocalDate endDate, int numOccupants) throws RentalCapacityException, RentalDateException {
+		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
+		return lease;
 	}
 	
+	/**
+	 * Calls parent method to obtain Leases then goes through them to 
+	 * adjust their end dates as needed.
+	 * 
+	 * @param date the cutoff date for the leases
+	 * @return a list of leases whose end dates have been adjusted 
+	 * according to their rental unit type
+	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		SortedList<Lease> list = super.removeFromServiceStarting(date);
@@ -70,6 +114,11 @@ public class ConferenceRoom extends RentalUnit {
 		return list;
 	}
 	
+	/**
+	 * Returns a String description of this conference rooms
+	 * 
+	 * @return a description of this conference room as a String
+	 */
 	@Override
 	public String getDescription() {
 		return "Conference Room: " + super.getDescription();

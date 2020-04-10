@@ -7,10 +7,8 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
-import edu.ncsu.csc216.business.list_utils.SortedList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
-import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 public class RentalUnitTest {
 
