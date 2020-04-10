@@ -102,10 +102,8 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	public int compareTo(RentalUnit unit) {
 		if (getFloor() != unit.getFloor()) {
 			return getFloor() - unit.getFloor();
-		} else if (getRoom() != unit.getRoom()) {
-			return getRoom() - unit.getRoom();
 		} else {
-			return 0;
+			return getRoom() - unit.getRoom();
 		}
 //		int thisRoom;
 //		int room;
