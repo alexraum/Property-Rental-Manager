@@ -217,7 +217,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * conditions are not met 
 	 */
 	protected void checkLeaseConditions(Client client, LocalDate startDate, int duration, int numOccupants) throws RentalOutOfServiceException {
-		if (client == null || startDate == null || duration < 0 || numOccupants < 1) {
+		if (client == null || startDate == null || duration < 1 || numOccupants < 1) {
 			throw new IllegalArgumentException();
 		}
 		if (!isInService()) {

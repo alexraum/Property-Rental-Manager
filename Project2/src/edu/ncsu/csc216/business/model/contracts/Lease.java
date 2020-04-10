@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.business.model.contracts;
 
 import java.time.LocalDate;
+import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
