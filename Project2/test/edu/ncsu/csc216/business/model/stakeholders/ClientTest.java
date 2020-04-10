@@ -109,5 +109,14 @@ public class ClientTest {
 		client1.cancelLeaseWithNumber(000004);
 		
 		assertEquals(client1.listLeases().length, 0);
+		
+		client1.addNewLease(lease);
+		
+		try {
+			client1.cancelLeaseWithNumber(000010);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("000004 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 14-11", client1.listLeases()[0]);
+		}
 	}
 }
