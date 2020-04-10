@@ -217,7 +217,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * conditions are not met 
 	 */
 	protected void checkLeaseConditions(Client client, LocalDate startDate, int duration, int numOccupants) throws RentalOutOfServiceException {
-		if (client == null || startDate == null || duration < 0 || numOccupants < 1) {
+		if (client == null || startDate == null || duration < 1 || numOccupants < 1) {
 			throw new IllegalArgumentException();
 		}
 		if (!isInService()) {
@@ -283,8 +283,9 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * Adds a Lease to the myLeases field.
 	 *
 	 * @param lease the Lease to be add
+	 * @throws RentalDateException 
 	 */
-	public void addLease(Lease lease) {
+	public void addLease(Lease lease) throws RentalDateException {
 		if (!inService) {
 			return;
 		}
@@ -292,6 +293,14 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		// requirements is correct
 		if (!this.equals(lease.getProperty())) {
 			throw new IllegalArgumentException();
+		}
+		for (int i = 0; i < myLeases.size(); i++) {
+			if (lease.getEnd().isAfter(myLeases.get(i).getStart()) && lease.getStart().isBefore(myLeases.get(i).getEnd())) {
+				throw new RentalDateException("Invalid date");
+			}
+//			if (endDate.isAfter(myLeases.get(i).getStart()) && endDate.isBefore(myLeases.get(i).getEnd())) {
+//				throw new RentalDateException("Invalid date");
+//			}
 		}
 		// TODO verify if we need to check exceeding capacity, date conflicts, etc.
 		// before in this method before adding Lease to list
