@@ -60,6 +60,9 @@ public class ConferenceRoom extends RentalUnit {
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {
 			throw new RentalDateException("Invalid date");
 		}
+		if (!endDate.minusDays(MAX_DURATION).isBefore(startDate)) {
+			throw new IllegalArgumentException();
+		}
 		if (occupants > this.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
