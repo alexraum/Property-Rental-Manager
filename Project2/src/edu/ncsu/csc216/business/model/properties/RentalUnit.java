@@ -234,7 +234,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		takeOutOfService();
 		SortedLinkedListWithIterator<Lease> removed = new SortedLinkedListWithIterator<Lease>();
-		int cutoff = cutoffIndex(date.plusDays(1));
+		int cutoff = cutoffIndex(date);
 		if (cutoff > 0) {
 			removed = (SortedLinkedListWithIterator<Lease>) myLeases.truncate(cutoff);
 		} else {
