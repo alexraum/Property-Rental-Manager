@@ -185,24 +185,24 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * is earlier than the end date
 	 */
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
-		if (startDate.isBefore(PropertyManager.EARLIEST_DATE)) {
-			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
-		}
-		if (endDate.isAfter(PropertyManager.LATEST_DATE)) {
-			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
-		}
-		if (startDate.isAfter(endDate)) {
-			throw new RentalDateException("Start date for lease cannot be after the end date");
-		}
-//		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
+//		if (startDate.isBefore(PropertyManager.EARLIEST_DATE)) {
 //			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
 //		}
-//		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
+//		if (endDate.isAfter(PropertyManager.LATEST_DATE)) {
 //			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
 //		}
 //		if (startDate.isAfter(endDate)) {
-//			throw new RentalDateException("End date for lease cannot be after the start date");
+//			throw new RentalDateException("Start date for lease cannot be after the end date");
 //		}
+		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
+			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
+		}
+		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
+			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
+		}
+		if (startDate.isAfter(endDate)) {
+			throw new RentalDateException("End date for lease cannot be after the start date");
+		}
 	}
 	
 	/**
