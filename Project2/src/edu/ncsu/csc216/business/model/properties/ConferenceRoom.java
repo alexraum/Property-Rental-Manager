@@ -67,6 +67,9 @@ public class ConferenceRoom extends RentalUnit {
 			if (endDate.isAfter(myLeases.get(i).getStart()) && startDate.isBefore(myLeases.get(i).getEnd())) {
 				throw new RentalDateException("Invalid date");
 			}
+			if (startDate.isEqual(myLeases.get(i).getStart())) {
+				throw new RentalDateException("Invalid date");
+			}
 //			if (startDate.isBefore(myLeases.get(i).getEnd()) && endDate.isAfter(myLeases.get(i).getStart())) {
 //				throw new RentalDateException("Invalid date");
 //			}
