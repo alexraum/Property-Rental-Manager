@@ -316,9 +316,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 			c = "  " + getCapacity();
 		} else if (c.length() == 2) {
 			c = " " + getCapacity();
-		} else {
-			c = "" + getCapacity();
-		}
+		} 
 		if (isInService()) {
 			return f + "-" + getRoom() + " | " + c;
 		} else {
