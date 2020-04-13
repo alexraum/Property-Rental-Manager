@@ -129,8 +129,8 @@ public class HotelSuite extends RentalUnit {
 				throw new RentalDateException("Invalid date");
 			}
 		}
-		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
 		this.checkDates(startDate, endDate);
+		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
 		super.addLease(lease);
 		return lease;
 	}
