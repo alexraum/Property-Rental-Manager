@@ -203,7 +203,7 @@ public class HotelSuite extends RentalUnit {
 		if (endDate.isAfter(PropertyManager.LATEST_DATE)) {
 			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
 		}
-		if (startDate.isAfter(endDate)) {
+		if (startDate.compareTo(endDate) >= 0) {
 			throw new RentalDateException("Start date for lease cannot be after the end date");
 		}
 	}
