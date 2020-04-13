@@ -12,16 +12,6 @@ import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 public class RentalUnitTest {
 
-//	@Test
-//	public void testRentalUnit() {
-//		try {
-//			ConferenceRoom room = new ConferenceRoom("22-11", 26);
-//			fail();
-//		} catch (IllegalArgumentException e) {
-//			assertNull(e.getMessage());
-//		}
-//	}
-
 	@Test
 	public void testCompareTo() {
 		ConferenceRoom room1 = new ConferenceRoom("23-11", 20);

@@ -167,12 +167,4 @@ public class HotelSuiteTest {
 		assertEquals(2, suite1.listLeases().length);
 	}
 
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.properties.HotelSuite#getDescription()}.
-	 */
-	@Test
-	public void testGetDescription() {
-		//fail("Not yet implemented");
-	}
-
 }
