@@ -64,8 +64,8 @@ public class HotelSuite extends RentalUnit {
 	@Override
 	public Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
-		LocalDate endDate = startDate.plusWeeks(duration);
 		checkLeaseConditions(client, startDate, duration, occupants);
+		LocalDate endDate = startDate.plusWeeks(duration);
 //		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 //			throw new IllegalArgumentException();
 //		}
