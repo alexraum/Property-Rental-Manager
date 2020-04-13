@@ -130,7 +130,7 @@ public class HotelSuite extends RentalUnit {
 			}
 		}
 		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
-		super.checkDates(startDate, endDate);
+		this.checkDates(startDate, endDate);
 		super.addLease(lease);
 		return lease;
 	}
