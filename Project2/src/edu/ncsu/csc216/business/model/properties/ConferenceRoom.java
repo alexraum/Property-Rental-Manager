@@ -88,7 +88,7 @@ public class ConferenceRoom extends RentalUnit {
 	@Override
 	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate,
 			LocalDate endDate, int numOccupants) throws RentalCapacityException, RentalDateException {
-		this.checkDates(startDate, endDate);
+		checkDates(startDate, endDate);
 		if (numOccupants > this.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
