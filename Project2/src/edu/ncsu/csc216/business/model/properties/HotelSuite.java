@@ -29,7 +29,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param location the location of the room
 	 */
 	public HotelSuite(String location) {
-		this(location, 1);
+		super(location, 1);
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class HotelSuite extends RentalUnit {
 	@Override
 	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate,
 			LocalDate endDate, int numOccupants) throws RentalCapacityException, RentalDateException {
-		if (numOccupants > super.getCapacity()) {
+		if (numOccupants > this.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
 		if (!startDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || !endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
@@ -131,7 +131,7 @@ public class HotelSuite extends RentalUnit {
 		}
 		this.checkDates(startDate, endDate);
 		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
-		super.addLease(lease);
+		this.addLease(lease);
 		return lease;
 	}
 	
