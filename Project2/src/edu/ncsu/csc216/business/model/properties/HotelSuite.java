@@ -120,6 +120,12 @@ public class HotelSuite extends RentalUnit {
 		if (!startDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || !endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
 			throw new RentalDateException("Invalid date");
 		}
+		for (int i = 0; i < myLeases.size(); i++) {
+			Lease l = myLeases.get(i);
+			if (l.getStart().equals(startDate)) {
+				throw new RentalDateException("Invalid date");
+			}
+		}
 		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
 		super.checkDates(startDate, endDate);
 		super.addLease(lease);
