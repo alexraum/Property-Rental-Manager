@@ -83,7 +83,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * @return the Lease that the rental unit is being reserved for
 	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
 	 * occupants over the dates of the proposed lease
-	 * @throws RentalDateException if the start date or computed end dates are not valid
+	 * @throws RentalDateException if the start date or end dates are not valid
 	 */
 	@Override
 	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate,

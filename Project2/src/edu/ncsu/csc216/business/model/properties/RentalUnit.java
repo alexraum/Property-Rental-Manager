@@ -237,7 +237,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 */
 	protected int cutoffIndex(LocalDate date) {
 		for (int i = 0; i < myLeases.size(); i++) {
-			if (myLeases.get(i).getStart().isEqual(date) || myLeases.get(i).getStart().isAfter(date)) {
+			if (myLeases.get(i).getStart().compareTo(date) >= 0) {
 				return i;
 			}
 		}

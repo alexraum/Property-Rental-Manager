@@ -105,13 +105,21 @@ public class HotelSuite extends RentalUnit {
 	 * @return the Lease that the hotel suite is being reserved for
 	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
 	 * occupants over the dates of the proposed lease
-	 * @throws RentalDateException if the start date or computed end dates are not valid
+	 * @throws RentalDateException if the start date or end dates are not on Sunday
 	 */
 	@Override
 	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate,
 			LocalDate endDate, int numOccupants) throws RentalCapacityException, RentalDateException {
-		
-		return null;
+		if (numOccupants > super.getCapacity()) {
+			throw new RentalCapacityException("Too many occupants");
+		}
+		if (!startDate.getDayOfWeek().name().equals("Sunday") || !endDate.getDayOfWeek().name().equals("Sunday")) {
+			throw new RentalDateException("Invalid date");
+		}
+		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
+		super.checkDates(startDate, endDate);
+		super.addLease(lease);
+		return lease;
 	}
 	
 	/**
