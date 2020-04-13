@@ -157,9 +157,9 @@ public class HotelSuite extends RentalUnit {
 				}
 				l.setEndDateEarlier(date);
 			}
-			if (l.getEnd().equals(date)) {
-				list.add(myLeases.remove(i));
-			}
+//			if (l.getEnd().equals(date)) {
+//				list.add(myLeases.remove(i));
+//			}
 			// TODO If either of these lease modifications would force the lease to cover only
 			// one day rather than at least one week, then the lease is canceled.
 		}
