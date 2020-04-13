@@ -308,13 +308,21 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 */
 	public String getDescription() {
 		String f = "" + getFloor();
+		String c = "" + getCapacity();
 		if (f.length() == 1) {
 			f = " " + getFloor();
 		} 
-		if (isInService()) {
-			return f + "-" + getRoom() + " | " + getCapacity();
+		if (c.length() == 1) {
+			c = "  " + getCapacity();
+		} else if (c.length() == 2) {
+			c = " " + getCapacity();
 		} else {
-			return f + "-" + getRoom() + " | " + getCapacity() + "Unavailable";
+			c = "" + getCapacity();
+		}
+		if (isInService()) {
+			return f + "-" + getRoom() + " | " + c;
+		} else {
+			return f + "-" + getRoom() + " | " + c + " Unavailable";
 		}
 	}
 	

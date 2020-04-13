@@ -207,11 +207,11 @@ public class RentalUnitTest {
 	@Test
 	public void testGetDescription() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
-		assertEquals("Conference Room: 23-11 | 20", room.getDescription());
+		assertEquals("Conference Room: 23-11 |  20", room.getDescription());
 		
 		room.takeOutOfService();
 		
-		assertEquals("Conference Room: 23-11 | 20 Unavailable", room.getDescription());
+		assertEquals("Conference Room: 23-11 |  20 Unavailable", room.getDescription());
 	}
 
 	@Test
