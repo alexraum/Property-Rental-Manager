@@ -309,7 +309,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	public String getDescription() {
 		String f = "" + floor;
 		if (f.length() == 1) {
-			f = " " + floor;
+			f = "" + floor;
 		}
 		if (isInService()) {
 			return f + "-" + room + " | " + getCapacity();
