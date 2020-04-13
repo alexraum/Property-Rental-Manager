@@ -65,21 +65,27 @@ public class HotelSuite extends RentalUnit {
 	public Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		LocalDate endDate = startDate.plusWeeks(duration);
-		if (client == null || startDate == null || duration < 1 || occupants < 1) {
-			throw new IllegalArgumentException();
-		}
-		if (!this.isInService()) {
-			throw new RentalOutOfServiceException("Not in service");
-		}
+		checkLeaseConditions(client, startDate, duration, occupants);
+//		if (client == null || startDate == null || duration < 1 || occupants < 1) {
+//			throw new IllegalArgumentException();
+//		}
+//		if (!this.isInService()) {
+//			throw new RentalOutOfServiceException("Not in service");
+//		}
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || 
 			!(startDate.getDayOfWeek().name().equals("Sunday")) ||
 			!(endDate.getDayOfWeek().name().equals("Sunday"))) {
 			throw new RentalDateException("Invalid date");
 		}
+		for (int i = 0; i < myLeases.size(); i++) {
+			if (endDate.compareTo(myLeases.get(i).getStart()) >= 0 && startDate.compareTo(myLeases.get(i).getEnd()) <= 0) {
+				throw new RentalDateException("Invalid date");
+			}
+		}
 //		if (the non-Sunday dates in the lease overlap with another lease) {
 //			throw new RentalDateException();
 //		}
-		if (occupants > MAX_CAPACITY) {
+		if (occupants > super.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
 		this.checkDates(startDate, endDate);
@@ -104,6 +110,7 @@ public class HotelSuite extends RentalUnit {
 	@Override
 	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate,
 			LocalDate endDate, int numOccupants) throws RentalCapacityException, RentalDateException {
+		
 		return null;
 	}
 	
