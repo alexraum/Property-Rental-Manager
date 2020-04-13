@@ -5,8 +5,8 @@ package edu.ncsu.csc216.business.list_utils;
 
 /**
  * Implements the SimpleList interface with an array data structure.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class SimpleArrayList<E> implements SimpleList<E> {
 
@@ -63,7 +63,6 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * Returns whether the list contains object e
 	 * 
 	 * @param e the object to check
-	 * 
 	 * @return whether the object contains
 	 */
 	@Override
@@ -75,9 +74,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * Adds an item to the list
 	 * 
 	 * @param e the object to add
-	 * 
 	 * @return if the object is added
-	 * 
 	 * @throws NullPointerException If the specified element is null
 	 * @throws IllegalArgumentException if the list already contains e
 	 */
@@ -101,9 +98,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * Gets the item from an index
 	 * 
 	 * @param idx the index of the item
-	 * 
 	 * @return the element
-	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@SuppressWarnings("unchecked")
@@ -120,9 +115,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * 
 	 * @param pos the position of the elemeent
 	 * @param e the element
-	 * 
 	 * @return if the element was added
-	 * 
 	 * @throws NullPointerException If the specified element is null
 	 * @throws IllegalArgumentException If the specified element is already in the list
 	 * @throws IndexOutOfBoundsException If the index is out of range
@@ -152,9 +145,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * Removes an item at index
 	 * 
 	 * @param index the index of the element to remove
-	 * 
 	 * @return if the element is removed
-	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@SuppressWarnings("unchecked")
@@ -176,7 +167,6 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * Returns the index of an element
 	 * 
 	 * @param the element
-	 * 
 	 * @return the index of the element
 	 */
 	@Override

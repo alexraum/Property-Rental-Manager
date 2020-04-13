@@ -4,11 +4,6 @@
 package edu.ncsu.csc216.business.model.contracts;
 
 import java.time.LocalDate;
-import java.time.Month;
-
-import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
-import edu.ncsu.csc216.business.model.properties.HotelSuite;
-import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
@@ -135,40 +130,15 @@ public class Lease implements Comparable<Lease> {
 	 * Sets the end date earlier for the Lease
 	 * 
 	 * @param date the new date
+	 * @throws IllegalArgumentException if the date parameter
+	 * is after the end date of the lease or before the start 
+	 * date of the lease
 	 */
 	public void setEndDateEarlier(LocalDate date) {
 		if (date.isAfter(endDate) || date.isBefore(startDate)) {
 			throw new IllegalArgumentException();
 		}
 		this.endDate = date;
-		
-		
-		
-//		if (getProperty() instanceof HotelSuite && date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-//			this.endDate = date;
-//		} else if (getProperty() instanceof HotelSuite && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-//			while (!date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-//				date = date.minusDays(1);
-//			}
-//			this.endDate = date;
-//		}
-////		if (either of these lease modifications would force the lease to cover only one day rather than at least one week) {
-////			the lease is cancelled
-////		}
-//		if (getProperty() instanceof ConferenceRoom) {
-//			this.endDate = date.minusDays(1);
-//		}
-//		if (getProperty() instanceof Office) {
-////			end date is set to the last day of the month immediately before the cutoff date
-//			Month m = date.getMonth();
-//			while (date.getMonth().equals(m)) {
-//				date = date.minusDays(1);
-//			}
-//			this.endDate = date;
-//		}
-////		if (this.endDate is now before this.startDate) {
-////			the lease is cancelled
-////		}
 	}
 	
 	/**
@@ -192,6 +162,8 @@ public class Lease implements Comparable<Lease> {
 	 * Resets the confirmation counter to the given parameter
 	 * 
 	 * @param newCounter the value to reset the counter to
+	 * @throws IllegalArgumentException if the newCounter parameter
+	 * is less than 0 or greater than the MAX_CONF_NUM constant
 	 */
 	public static void resetConfirmationNumbering(int newCounter) {
 		if (newCounter < 0 || newCounter > MAX_CONF_NUM) {
@@ -201,7 +173,9 @@ public class Lease implements Comparable<Lease> {
 	}
 	
 	/**
-	 * Compares Leases
+	 * Used to compare Lease objects by observing the 
+	 * values of their startDate and confirmationNumber 
+	 * fields.
 	 * 
 	 * @param lease the Lease to compare to 
 	 * @return which Lease is first
@@ -212,22 +186,5 @@ public class Lease implements Comparable<Lease> {
 		} else {
 			return confirmationNumber - lease.confirmationNumber;
 		}
-//		int thisConfNum;
-//		int confNum;
-//		if (this.startDate.compareTo(lease.getStart()) < 0) {
-//			return 1;
-//		} else if (this.startDate.compareTo(lease.getStart()) > 0) {
-//			return -1;
-//		} else {
-//			thisConfNum = getConfirmationNumber();
-//			confNum = lease.getConfirmationNumber();
-//		}
-//		if (thisConfNum > confNum) {
-//			return 1;
-//		} else if (thisConfNum < confNum) {
-//			return -1;
-//		} else {
-//			return 0;
-//		}
 	}
 }

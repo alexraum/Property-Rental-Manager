@@ -26,6 +26,9 @@ public class Client {
 	 * 
 	 * @param name of client
 	 * @param id of client
+	 * @throws IllegalArgumentException if the name or id parameters
+	 * are null, if length of the ID is less than 3, the name is blank
+	 * or the ID contains whitespace
 	 */
 	public Client(String name, String id) {
 		// TODO need to loop through name and id and check each 
@@ -44,8 +47,6 @@ public class Client {
 		if (newId.contains(" ")) {
 			throw new IllegalArgumentException();
 		}
-		
-		
 		this.name = newName;
 		this.id = newId;
 		myLeases = new SimpleArrayList<Lease>();
@@ -110,6 +111,8 @@ public class Client {
 	 * Adds a new Lease to the list of Leases
 	 * 
 	 * @param lease the Lease to be added
+	 * @throws IllegalArgumentException if the Lease does not
+	 * belong to this Client
 	 */
 	public void addNewLease(Lease lease) {
 		if (!lease.getClient().equals(this)) {
@@ -125,14 +128,6 @@ public class Client {
 	 * @return an array of Strings containing details of each Lease
 	 */
 	public String[] listLeases() {
-//		String[] leases = new String[myLeases.size()];
-//		for (int i = 0; i < myLeases.size(); i++) {
-//			Lease lease = myLeases.get(i);
-//			leases[i] = lease.getConfirmationNumber() + " | " + lease.getStart()
-//			+ " to " + lease.getEnd() + " | " + lease.getNumOccupants() + " | " 
-//			+ getName() + " " + getId();
-//		}
-//		return leases;
 		String[] leases = new String[myLeases.size()];
 		for (int i = 0; i < myLeases.size(); i++) {
 			String[] data = myLeases.get(i).leaseData();
@@ -155,6 +150,9 @@ public class Client {
 	 * @param index index in the myLeases field of the Lease to 
 	 * be canceled
 	 * @return the canceled Lease
+	 * @throws IllegalArgumentException if the index is less than
+	 * 0 or greater than or equal to the length of the myLeases 
+	 * list
 	 */
 	public Lease cancelLeaseAt(int index) {
 		if (index < 0 || index >= this.myLeases.size()) {
@@ -170,6 +168,8 @@ public class Client {
 	 * @param confirmationNumber the confirmationNumber of the desired Lease 
 	 * in the myLeases field to be canceled
 	 * @return the canceled Lease
+	 * @throws IllegalArgumentException if no Lease with the confirmationNumber
+	 * parameter is in the list
 	 */
 	public Lease cancelLeaseWithNumber(int confirmationNumber) {
 		for (int i = 0; i < myLeases.size(); i++) {

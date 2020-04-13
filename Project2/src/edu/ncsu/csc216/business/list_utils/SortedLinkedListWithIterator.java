@@ -52,7 +52,6 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Returns whether the list contains object e
 	 * 
 	 * @param e the object to check
-	 * 
 	 * @return whether the object contains
 	 */
 	@Override
@@ -64,7 +63,6 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Adds an item to the list
 	 * 
 	 * @param e the object to add
-	 * 
 	 * @return if the object is added
 	 * @throws NullPointerException if e is null
 	 * @throws IllegalArgumentException if list already contains e
@@ -102,9 +100,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Gets the item from an index
 	 * 
 	 * @param index the index of the item
-	 * 
 	 * @return the element
-	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@Override
@@ -123,9 +119,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Remove an item at index
 	 * 
 	 * @param index the index of the element to remove
-	 * 
 	 * @return if the element is removed
-	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@Override
@@ -152,9 +146,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Shorten the list
 	 * 
 	 * @param start of the truncate
-	 * 
 	 * @return the truncated sorted list
-	 * 
 	 * @throws IllegalArgumentException if the index is out of range
 	 */
 	@Override
@@ -183,7 +175,6 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * Returns the index of an element
 	 * 
 	 * @param the element
-	 * 
 	 * @return the index of the element
 	 */
 	@Override
@@ -230,7 +221,8 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 	
 	/**
-	 * The node object
+	 * The Node class is a private inner class and is used
+	 * to define all state and behavior for a Node object.
 	 * 
 	 * @author Alex Raum, Walker Clem
 	 */
@@ -254,7 +246,8 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 	
 	/**
-	 * The cursor object
+	 * The Cursor class is a private inner class and is used
+	 * to define all state and behavior for a Cursor object.
 	 * 
 	 * @author Alex Raum, Walker Clem
 	 */

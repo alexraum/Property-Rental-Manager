@@ -13,8 +13,12 @@ import edu.ncsu.csc216.business.model.stakeholders.Client;
 import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
+ * The RentalUnit class provides all necessary state and behavior for child
+ * classes that extend the RentalUnit class. RentalUnit also contains abstract
+ * methods whose unique implementations are delegated to the child classes
+ * and determined by their needs.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 
@@ -43,6 +47,10 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @param location String that contains the floor and room number
 	 * of the RentalUnit
 	 * @param capacity the capacity of the RentalUnit
+	 * @throws IllegalArgumentException if the capacity parameter is 
+	 * less than 0, if the floor parameter is greater than the max 
+	 * floor or less than the min floor, or if the room parameter is 
+	 * greater than the max room or less than the min room
 	 */
 	public RentalUnit(String location, int capacity) {
 		if (capacity < 0) {
@@ -105,23 +113,6 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		} else {
 			return getRoom() - unit.getRoom();
 		}
-//		int thisRoom;
-//		int room;
-//		if (getFloor() > unit.getFloor() ) {
-//			return 1;
-//		} else if (getFloor() < unit.getFloor()) {
-//			return -1;
-//		} else {
-//			thisRoom = getRoom();
-//			room = unit.getRoom();
-//		}
-//		if (thisRoom > room) {
-//			return 1;
-//		} else if (thisRoom < room) {
-//			return -1;
-//		} else {
-//			return 0;	
-//		}
 	}
 	
 	/**
@@ -149,30 +140,28 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	}
 	
 	/**
-	 * Reserves the room
-	 * @param client the client to lease to
-	 * @param date the date to lease to
-	 * @param i the first number
-	 * @param j the second number
-	 * @throws RentalCapacityException if the capacity is too high
-	 * @throws RentalDateException if the date is wrong
-	 * @throws RentalOutOfServiceException if the rental is out of service
-	 * @return a lease
+	 * The reserve method is used to reserve the rental unit for a new Lease
+	 * 
+	 * @param client the client creating the lease
+	 * @param startDate the start date of the lease
+	 * @param endDate the end date of the lease
+	 * @param duration the duration of the lease
+	 * @param occupants the number of occupants for the lease
 	 */
-	public abstract Lease reserve(Client client, LocalDate date, int i, int j) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException; 
+	public abstract Lease reserve(Client client, LocalDate startDate, int duration,
+			int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException; 
 	
 	/**
-	 * Records the previous lease for the room
-	 * @param i the first number
-	 * @param client the client to lease to
-	 * @param endDate the date to start
- 	 * @param startDate the date to lease to
-	 * @param k the second number
-	 * @throws RentalCapacityException if the capacity is too high
-	 * @throws RentalDateException if the date is wrong
-	 * @return a lease
+	 * A method for reserving the rental unit for an existing lease
+	 * 
+	 * @param confirmationNumber the confirmation number of the lease
+	 * @param client the client of the lease
+	 * @param startDate the start date of the lease
+	 * @param endDate the end date of the lease 
+	 * @param numOccupants the number of occupants of the lease 
 	 */
-	public abstract Lease recordExistingLease(int i, Client client, LocalDate startDate, LocalDate endDate, int k) throws RentalDateException, RentalCapacityException;
+	public abstract Lease recordExistingLease(int confirmationNumber, Client client,
+			LocalDate startDate, LocalDate endDate, int numOccupants) throws RentalDateException, RentalCapacityException;
 	
 	/**
 	 * Checks the start and end dates to ensure that they
@@ -194,25 +183,19 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		if (startDate.isAfter(endDate)) {
 			throw new RentalDateException("Start date for lease cannot be after the end date");
 		}
-//		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
-//			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
-//		}
-//		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
-//			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
-//		}
-//		if (startDate.isAfter(endDate)) {
-//			throw new RentalDateException("End date for lease cannot be after the start date");
-//		}
 	}
 	
 	/**
 	 * Checks the conditions for a potential Lease to ensure
-	 * that they are met
+	 * that they are met.
 	 * 
 	 * @param client the Client of the Lease
 	 * @param date the start date of the Lease
 	 * @param duration the duration of the Lease
 	 * @param numOccupants the number of occupants 
+	 * @throws IllegalArgumentException if the client or 
+	 * startDate are null, or if the duration or numOccupants
+	 * parameters are less than 1 
 	 * @throws RentalOutOfServiceException if any of the 
 	 * conditions are not met 
 	 */
@@ -267,6 +250,8 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * @param confirmationNumber the confirmation number of the
 	 * Lease to be canceled
 	 * @return the Lease that has been canceled
+	 * @throws IllegalArgumentException if confirmationNumber parameter
+	 * does not match any leases in the myLeases list 
 	 */
 	public Lease cancelLeaseByNumber(int confirmationNumber) {
 		// TODO need to determine if we need to remove occupants and clear up
@@ -283,13 +268,13 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * Adds a Lease to the myLeases field.
 	 *
 	 * @param lease the Lease to be add
+	 * @throws IllegalArgumentException if the lease is for a different
+	 * rental unit
 	 */
 	public void addLease(Lease lease) {
 		if (!inService) {
 			return;
 		}
-		// TODO verify if this interpretation of the 
-		// requirements is correct
 		if (!this.equals(lease.getProperty())) {
 			throw new IllegalArgumentException();
 		}
@@ -341,10 +326,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-//		result = prime * result + capacity;
 		result = prime * result + floor;
-//		result = prime * result + (inService ? 1231 : 1237);
-//		result = prime * result + ((myLeases == null) ? 0 : myLeases.hashCode());
 		result = prime * result + room;
 		return result;
 	}
@@ -365,18 +347,8 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		if (!(obj instanceof RentalUnit))
 			return false;
 		RentalUnit other = (RentalUnit) obj;
-//		if (capacity != other.capacity)
-//			return false;
 		if (floor != other.floor)
 			return false;
-//		if (inService != other.inService)
-//			return false;
-		// TODO may need to remove myLeases field from equals method
-//		if (myLeases == null) {
-//			if (other.myLeases != null)
-//				return false;
-//		} else if (!myLeases.equals(other.myLeases))
-//			return false;
 		if (room != other.room)
 			return false;
 		return true;

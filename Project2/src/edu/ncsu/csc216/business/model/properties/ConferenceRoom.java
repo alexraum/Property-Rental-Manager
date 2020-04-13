@@ -37,20 +37,18 @@ public class ConferenceRoom extends RentalUnit {
 	}
 	
 	/**
-	 * The reserve method is used to reserve the rental unit for a new Lease
+	 * The reserve method is used to reserve the conference room for a new Lease
 	 * 
-	 * @param client the client reserving the lease
+	 * @param client the client creating the lease
 	 * @param startDate the start date of the lease
 	 * @param endDate the end date of the lease
 	 * @param duration the duration of the lease
 	 * @param occupants the number of occupants for the lease
-	 * 
-	 * @return the Lease reserving the rental unit
-	 * 
-	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
+	 * @return the Lease reserving the RentalUnit
+	 * @throws RentalCapacityException if the conference room cannot hold the number of 
 	 * occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or computed end dates are not valid
-	 * @throws RentalOutOfServiceException if the rental unit is currently out of service
+	 * @throws RentalOutOfServiceException if the conference room is currently out of service
 	 */
 	@Override
 	public Lease reserve(Client client, LocalDate startDate, int duration, 
@@ -67,15 +65,6 @@ public class ConferenceRoom extends RentalUnit {
 			if (endDate.compareTo(myLeases.get(i).getStart()) >= 0 && startDate.compareTo(myLeases.get(i).getEnd()) <= 0) {
 				throw new RentalDateException("Invalid date");
 			}
-//			if (startDate.isEqual(myLeases.get(i).getStart())) {
-//				throw new RentalDateException("Invalid date");
-//			}
-//			if (startDate.isBefore(myLeases.get(i).getEnd()) && endDate.isAfter(myLeases.get(i).getStart())) {
-//				throw new RentalDateException("Invalid date");
-//			}
-//			if (endDate.isAfter(myLeases.get(i).getStart()) && endDate.isBefore(myLeases.get(i).getEnd())) {
-//				throw new RentalDateException("Invalid date");
-//			}
 		}
 		this.checkDates(startDate, endDate);
 		Lease lease = new Lease(0, client, this, startDate, endDate, occupants);
@@ -84,16 +73,14 @@ public class ConferenceRoom extends RentalUnit {
 	}
 	
 	/**
-	 * A method for reserving the rental unit of an existing lease
+	 * A method for reserving the conference room for an existing lease
 	 * 
 	 * @param confirmationNumber the confirmation number of the lease
 	 * @param client the client of the lease
 	 * @param startDate the start date of the lease
 	 * @param endDate the end date of the lease 
 	 * @param numOccupants the number of occupants of the lease 
-	 * 
 	 * @return the Lease that the rental unit is being reserved for
-	 * 
 	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
 	 * occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or computed end dates are not valid
@@ -134,7 +121,7 @@ public class ConferenceRoom extends RentalUnit {
 	}
 	
 	/**
-	 * Returns a String description of this conference rooms
+	 * Returns a String description of this conference room
 	 * 
 	 * @return a description of this conference room as a String
 	 */
