@@ -312,9 +312,9 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 			f = " " + floor;
 		}
 		if (isInService()) {
-			return f + "-" + room + " | " + capacity;
+			return f + "-" + room + " | " + getCapacity();
 		} else {
-			return f + "-" + room + " | " + capacity + " Unavailable";
+			return f + "-" + room + " | " + getCapacity() + " Unavailable";
 		}
 	}
 	
