@@ -21,7 +21,7 @@ import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 public class HotelSuite extends RentalUnit {
 	
 	/** the max capacity of the room */
-	public static final int MAX_CAPACITY = 1;
+	public static final int MAX_CAPACITY = 2;
 	
 	/**
 	 * Small Constructor for the HotelSuite class
