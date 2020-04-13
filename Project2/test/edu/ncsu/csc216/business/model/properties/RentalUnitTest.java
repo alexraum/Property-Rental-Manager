@@ -194,7 +194,7 @@ public class RentalUnitTest {
 		room.addLease(lease);
 		String[] leases = room.listLeases();
 		
-		assertEquals(leases[0], "000010 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 23-11");
+		assertEquals(leases[0], "000010 | 2020-04-08 to 2020-04-15 | 18 | Alex Raum (maraum)");
 	}
 
 	@Test
@@ -211,7 +211,7 @@ public class RentalUnitTest {
 		room.addLease(lease);
 		String[] leases = room.listLeases();
 		
-		assertEquals("000010 | 2020-04-08 to 2020-04-15 | 18 | Conference Room: 23-11", leases[0]);
+		assertEquals("000010 | 2020-04-08 to 2020-04-15 | 18 | Alex Raum (maraum)", leases[0]);
 	}
 
 	@Test
