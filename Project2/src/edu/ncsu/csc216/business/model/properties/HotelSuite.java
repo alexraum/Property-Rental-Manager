@@ -29,7 +29,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param location the location of the room
 	 */
 	public HotelSuite(String location) {
-		this(location, 0);
+		this(location, 1);
 	}
 	
 	/**

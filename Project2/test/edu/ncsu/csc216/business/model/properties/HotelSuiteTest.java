@@ -104,7 +104,6 @@ public class HotelSuiteTest {
 			assertEquals(11, suite.getRoom());
 			assertEquals(2, suite.getCapacity());
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -134,7 +133,6 @@ public class HotelSuiteTest {
 		} catch (RentalDateException e) {
 			assertEquals("Start date for lease cannot be after the end date", e.getMessage());
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
