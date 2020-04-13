@@ -310,7 +310,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		String f = "" + getFloor();
 		if (f.length() == 1) {
 			f = " " + getFloor();
-		}
+		} 
 		if (isInService()) {
 			return f + "-" + getRoom() + " | " + getCapacity();
 		} else {
