@@ -310,7 +310,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 		for (int i = 0; i < myLeases.size(); i++) {
 			String[] data = myLeases.get(i).leaseData();
 			leases[i] = data[0] + " | " + data[1] + " | " 
-			+ data[2] + " | " + data[4] + "  (" +  data[5] + ")";
+			+ data[2] + " | " + data[4] + " (" +  data[5] + ")";
 		}
 		return leases;
 	}
