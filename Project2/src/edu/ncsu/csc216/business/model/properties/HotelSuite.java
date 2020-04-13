@@ -78,7 +78,11 @@ public class HotelSuite extends RentalUnit {
 			throw new RentalDateException("Invalid date");
 		}
 		for (int i = 0; i < myLeases.size(); i++) {
-			if (endDate.compareTo(myLeases.get(i).getStart()) > 0 && startDate.compareTo(myLeases.get(i).getEnd()) < 0) {
+			Lease l = myLeases.get(i);
+			if (endDate.compareTo(l.getStart()) > 0 && startDate.compareTo(l.getEnd()) < 0) {
+				throw new RentalDateException("Invalid date");
+			}
+			if (l.getStart().equals(startDate)) {
 				throw new RentalDateException("Invalid date");
 			}
 		}
