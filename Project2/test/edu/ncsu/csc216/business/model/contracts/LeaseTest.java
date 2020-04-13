@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
-import edu.ncsu.csc216.business.model.properties.HotelSuite;
-import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
