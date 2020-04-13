@@ -206,5 +206,6 @@ public class HotelSuite extends RentalUnit {
 		if (startDate.compareTo(endDate) >= 0) {
 			throw new RentalDateException("Start date for lease cannot be after the end date");
 		}
+		// TODO use isAfter instead of compareTo method
 	}
 }

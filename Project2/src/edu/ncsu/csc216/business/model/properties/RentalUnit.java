@@ -53,7 +53,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 	 * greater than the max room or less than the min room
 	 */
 	public RentalUnit(String location, int capacity) {
-		if (capacity < 0) {
+		if (capacity <= 0) {
 			throw new IllegalArgumentException();
 		}
 		Scanner scan = new Scanner(location);
