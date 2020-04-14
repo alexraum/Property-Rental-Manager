@@ -74,12 +74,7 @@ public class Office extends RentalUnit {
 		if (!this.isInService()) {
 			throw new RentalOutOfServiceException("Not in service");
 		}
-		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || 
-			!(startDate.getDayOfWeek().name().equals("Sunday")) ||
-			!(endDate.getDayOfWeek().name().equals("Sunday"))) {
-			throw new RentalDateException("Invalid date");
-		}
-		if (occupants > MAX_CAPACITY) {
+		if (occupants > super.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
 
@@ -216,16 +211,14 @@ public class Office extends RentalUnit {
 	 */
 	@Override
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
-		// TODO override, check to make sure the dates for a potential new Lease are valid, such as
-		// starting and ending on the correct days of the week or month
-		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
+		if (startDate.isBefore(PropertyManager.EARLIEST_DATE)) {
 			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
 		}
-		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
+		if (endDate.isAfter(PropertyManager.LATEST_DATE)) {
 			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
 		}
 		if (startDate.isAfter(endDate)) {
-			throw new RentalDateException("End date for lease cannot be after the start date");
+			throw new RentalDateException("Start date for lease cannot be after the end date");
 		}
 		if (startDate.getDayOfMonth() != 1 || endDate.getDayOfMonth() != endDate.lengthOfMonth()) {
 			throw new RentalDateException("Invalid date");
