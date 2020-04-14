@@ -290,7 +290,7 @@ public class Office extends RentalUnit {
 		Lease lease;
 		for (int i = 0; i < myLeases.size(); i++) {
 			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
-				lease = myLeases.remove(i);
+				lease = myLeases.get(i);
 				int startMonth = lease.getStart().getMonthValue() - 1;
 				int startYear = lease.getStart().getYear() - 2020;
 				int endMonth = lease.getEnd().getMonthValue() - 1;
