@@ -198,10 +198,10 @@ public class Office extends RentalUnit {
 		// checkDates(startDate, endDate);
 		int duration = ((endDate.getYear() - startDate.getYear()) * 12)
 				+ (endDate.getMonthValue() - startDate.getMonthValue());
-		if (duration == 0) {
-			return 1;
-		}
-		return duration;
+//		if (duration == 0) {
+//			return 1;
+//		}
+		return duration + 1;
 		// return Period.between(startDate, endDate).getMonths();
 	}
 	

@@ -238,6 +238,6 @@ public class OfficeTest {
 		LocalDate end1 = LocalDate.of(2021, 4, 30);
 		LocalDate end2 = LocalDate.of(2022, 4, 30);
 		assertEquals(1, Office.getMonthsDuration(start, end1));
-		assertEquals(12, Office.getMonthsDuration(start, end2));
+		assertEquals(13, Office.getMonthsDuration(start, end2));
 	}
 }
