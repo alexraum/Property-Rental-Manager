@@ -13,16 +13,19 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
- * @author Alex Raum
- *
+ * The OfficeTest class checks the methods defined in the Office class
+ * to ensure their proper functionality.
+ * 
+ * @author Alex Raum, Walker Clem
  */
 public class OfficeTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#reserve(edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, int, int)}.
-	 * @throws RentalCapacityException 
-	 * @throws RentalDateException 
-	 * @throws RentalOutOfServiceException 
+	 * @throws RentalCapacityException if the office cannot hold the number of 
+	 * occupants over the dates of the proposed lease
+	 * @throws RentalDateException if the start date or computed end dates are not valid
+	 * @throws RentalOutOfServiceException if the office is currently out of service
 	 */
 	@Test
 	public void testReserve() throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
@@ -81,10 +84,41 @@ public class OfficeTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#recordExistingLease(int, edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, java.time.LocalDate, int)}.
+	 * 
+	 * @throws RentalCapacityException if the office cannot hold the number of 
+	 * occupants over the dates of the proposed lease
+	 * @throws RentalDateException if the start date is not the first day of the
+	 * month and the end date is not the last day of the month
 	 */
 	@Test
-	public void testRecordExistingLease() {
-		fail("Not yet implemented");
+	public void testRecordExistingLease() throws RentalCapacityException, RentalDateException {
+		Office office = new Office("22-11", 30);
+		int confirmationNumber = 1;
+		Client client = new Client("Alex Raum", "maraum");
+		LocalDate start = LocalDate.of(2021, 4, 1);
+		LocalDate end = LocalDate.of(2021, 4, 30);
+		int numOccupants = 10;
+		
+		Lease lease = office.recordExistingLease(confirmationNumber, client, start, end, numOccupants);
+		assertEquals(end, lease.getEnd());
+		
+		try {
+			office.recordExistingLease(confirmationNumber, client, start, end, 31);
+			fail();
+		} catch (RentalCapacityException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(30, office.getCapacity());
+		}
+		
+		try {
+			office.recordExistingLease(2, client, start, end, 21);
+			fail();
+		} catch (RentalCapacityException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(30, office.getCapacity());
+		}
 	}
 
 	/**
@@ -92,31 +126,107 @@ public class OfficeTest {
 	 */
 	@Test
 	public void testCheckDates() {
-		fail("Not yet implemented");
+		Office office = new Office("22-11", 30);
+		LocalDate validStart = LocalDate.of(2020, 02, 06);
+		LocalDate invalidStart = LocalDate.of(2019, 02, 06);
+		LocalDate validEnd = LocalDate.of(2029, 11, 29);
+		LocalDate invalidEnd = LocalDate.of(2030, 11, 29);
+		
+		try {
+			office.checkDates(invalidStart, validEnd);
+			fail();
+		} catch (RentalDateException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(30, office.getCapacity());
+		}
+		
+		try {
+			office.checkDates(validStart, invalidEnd);
+			fail();
+		} catch (RentalDateException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(30, office.getCapacity());
+		}
+		
+		try {
+			office.checkDates(validEnd, validStart);
+			fail();
+		} catch (RentalDateException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(30, office.getCapacity());
+		}
 	}
 
 	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#removeFromServiceStarting(java.time.LocalDate)}.
+	 * Checks the proper functionality of the cancelLeaseByNumber method.
+	 * 
+	 * @throws RentalCapacityException if the office cannot hold the number of 
+	 * occupants over the dates of the proposed lease
+	 * @throws RentalDateException if the start date is not the first day of the
+	 * month and the end date is not the last day of the month
 	 */
 	@Test
-	public void testRemoveFromServiceStarting() {
-		fail("Not yet implemented");
+	public void testCancelLeaseByNumber() throws RentalDateException, RentalCapacityException {
+		Office office = new Office("22-11", 30);
+		int confirmationNumber = 1;
+		Client client = new Client("Alex Raum", "maraum");
+		LocalDate start = LocalDate.of(2021, 4, 1);
+		LocalDate end = LocalDate.of(2021, 4, 30);
+		int numOccupants = 10;
+		
+		Lease lease = office.recordExistingLease(confirmationNumber, client, start, end, numOccupants);
+		assertEquals(lease, office.cancelLeaseByNumber(confirmationNumber));
+		
+		try {
+			office.cancelLeaseByNumber(2);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(30, office.getCapacity());	
+		}
 	}
+	
+//	/**
+//	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#removeFromServiceStarting(java.time.LocalDate)}.
+//	 */
+//	@Test
+//	public void testRemoveFromServiceStarting() {
+//		//fail("Not yet implemented");
+//	}
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#getDescription()}.
 	 */
 	@Test
 	public void testGetDescription() {
-		fail("Not yet implemented");
+		Office office = new Office("22-11", 30);
+		assertEquals("Office:          22-11 |  30", office.getDescription());
 	}
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#remainingCapacityFor(java.time.LocalDate)}.
+	 * 
+	 * @throws RentalCapacityException if the office cannot hold the number of 
+	 * occupants over the dates of the proposed lease
+	 * @throws RentalDateException if the start date is not the first day of the
+	 * month and the end date is not the last day of the month
 	 */
 	@Test
-	public void testRemainingCapacityFor() {
-		fail("Not yet implemented");
+	public void testRemainingCapacityFor() throws RentalCapacityException, RentalDateException {
+		Office office = new Office("22-11", 30);
+		int confirmationNumber = 1;
+		Client client = new Client("Alex Raum", "maraum");
+		LocalDate start = LocalDate.of(2021, 4, 1);
+		LocalDate end = LocalDate.of(2021, 4, 30);
+		LocalDate checkDate = LocalDate.of(2021, 4, 15);
+		int numOccupants = 10;
+		
+		office.recordExistingLease(confirmationNumber, client, start, end, numOccupants);
+		assertEquals(20, office.remainingCapacityFor(checkDate));
 	}
 
 	/**
@@ -124,7 +234,10 @@ public class OfficeTest {
 	 */
 	@Test
 	public void testGetMonthsDuration() {
-		fail("Not yet implemented");
+		LocalDate start = LocalDate.of(2021, 4, 1);
+		LocalDate end1 = LocalDate.of(2021, 4, 30);
+		LocalDate end2 = LocalDate.of(2022, 4, 30);
+		assertEquals(1, Office.getMonthsDuration(start, end1));
+		assertEquals(12, Office.getMonthsDuration(start, end2));
 	}
-
 }

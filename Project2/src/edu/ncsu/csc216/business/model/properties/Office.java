@@ -77,18 +77,22 @@ public class Office extends RentalUnit {
 		if (occupants > super.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
-
-		for (int i = startDate.getYear(); i < endDate.getYear(); i++) {
-			for (int j = startDate.getMonthValue(); j < endDate.getMonthValue(); j++) {
+		int startMonth = startDate.getMonthValue() - 1;
+		int startYear = startDate.getYear() - 2020;
+		int endMonth = endDate.getMonthValue() - 1;
+		int endYear = endDate.getYear() - 2020;
+		// TODO does the upper index need to be <=?
+		for (int i = startYear; i <= endYear; i++) {
+			for (int j = startMonth; j <= endMonth; j++) {
 				if (calendar[i][j] < occupants) {
 					throw new RentalCapacityException("Capacity is breached");
 				}
 			}
 		}
 		this.checkDates(startDate, endDate);
-		Lease l = new Lease(0, client, this, startDate, endDate, occupants);
-		this.addLease(l);
-		return l;
+		Lease lease = new Lease(0, client, this, startDate, endDate, occupants);
+		this.addLease(lease);
+		return lease;
 	}
 	
 	/**
@@ -111,17 +115,22 @@ public class Office extends RentalUnit {
 		if (numOccupants > this.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
-		for (int i = 0; i < myLeases.size(); i++) {
-			Lease l = myLeases.get(i);
-			if (endDate.compareTo(l.getStart()) > 0 && startDate.compareTo(l.getEnd()) < 0) {
-				throw new RentalDateException("Invalid date");
-			}
-			if (l.getStart().equals(startDate)) {
-				throw new RentalDateException("Invalid date");
-			}
-		}
-		for (int i = startDate.getYear(); i < endDate.getYear(); i++) {
-			for (int j = startDate.getMonthValue(); j < endDate.getMonthValue(); j++) {
+//		for (int i = 0; i < myLeases.size(); i++) {
+//			Lease l = myLeases.get(i);
+//			if (endDate.compareTo(l.getStart()) > 0 && startDate.compareTo(l.getEnd()) < 0) {
+//				throw new RentalDateException("Invalid date");
+//			}
+//			if (l.getStart().equals(startDate)) {
+//				throw new RentalDateException("Invalid date");
+//			}
+//		}
+		int startMonth = startDate.getMonthValue() - 1;
+		int startYear = startDate.getYear() - 2020;
+		int endMonth = endDate.getMonthValue() - 1;
+		int endYear = endDate.getYear() - 2020;
+		// TODO does the upper index need to be <=?
+		for (int i = startYear; i <= endYear; i++) {
+			for (int j = startMonth; j <= endMonth; j++) {
 				if (calendar[i][j] < numOccupants) {
 					throw new RentalCapacityException("Capacity is breached");
 				}
@@ -186,7 +195,14 @@ public class Office extends RentalUnit {
 	 * the end date
 	 */
 	protected static int getMonthsDuration(LocalDate startDate, LocalDate endDate) {
-		return Period.between(startDate, endDate).getMonths();
+		// checkDates(startDate, endDate);
+		int duration = ((endDate.getYear() - startDate.getYear()) * 12)
+				+ (endDate.getMonthValue() - startDate.getMonthValue());
+		if (duration == 0) {
+			return 1;
+		}
+		return duration;
+		// return Period.between(startDate, endDate).getMonths();
 	}
 	
 	/**
@@ -242,13 +258,15 @@ public class Office extends RentalUnit {
 		}
 		// TODO verify if we need to check exceeding capacity, date conflicts, etc.
 		// before in this method before adding Lease to list
-		int occupants = lease.getNumOccupants();
 		// for each month the lease covers, set the calendar to capacity minus number of occupants
-		LocalDate start = lease.getStart();
-		LocalDate end = lease.getEnd();
-		for (int i = start.getYear(); i < end.getYear(); i++) {
-			for (int j = start.getMonthValue(); j < end.getMonthValue(); j++) {
-				calendar[i][j] -= occupants;
+		int startMonth = lease.getStart().getMonthValue() - 1;
+		int startYear = lease.getStart().getYear() - 2020;
+		int endMonth = lease.getEnd().getMonthValue() - 1;
+		int endYear = lease.getEnd().getYear() - 2020;
+		// TODO does the upper index need to be <=?
+		for (int i = startYear; i <= endYear; i++) {
+			for (int j = startMonth; j <= endMonth; j++) {
+				calendar[i][j] -= lease.getNumOccupants();
 			}
 		}
 		this.myLeases.add(lease);
@@ -272,10 +290,13 @@ public class Office extends RentalUnit {
 		for (int i = 0; i < myLeases.size(); i++) {
 			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
 				lease = myLeases.remove(i);
-				LocalDate start = lease.getStart();
-				LocalDate end = lease.getEnd();
-				for (int j = start.getYear(); j < end.getYear(); j++) {
-					for (int k = start.getMonthValue(); k < end.getMonthValue(); k++) {
+				int startMonth = lease.getStart().getMonthValue() - 1;
+				int startYear = lease.getStart().getYear() - 2020;
+				int endMonth = lease.getEnd().getMonthValue() - 1;
+				int endYear = lease.getEnd().getYear() - 2020;
+				// TODO does the upper index need to be <=?
+				for (int j = startYear; j <= endYear; j++) {
+					for (int k = startMonth; k <= endMonth; k++) {
 						calendar[j][k] += lease.getNumOccupants();
 					}
 				}
