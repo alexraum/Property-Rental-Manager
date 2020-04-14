@@ -105,10 +105,21 @@ public class Office extends RentalUnit {
 	 * 
 	 * @param date the date to check remaining capacity for
 	 * @return the capacity that is left for the given date
-	 * @throws IllegalArgumentException if the date is < EARLIEST_DATE or
-	 * > LATEST_DATE
+	 * @throws IllegalArgumentException if the date is before
+	 *  EARLIEST_DATE or after LATEST_DATE
 	 */
 	protected int remainingCapacityFor(LocalDate date) {
+		if (date.isBefore(PropertyManager.EARLIEST_DATE) || date.isAfter(PropertyManager.LATEST_DATE)) {
+			throw new IllegalArgumentException();
+		}
+		// TODO need to verify if this logic is correct
+		int count = getCapacity();
+		for (int i = 0; i < myLeases.size(); i++) {
+			Lease l = myLeases.get(i);
+			if (date.compareTo(l.getStart()) >= 0 && date.compareTo(l.getEnd()) <= 0) {
+				count += l.getNumOccupants();
+			}
+		}
 		return 0;
 	}
 	
@@ -149,6 +160,8 @@ public class Office extends RentalUnit {
 	 * the end date
 	 */
 	protected static int getMonthsDuration(LocalDate startDate, LocalDate endDate) {
+//		int startDay = startDate.getDayOfMonth();
+//		int endDay = endDate.getDayOfMonth();
 		return (int)ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), endDate.withDayOfMonth(1));
 	}
 	
