@@ -68,7 +68,6 @@ public class Office extends RentalUnit {
 	public Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
 		LocalDate endDate = startDate.plusMonths(duration).minusDays(1);
-		this.checkDates(startDate, endDate);
 		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 			throw new IllegalArgumentException();
 		}
@@ -78,6 +77,7 @@ public class Office extends RentalUnit {
 		if (occupants > super.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
+		this.checkDates(startDate, endDate);
 		int startMonth = startDate.getMonthValue() - 1;
 		int startYear = startDate.getYear() - 2020;
 		int endMonth = endDate.getMonthValue() - 1;
