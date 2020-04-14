@@ -287,10 +287,10 @@ public class Office extends RentalUnit {
 	public Lease cancelLeaseByNumber(int confirmationNumber) {
 		// TODO need to determine if we need to remove occupants and clear up
 		// time frame in this method (see UC10)
-		Lease lease;
-		for (int i = 0; i < this.myLeases.size(); i++) {
-			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
-				lease = myLeases.remove(i);
+		Lease lease = super.cancelLeaseByNumber(confirmationNumber);
+//		for (int i = 0; i < myLeases.size(); i++) {
+//			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
+				//lease = myLeases.remove(i);
 				int startMonth = lease.getStart().getMonthValue() - 1;
 				int startYear = lease.getStart().getYear() - 2020;
 				int endMonth = lease.getEnd().getMonthValue() - 1;
@@ -302,8 +302,8 @@ public class Office extends RentalUnit {
 					}
 				}
 				return lease;
-			}
-		}
-		throw new IllegalArgumentException();
+//			}
+//		}
+		//throw new IllegalArgumentException();
 	}
 }
