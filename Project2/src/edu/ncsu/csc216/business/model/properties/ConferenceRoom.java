@@ -54,6 +54,7 @@ public class ConferenceRoom extends RentalUnit {
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		LocalDate endDate = startDate.plusDays(duration - 1);
 		checkLeaseConditions(client, startDate, duration, occupants);
+		// TODO throw exception if not in service
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {
 			throw new RentalDateException("Invalid date");
 		}

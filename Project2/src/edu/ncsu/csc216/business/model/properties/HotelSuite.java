@@ -71,6 +71,7 @@ public class HotelSuite extends RentalUnit {
 //		if (!this.isInService()) {
 //			throw new RentalOutOfServiceException("Not in service");
 //		}
+		// TODO throw exception if not in service
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || 
 			!(startDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) ||
 			!(endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY))) {

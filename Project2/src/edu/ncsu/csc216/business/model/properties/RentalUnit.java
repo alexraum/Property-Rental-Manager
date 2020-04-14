@@ -262,6 +262,7 @@ public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
 				return myLeases.remove(i);
 			}
 		}
+		// increment each day in the calendar by the number of occupants in lease
 		throw new IllegalArgumentException();
 	}
 	

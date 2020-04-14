@@ -5,7 +5,9 @@ package edu.ncsu.csc216.business.model.properties;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 
 import edu.ncsu.csc216.business.list_utils.SortedList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
@@ -24,9 +26,9 @@ public class Office extends RentalUnit {
 	/** the max capacity of the room */
 	public static final int MAX_CAPACITY = 150;
 	/** the rows */
-	private static final int CAL_ROWS = 0; // need to double check this value with TA
+	private static final int CAL_ROWS = 10; // need to double check this value with TA
 	/** the rows */
-	private static final int CAL_COLS = 0; // need to double check this value with TA
+	private static final int CAL_COLS = 12; // need to double check this value with TA
 	/** the calendar */
 	private int[][] calendar;
 	
@@ -38,8 +40,14 @@ public class Office extends RentalUnit {
 	 */
 	public Office(String location, int capacity) {
 		super(location, capacity);
+		// fill out calendar with the capacity
+		// each day in the calendar is set to the initial capacity
 		if (capacity > MAX_CAPACITY) {
 			throw new IllegalArgumentException();
+		}
+		calendar = new int[CAL_ROWS][CAL_COLS];
+		for (int[] row : calendar) {
+			Arrays.fill(row, capacity);
 		}
 	}
 	
@@ -60,11 +68,11 @@ public class Office extends RentalUnit {
 	@Override
 	public Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
-		LocalDate endDate = startDate.plusWeeks(duration);
+		LocalDate endDate = startDate.plusMonths(duration).minusDays(1);
 		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 			throw new IllegalArgumentException();
 		}
-		if (this.isInService()) {
+		if (!this.isInService()) {
 			throw new RentalOutOfServiceException("Not in service");
 		}
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || 
@@ -76,6 +84,7 @@ public class Office extends RentalUnit {
 			throw new RentalCapacityException("Too many occupants");
 		}
 		this.checkDates(startDate, endDate);
+		this.addLease(lease);
 		return new Lease(0, client, this, startDate, endDate, occupants);
 	}
 	
@@ -96,7 +105,22 @@ public class Office extends RentalUnit {
 	@Override
 	public Lease recordExistingLease(int confirmationNumber, Client client, LocalDate startDate, 
 			LocalDate endDate, int numOccupants) throws RentalCapacityException, RentalDateException {
-		return null;
+		if (numOccupants > this.getCapacity()) {
+			throw new RentalCapacityException("Too many occupants");
+		}
+		for (int i = 0; i < myLeases.size(); i++) {
+			Lease l = myLeases.get(i);
+			if (endDate.compareTo(l.getStart()) > 0 && startDate.compareTo(l.getEnd()) < 0) {
+				throw new RentalDateException("Invalid date");
+			}
+			if (l.getStart().equals(startDate)) {
+				throw new RentalDateException("Invalid date");
+			}
+		}
+		this.checkDates(startDate, endDate);
+		Lease lease = new Lease(confirmationNumber, client, this, startDate, endDate, numOccupants);
+		this.addLease(lease);
+		return lease;
 	}
 	
 	/**
@@ -109,18 +133,10 @@ public class Office extends RentalUnit {
 	 *  EARLIEST_DATE or after LATEST_DATE
 	 */
 	protected int remainingCapacityFor(LocalDate date) {
-		if (date.isBefore(PropertyManager.EARLIEST_DATE) || date.isAfter(PropertyManager.LATEST_DATE)) {
-			throw new IllegalArgumentException();
-		}
+		int month = date.getMonthValue() - 1;
+		int year = date.getYear() - 2020;
+		return calendar[year][month];
 		// TODO need to verify if this logic is correct
-		int count = getCapacity();
-		for (int i = 0; i < myLeases.size(); i++) {
-			Lease l = myLeases.get(i);
-			if (date.compareTo(l.getStart()) >= 0 && date.compareTo(l.getEnd()) <= 0) {
-				count += l.getNumOccupants();
-			}
-		}
-		return 0;
 	}
 	
 	/**
@@ -160,9 +176,7 @@ public class Office extends RentalUnit {
 	 * the end date
 	 */
 	protected static int getMonthsDuration(LocalDate startDate, LocalDate endDate) {
-//		int startDay = startDate.getDayOfMonth();
-//		int endDay = endDate.getDayOfMonth();
-		return (int)ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), endDate.withDayOfMonth(1));
+		return Period.between(startDate, endDate).getMonths();
 	}
 	
 	/**
@@ -198,5 +212,68 @@ public class Office extends RentalUnit {
 		if (startDate.isAfter(endDate)) {
 			throw new RentalDateException("End date for lease cannot be after the start date");
 		}
+		if (startDate.getDayOfMonth() != 1 || endDate.getDayOfMonth() != endDate.lengthOfMonth()) {
+			throw new RentalDateException("Invalid date");
+		}
+	}
+	
+	/**
+	 * Adds a Lease to the myLeases field.
+	 *
+	 * @param lease the Lease to be add
+	 * @throws IllegalArgumentException if the lease is for a different
+	 * rental unit
+	 */
+	@Override
+	public void addLease(Lease lease) {
+		if (!isInService()) {
+			return;
+		}
+		if (!this.equals(lease.getProperty())) {
+			throw new IllegalArgumentException();
+		}
+		// TODO verify if we need to check exceeding capacity, date conflicts, etc.
+		// before in this method before adding Lease to list
+		int occupants = lease.getNumOccupants();
+		// for each month the lease covers, set the calendar to capacity minus number of occupants
+		LocalDate start = lease.getStart();
+		LocalDate end = lease.getEnd();
+		for (int i = start.getYear(); i < end.getYear(); i++) {
+			for (int j = start.getMonthValue(); j < end.getMonthValue(); j++) {
+				calendar[i][j] -= occupants;
+			}
+		}
+		this.myLeases.add(lease);
+	}
+	
+	/**
+	 * Cancel the Lease in the my Leases list with the corresponding 
+	 * confirmation number.
+	 * 
+	 * @param confirmationNumber the confirmation number of the
+	 * Lease to be canceled
+	 * @return the Lease that has been canceled
+	 * @throws IllegalArgumentException if confirmationNumber parameter
+	 * does not match any leases in the myLeases list 
+	 */
+	@Override
+	public Lease cancelLeaseByNumber(int confirmationNumber) {
+		// TODO need to determine if we need to remove occupants and clear up
+		// time frame in this method (see UC10)
+		Lease lease;
+		for (int i = 0; i < myLeases.size(); i++) {
+			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
+				lease = myLeases.remove(i);
+				LocalDate start = lease.getStart();
+				LocalDate end = lease.getEnd();
+				for (int j = start.getYear(); j < end.getYear(); j++) {
+					for (int k = start.getMonthValue(); k < end.getMonthValue(); k++) {
+						calendar[j][k] += lease.getNumOccupants();
+					}
+				}
+				return lease;
+			}
+		}
+		throw new IllegalArgumentException();
 	}
 }
