@@ -175,15 +175,15 @@ public class Office extends RentalUnit {
 	@Override
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
 		// TODO override, check to make sure the dates for a potential new Lease are valid, such as
-		// starting and ending on the correct days of week or month
-//		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
-//			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
-//		}
-//		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
-//			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
-//		}
-//		if (startDate.isAfter(endDate)) {
-//			throw new RentalDateException("End date for lease cannot be after the start date");
-//		}
+		// starting and ending on the correct days of the week or month
+		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
+			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
+		}
+		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
+			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
+		}
+		if (startDate.isAfter(endDate)) {
+			throw new RentalDateException("End date for lease cannot be after the start date");
+		}
 	}
 }
