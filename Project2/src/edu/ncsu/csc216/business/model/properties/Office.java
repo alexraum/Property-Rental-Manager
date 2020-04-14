@@ -6,7 +6,6 @@ package edu.ncsu.csc216.business.model.properties;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import edu.ncsu.csc216.business.list_utils.SortedList;
@@ -83,9 +82,18 @@ public class Office extends RentalUnit {
 		if (occupants > MAX_CAPACITY) {
 			throw new RentalCapacityException("Too many occupants");
 		}
+
+		for (int i = startDate.getYear(); i < endDate.getYear(); i++) {
+			for (int j = startDate.getMonthValue(); j < endDate.getMonthValue(); j++) {
+				if (calendar[i][j] < occupants) {
+					throw new RentalCapacityException("Capacity is breached");
+				}
+			}
+		}
 		this.checkDates(startDate, endDate);
-		this.addLease(lease);
-		return new Lease(0, client, this, startDate, endDate, occupants);
+		Lease l = new Lease(0, client, this, startDate, endDate, occupants);
+		this.addLease(l);
+		return l;
 	}
 	
 	/**
@@ -115,6 +123,13 @@ public class Office extends RentalUnit {
 			}
 			if (l.getStart().equals(startDate)) {
 				throw new RentalDateException("Invalid date");
+			}
+		}
+		for (int i = startDate.getYear(); i < endDate.getYear(); i++) {
+			for (int j = startDate.getMonthValue(); j < endDate.getMonthValue(); j++) {
+				if (calendar[i][j] < numOccupants) {
+					throw new RentalCapacityException("Capacity is breached");
+				}
 			}
 		}
 		this.checkDates(startDate, endDate);
