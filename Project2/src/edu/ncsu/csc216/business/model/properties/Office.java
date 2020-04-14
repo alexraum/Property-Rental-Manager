@@ -68,6 +68,7 @@ public class Office extends RentalUnit {
 	public Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
 		LocalDate endDate = startDate.plusMonths(duration).minusDays(1);
+		this.checkDates(startDate, endDate);
 		if (client == null || startDate == null || duration < 1 || occupants < 1) {
 			throw new IllegalArgumentException();
 		}
@@ -89,7 +90,6 @@ public class Office extends RentalUnit {
 				}
 			}
 		}
-		this.checkDates(startDate, endDate);
 		Lease lease = new Lease(0, client, this, startDate, endDate, occupants);
 		this.addLease(lease);
 		return lease;
@@ -173,14 +173,15 @@ public class Office extends RentalUnit {
 			Lease l = myLeases.get(i);
 			if (l.getEnd().compareTo(date) >= 0) {
 				Month m = date.getMonth();
+				// TODO need to modify this loop to resolve the IllegalArgumentException failure
 				while (date.getMonth().equals(m)) {
 					date = date.minusDays(1);
 				}
 				l.setEndDateEarlier(date);
 			}
-			if (l.getEnd().isBefore(l.getStart())) {
-				list.add(myLeases.remove(i));
-			}
+//			if (l.getEnd().isBefore(l.getStart())) {
+//				list.add(myLeases.remove(i));
+//			}
 		}
 		return list;
 	}

@@ -195,6 +195,8 @@ public class OfficeTest {
 //	 */
 //	@Test
 //	public void testRemoveFromServiceStarting() {
+	    // TODO error stems from while loop and how I'm moving date back, try adding multiple leases to the list
+	    // then truncate the end date for each lease in the list.  (to resolve IllegalArgumentException failure)
 //		//fail("Not yet implemented");
 //	}
 
