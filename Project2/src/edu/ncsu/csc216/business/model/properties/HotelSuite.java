@@ -116,9 +116,6 @@ public class HotelSuite extends RentalUnit {
 		if (numOccupants > this.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
-		if (!startDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || !endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-			throw new RentalDateException("Invalid date");
-		}
 		for (int i = 0; i < myLeases.size(); i++) {
 			Lease l = myLeases.get(i);
 			if (endDate.compareTo(l.getStart()) > 0 && startDate.compareTo(l.getEnd()) < 0) {
@@ -205,6 +202,8 @@ public class HotelSuite extends RentalUnit {
 		if (startDate.compareTo(endDate) >= 0) {
 			throw new RentalDateException("Start date for lease cannot be after the end date");
 		}
-		// TODO use isAfter instead of compareTo method
+		if (!startDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || !endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+			throw new RentalDateException("Invalid date");
+		}
 	}
 }
