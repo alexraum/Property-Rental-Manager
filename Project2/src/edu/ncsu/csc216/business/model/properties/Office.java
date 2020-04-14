@@ -288,9 +288,9 @@ public class Office extends RentalUnit {
 		// TODO need to determine if we need to remove occupants and clear up
 		// time frame in this method (see UC10)
 		Lease lease;
-		for (int i = 0; i < myLeases.size(); i++) {
+		for (int i = 0; i < this.myLeases.size(); i++) {
 			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
-				lease = myLeases.get(i);
+				lease = myLeases.remove(i);
 				int startMonth = lease.getStart().getMonthValue() - 1;
 				int startYear = lease.getStart().getYear() - 2020;
 				int endMonth = lease.getEnd().getMonthValue() - 1;
