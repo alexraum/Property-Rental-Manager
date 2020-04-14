@@ -52,7 +52,6 @@ public class HotelSuite extends RentalUnit {
 	 * 
 	 * @param client the client creating the lease
 	 * @param startDate the start date of the lease
-	 * @param endDate the end date of the lease
 	 * @param duration the duration of the lease
 	 * @param occupants the number of occupants for the lease
 	 * @return the Lease for the HotelSuite
@@ -107,7 +106,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param endDate the end date of the lease 
 	 * @param numOccupants the number of occupants of the lease 
 	 * @return the Lease that the hotel suite is being reserved for
-	 * @throws RentalCapacityException if the rental unit cannot hold the number of 
+	 * @throws RentalCapacityException if the hotel suite cannot hold the number of 
 	 * occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or end dates are not on Sunday
 	 */
