@@ -92,7 +92,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 		if (contains(e)) {
 			throw new IllegalArgumentException();
 		}
-		if (head == null || head.value.compareTo(e) > 0) {
+		if (head == null || head.value.compareTo(e) >= 0) {
 			head = new Node<E>(e, head);
 		} else {
 			Node<E> current = head;
