@@ -29,17 +29,24 @@ public class PropertyManager implements Landlord {
 	/** filter if in service */
 	private boolean inServiceFilter;
 	/** instance of property manager */
-	private static PropertyManager instance = new PropertyManager();
+	private static PropertyManager instance;
 	/** list of customers */
 	private SimpleArrayList<Client> customerBase;
 	/** list of rooms */
 	private SortedLinkedListWithIterator<RentalUnit> rooms;
 	
+	private PropertyManager() {
+		
+		
+	}
 	/**
 	 * Gets an instance of property manager
 	 * @return the instance
 	 */
 	public static PropertyManager getInstance() {
+		if (instance == null) {
+			instance = new PropertyManager();
+		} 
 		return instance;
 		// TODO if there is no instance, this method calls the private constructor, 
 		// which simply initializes its customerBase and rooms to empty lists.
@@ -121,16 +128,31 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Cancel the lease
+	 * Cancels the lease in the given position on the client's list of leases.
+	 * 
+	 * @param clientIndex  Index of the client whose lease is to be cancelled
+	 * @param leaseIndex  Position of the lease in the client's list
+	 * @throws IllegalArgumentException if clientIndex or leaseIndex are not valid
 	 */
 	@Override
 	public void cancelClientsLease(int clientIndex, int leaseIndex) {
-		// TODO Auto-generated method stub
-
+		if (clientIndex < 0 || clientIndex >= customerBase.size()) {
+			throw new IllegalArgumentException();
+		}
+		if (leaseIndex < 0 || leaseIndex >= customerBase.get(clientIndex).listLeases().length) {
+			throw new IllegalArgumentException();
+		}
+		customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
 	}
 	
 	/**
-	 * Return the room to service
+	 * Returns the rental unit at the given position to service. Does nothing if the rental 
+	 * unit is already in service or if the position does not correspond to any rental unit 
+	 * (subject to filtering).
+	 * 
+	 * @param propertyIndex Position/index of the rental unit (subject to filtering)
+	 * @throws IllegalArgumentException if propertyIndex is not a valid index for the 
+	 *         rental units currently under consideration
 	 */
 	@Override
 	public void returnToService(int propertyIndex) {
@@ -139,7 +161,14 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Remove the room from service
+	 * Cancels all leases for a rental unit on or after a particular date. The remaining 
+	 * leases should still be valid.
+	 * 
+	 * @param propertyIndex  Index for the rental unit (subject to filtering)
+	 * @param start Date for starting cancellations
+	 * @return the RentalUnit that was removed
+	 * @throws IllegalArgumentException if propertyIndex is not a valid index for the 
+	 *         rental units currently under consideration
 	 */
 	@Override
 	public RentalUnit removeFromService(int propertyIndex, LocalDate start) {
@@ -147,8 +176,11 @@ public class PropertyManager implements Landlord {
 		return null;
 	}
 	
-	/**
-	 * Close the rental 
+	/** 
+	 * Removes the rental unit at the given index from the Landlord's database and cancels
+	 * all leases for that rental unit.
+	 * 
+	 * @param propertyIndex  Index for the rental unit to be closed (subject to filtering)
 	 */
 	@Override
 	public void closeRentalUnit(int propertyIndex) {
@@ -157,7 +189,15 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Create a new lease
+	 * Creates a new lease with information based on the given parameters.
+	 * 
+	 * @param clientIndex Index of the client in the Landlord's customer base
+	 * @param propertyIndex Index of the rental unit in the Landlord's filtered list of rental units
+	 * @param start Start date for the lease
+	 * @param duration Duration of the lease (units depending on rental unit type)
+	 * @param people Number of occupants the lease is for
+	 * @return the created lease
+	 * @throws IllegalArgumentException if the parameters do not constitute valid lease data
 	 */
 	@Override
 	public Lease createLease(int clientIndex, int propertyIndex, LocalDate start, int duration, int people) {
@@ -210,9 +250,11 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Filters the units
+	 * Sets filters for rental units so that only those that match the filters are considered.
+	 * 
+	 * @param filter1 String type filter that rental units under consideration must meet
+	 * @param filter2 boolean type filter that rental units under consideration must meet
 	 */
-	@Override
 	public void filterRentalUnits(String filter1, boolean filter2) {
 		// TODO Auto-generated method stub
 

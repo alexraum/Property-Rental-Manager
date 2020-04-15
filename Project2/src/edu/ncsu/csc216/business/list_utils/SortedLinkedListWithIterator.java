@@ -79,7 +79,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 			head = new Node<E>(e, head);
 		} else {
 			Node<E> current = head;
-			while (current.next != null && current.next.value.compareTo(e) < 0) {
+			while (current.next != null && current.next.value.compareTo(e) <= 0) {
 				current = current.next;
 			}
 			current.next = new Node<E>(e, current.next);
@@ -181,7 +181,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	public int indexOf(E e) {
 		Node<E> current = head;
 		for (int i = 0; i < size(); i++) {
-			// TODO may need to use .equals
+			// TODO may need to use ==
 			if (current.value.equals(e)) {
 				return i;
 			}
