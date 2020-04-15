@@ -88,7 +88,7 @@ public class Office extends RentalUnit {
 				}
 			}
 		}
-		Lease lease = new Lease(0, client, this, startDate, endDate, occupants);
+		Lease lease = new Lease(client, this, startDate, endDate, occupants);
 		this.addLease(lease);
 		return lease;
 	}
