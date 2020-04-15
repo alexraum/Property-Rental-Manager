@@ -171,7 +171,6 @@ public class Office extends RentalUnit {
 			LocalDate cutoff = date;
 			if (l.getEnd().compareTo(cutoff) >= 0) {
 				Month m = cutoff.getMonth();
-				// TODO need to modify this loop to resolve the IllegalArgumentException failure
 				while (cutoff.getMonth().equals(m)) {
 					cutoff = cutoff.minusDays(1);
 				}
@@ -181,9 +180,6 @@ public class Office extends RentalUnit {
 					l.setEndDateEarlier(cutoff);
 				}
 			}
-//			if (l.getEnd().isBefore(l.getStart())) {
-//				list.add(myLeases.remove(i));
-//			}
 		}
 		return list;
 	}

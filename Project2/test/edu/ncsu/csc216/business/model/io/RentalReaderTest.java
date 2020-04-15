@@ -3,7 +3,9 @@
  */
 package edu.ncsu.csc216.business.model.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+
+//import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -18,7 +20,8 @@ public class RentalReaderTest {
 	 */
 	@Test
 	public void testReadRentalData() {
-		RentalReader.readRentalData("test-files/test.md");
+		fail("Not yet implemented");
+		//RentalReader.readRentalData("test-files/test.md");
 	}
 
 }
