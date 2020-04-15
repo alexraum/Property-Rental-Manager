@@ -20,7 +20,7 @@ import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
  * 
  * @author Alex Raum, Walker Clem
  */
-public abstract class RentalUnit { // implements Comparable<RentalUnit> ?
+public abstract class RentalUnit implements Comparable<RentalUnit> { // implements Comparable<RentalUnit> ?
 
 	/** the max floor */
 	public static final int MAX_FLOOR = 45;

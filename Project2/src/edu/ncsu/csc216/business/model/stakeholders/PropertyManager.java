@@ -28,9 +28,9 @@ public class PropertyManager implements Landlord {
 	/** instance of property manager */
 	private PropertyManager instance;
 	/** list of customers */
-	private SimpleArrayList customerBase;
+	private SimpleArrayList<Client> customerBase;
 	/** list of rooms */
-	private SortedLinkedListWithIterator rooms;
+	private SortedLinkedListWithIterator<RentalUnit> rooms;
 	
 	/**
 	 * Gets an instance of property manager
