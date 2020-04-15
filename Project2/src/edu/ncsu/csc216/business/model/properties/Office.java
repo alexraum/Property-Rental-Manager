@@ -5,7 +5,6 @@ package edu.ncsu.csc216.business.model.properties;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Period;
 import java.util.Arrays;
 
 import edu.ncsu.csc216.business.list_utils.SortedList;
@@ -82,7 +81,6 @@ public class Office extends RentalUnit {
 		int startYear = startDate.getYear() - 2020;
 		int endMonth = endDate.getMonthValue() - 1;
 		int endYear = endDate.getYear() - 2020;
-		// TODO does the upper index need to be <=?
 		for (int i = startYear; i <= endYear; i++) {
 			for (int j = startMonth; j <= endMonth; j++) {
 				if (calendar[i][j] < occupants) {
@@ -128,7 +126,6 @@ public class Office extends RentalUnit {
 		int startYear = startDate.getYear() - 2020;
 		int endMonth = endDate.getMonthValue() - 1;
 		int endYear = endDate.getYear() - 2020;
-		// TODO does the upper index need to be <=?
 		for (int i = startYear; i <= endYear; i++) {
 			for (int j = startMonth; j <= endMonth; j++) {
 				if (calendar[i][j] < numOccupants) {
@@ -171,13 +168,18 @@ public class Office extends RentalUnit {
 		SortedList<Lease> list = super.removeFromServiceStarting(date);
 		for (int i = 0; i < myLeases.size(); i++) {
 			Lease l = myLeases.get(i);
-			if (l.getEnd().compareTo(date) >= 0) {
-				Month m = date.getMonth();
+			LocalDate cutoff = date;
+			if (l.getEnd().compareTo(cutoff) >= 0) {
+				Month m = cutoff.getMonth();
 				// TODO need to modify this loop to resolve the IllegalArgumentException failure
-				while (date.getMonth().equals(m)) {
-					date = date.minusDays(1);
+				while (cutoff.getMonth().equals(m)) {
+					cutoff = cutoff.minusDays(1);
 				}
-				l.setEndDateEarlier(date);
+				if (cutoff.isBefore(l.getStart())) {
+					list.add(myLeases.remove(i));
+				} else {
+					l.setEndDateEarlier(cutoff);
+				}
 			}
 //			if (l.getEnd().isBefore(l.getStart())) {
 //				list.add(myLeases.remove(i));
@@ -264,7 +266,6 @@ public class Office extends RentalUnit {
 		int startYear = lease.getStart().getYear() - 2020;
 		int endMonth = lease.getEnd().getMonthValue() - 1;
 		int endYear = lease.getEnd().getYear() - 2020;
-		// TODO does the upper index need to be <=?
 		for (int i = startYear; i <= endYear; i++) {
 			for (int j = startMonth; j <= endMonth; j++) {
 				calendar[i][j] -= lease.getNumOccupants();
@@ -288,22 +289,15 @@ public class Office extends RentalUnit {
 		// TODO need to determine if we need to remove occupants and clear up
 		// time frame in this method (see UC10)
 		Lease lease = super.cancelLeaseByNumber(confirmationNumber);
-//		for (int i = 0; i < myLeases.size(); i++) {
-//			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
-				//lease = myLeases.remove(i);
-				int startMonth = lease.getStart().getMonthValue() - 1;
-				int startYear = lease.getStart().getYear() - 2020;
-				int endMonth = lease.getEnd().getMonthValue() - 1;
-				int endYear = lease.getEnd().getYear() - 2020;
-				// TODO does the upper index need to be <=?
-				for (int j = startYear; j <= endYear; j++) {
-					for (int k = startMonth; k <= endMonth; k++) {
-						calendar[j][k] += lease.getNumOccupants();
-					}
-				}
-				return lease;
-//			}
-//		}
-		//throw new IllegalArgumentException();
+		int startMonth = lease.getStart().getMonthValue() - 1;
+		int startYear = lease.getStart().getYear() - 2020;
+		int endMonth = lease.getEnd().getMonthValue() - 1;
+		int endYear = lease.getEnd().getYear() - 2020;
+		for (int j = startYear; j <= endYear; j++) {
+			for (int k = startMonth; k <= endMonth; k++) {
+				calendar[j][k] += lease.getNumOccupants();
+			}
+		}
+		return lease;
 	}
 }
