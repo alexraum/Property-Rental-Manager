@@ -18,7 +18,7 @@ public class RentalReaderTest {
 	 */
 	@Test
 	public void testReadRentalData() {
-		fail("Not yet implemented");
+		RentalReader.readRentalData("test-files/test.md");
 	}
 
 }
