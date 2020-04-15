@@ -30,13 +30,13 @@ public class OfficeTest {
 	 */
 	@Test
 	public void testReserve() throws RentalOutOfServiceException, RentalDateException, RentalCapacityException {
-		Office office = new Office("22-11", 2);
+		Office office = new Office("22-11", 100);
 		Client client = new Client("Alex Raum", "maraum");
 		LocalDate start = LocalDate.of(2021, 4, 1);
 		LocalDate end = LocalDate.of(2021, 4, 30);
-		Lease lease = office.reserve(client, start, 1, 1);
-//		Lease lease2 = office.reserve(client, start, 1, 20);
-//		Lease lease3 = office.reserve(client, start, 1, 30);
+		Lease lease = office.reserve(client, start, 1, 20);
+//		Lease lease2 = office.reserve(client, start, 1, 30);
+//		Lease lease3 = office.reserve(client, start, 1, 10);
 //		SimpleListIterator<Lease> iterator = office.myLeases.iterator();
 //		while (iterator.hasNext()) {
 //			System.out.println(iterator.next().getNumOccupants());

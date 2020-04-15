@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.business.model.stakeholders;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
@@ -223,7 +224,12 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * list the rental units 
+	 * What are the rental units for this landlord? (Consider only the units that meet
+	 * filters currently in place.)
+	 * 
+	 * @return an array of strings in which each string describes a rental unit that
+	 *         meets all filters in place. There are exactly as many strings in the
+	 *         array as there are such rental units.
 	 */
 	@Override
 	public String[] listRentalUnits() {
@@ -252,10 +258,17 @@ public class PropertyManager implements Landlord {
 	/**
 	 * Sets filters for rental units so that only those that match the filters are considered.
 	 * 
-	 * @param filter1 String type filter that rental units under consideration must meet
-	 * @param filter2 boolean type filter that rental units under consideration must meet
+	 * @param kindFilter String type filter that rental units under consideration must meet
+	 * @param inServiceFilter boolean type filter that rental units under consideration must meet
 	 */
-	public void filterRentalUnits(String filter1, boolean filter2) {
+	public void filterRentalUnits(String kindFilter, boolean inServiceFilter) {
+//		Scanner read = new Scanner(kindFilter);
+//		String kind = read.next();
+//		if (kind.equalsIgnoreCase("c")) {
+//			for () {
+//				
+//			}
+//		}
 		// TODO Auto-generated method stub
 
 	}
