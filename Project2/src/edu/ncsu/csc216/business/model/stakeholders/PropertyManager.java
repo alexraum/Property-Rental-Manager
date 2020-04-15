@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
+import edu.ncsu.csc216.business.list_utils.SimpleListIterator;
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
@@ -36,9 +37,13 @@ public class PropertyManager implements Landlord {
 	/** list of rooms */
 	private SortedLinkedListWithIterator<RentalUnit> rooms;
 	
+	/**
+	 * The private constructor the the PropertyManager class,
+	 * it initializes the two fields to be empty lists.
+	 */
 	private PropertyManager() {
-		
-		
+		this.customerBase = new SimpleArrayList<Client>();
+		this.rooms = new SortedLinkedListWithIterator<RentalUnit>();
 	}
 	/**
 	 * Gets an instance of property manager
@@ -233,8 +238,13 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public String[] listRentalUnits() {
+		
+		String[] units = new String[rooms.size()];
+		for (int i = 0; i < rooms.size(); i++) {
+			units[i] = rooms.get(i).getDescription();
+		}
 		// TODO Auto-generated method stub
-		return null;
+		return units;
 	}
 	
 	/**
@@ -248,10 +258,20 @@ public class PropertyManager implements Landlord {
 	
 	/**
 	 * Gets the unit at the location
+	 * 
 	 * @param location the location
 	 * @return the unit
 	 */
 	public RentalUnit getUnitAtLocation(String location) {
+		Scanner read = new Scanner(location);
+		int floor = read.nextInt();
+		int room = read.nextInt();
+		SimpleListIterator<RentalUnit> iterator = rooms.iterator();
+//		while (iterator.hasNext()) {
+//			if () {
+//				
+//			}
+//		}
 		return null;
 	}
 	
@@ -262,22 +282,30 @@ public class PropertyManager implements Landlord {
 	 * @param inServiceFilter boolean type filter that rental units under consideration must meet
 	 */
 	public void filterRentalUnits(String kindFilter, boolean inServiceFilter) {
-//		Scanner read = new Scanner(kindFilter);
-//		String kind = read.next();
-//		if (kind.equalsIgnoreCase("c")) {
-//			for () {
-//				
-//			}
-//		}
-		// TODO Auto-generated method stub
-
+		String kind;
+		if (kindFilter.equalsIgnoreCase("c")) {
+			kind = "Conference Room";
+		} else if (kindFilter.equalsIgnoreCase("h")) {
+			kind = "Hotel Suite";
+		} else if (kindFilter.equalsIgnoreCase("o")) {
+			kind = "Office";
+		} else {
+			kind = "";
+		}
+		this.kindFilter = kind;
+		this.inServiceFilter = inServiceFilter;
 	}
 	
 	/**
-	 * Clears the data of units and clients
+	 * Removes all lease, client, and rental unit data from 
+	 * the property manager and resets the lease confirmation 
+	 * numbering back to 0.
 	 */
 	@Override
 	public void flushAllData() {
+		this.customerBase = new SimpleArrayList<Client>();
+		this.rooms = new SortedLinkedListWithIterator<RentalUnit>();
+		Lease.resetConfirmationNumbering(0);
 		// TODO Auto-generated method stub
 
 	}
