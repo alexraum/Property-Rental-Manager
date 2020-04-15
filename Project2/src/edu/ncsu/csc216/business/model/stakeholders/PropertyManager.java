@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
 import edu.ncsu.csc216.business.model.contracts.Lease;
+import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
+import edu.ncsu.csc216.business.model.properties.HotelSuite;
+import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 
 /**
@@ -26,7 +29,7 @@ public class PropertyManager implements Landlord {
 	/** filter if in service */
 	private boolean inServiceFilter;
 	/** instance of property manager */
-	private PropertyManager instance;
+	private static PropertyManager instance = new PropertyManager();
 	/** list of customers */
 	private SimpleArrayList<Client> customerBase;
 	/** list of rooms */
@@ -37,23 +40,71 @@ public class PropertyManager implements Landlord {
 	 * @return the instance
 	 */
 	public static PropertyManager getInstance() {
-		return null;
+		return instance;
+		// TODO if there is no instance, this method calls the private constructor, 
+		// which simply initializes its customerBase and rooms to empty lists.
 	}
 	
 	/**
-	 * Adds a new client
+	 * Adds a new client with the given name and id to the client database. 
+	 *  
+	 * @param name Name of the new client
+	 * @param id Unique id of the new client 
+	 * @return The new Client who was created and registered
+	 * @throws DuplicateClientException if id of the new client matches one for an existing client.
+	 * @throws IllegalArgumentException if the name is null, empty (when trimmed), or contains
+	 *         any characters that are not blanks or not alphanumeric. Also throws
+	 *         IllegalArgumentException if the id is null, empty (when trimmed), or 
+	 *         contains any characters that are non-alphanumeric or that don't belong to the 
+	 *         set ['@', '#', '$'].
 	 */
 	@Override
 	public Client addNewClient(String name, String id) throws DuplicateClientException {
-		return null;
+		Client client = new Client(name, id);
+		if (customerBase.contains(client)) {
+			throw new DuplicateClientException("Client with this ID already exists");
+		}
+		customerBase.add(client);
+		return client;
 	}
 	
 	/**
-	 * Adds a new unit
+	 * Adds a new RentalUnit with the given parameters to the system.
+	 * 
+	 * @param kind Type of RentalUnit (starts with 'O' for office, 'C' for conference room,
+	 *        'H' for hotel suite)
+	 * @param location String of the form FF-RR, where FF is the floor, and RR is the room.
+	 * @param capacity Number of people the unit can accommodate on any single day
+	 * @return The new RentalUnit that was created
+	 * @throws IllegalArgumentException if the parameters do not describe a valid location  
+	 *         and type
+	 * @throws DuplicateRoomException if the floor and room match another rental unit already
+	 *         in the Landlord's property database
 	 */
 	@Override
 	public RentalUnit addNewUnit(String kind, String location, int capacity) throws DuplicateRoomException {
-		return null;
+		RentalUnit unit;
+		if (kind == "C") {
+			unit = new ConferenceRoom(location, capacity);
+		} else if (kind == "H") {
+			unit = new HotelSuite(location, capacity);
+		} else if (kind == "O") {
+			unit = new Office(location, capacity);
+		} else {
+			throw new IllegalArgumentException("Invalid Rental Unit type");
+		}
+		
+		try {
+			rooms.add(unit);
+			return unit;
+		} catch (IllegalArgumentException e) {
+			throw new DuplicateRoomException("Rental Unit at this location already exists");
+		}
+//		if (rooms.contains(unit)) {
+//			throw new DuplicateRoomException("Rental Unit at this location already exists");
+//		}
+//		rooms.add();
+//		return null;
 	}
 	
 	/**
