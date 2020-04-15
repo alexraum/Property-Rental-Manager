@@ -93,7 +93,7 @@ public class HotelSuite extends RentalUnit {
 			throw new RentalCapacityException("Too many occupants");
 		}
 		this.checkDates(startDate, endDate);
-		Lease lease = new Lease(0, client, this, startDate, endDate, occupants);
+		Lease lease = new Lease(client, this, startDate, endDate, occupants);
 		super.addLease(lease);
 		return lease;	
 	}
