@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import edu.ncsu.csc216.business.list_utils.SimpleListIterator;
+//import edu.ncsu.csc216.business.list_utils.SimpleListIterator;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
@@ -34,60 +34,60 @@ public class OfficeTest {
 		Client client = new Client("Alex Raum", "maraum");
 		LocalDate start = LocalDate.of(2021, 4, 1);
 		LocalDate end = LocalDate.of(2021, 4, 30);
-		Lease lease1 = office.reserve(client, start, 1, 10);
-		Lease lease2 = office.reserve(client, start, 1, 20);
-		Lease lease3 = office.reserve(client, start, 1, 30);
-		SimpleListIterator<Lease> iterator = office.myLeases.iterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next().getNumOccupants());
+		Lease lease = office.reserve(client, start, 1, 10);
+//		Lease lease2 = office.reserve(client, start, 1, 20);
+//		Lease lease3 = office.reserve(client, start, 1, 30);
+//		SimpleListIterator<Lease> iterator = office.myLeases.iterator();
+//		while (iterator.hasNext()) {
+//			System.out.println(iterator.next().getNumOccupants());
+//		}
+		
+		assertEquals(end, lease.getEnd());
+		
+		try {
+			office.reserve(null, start, 1, 1);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(2, office.getCapacity());
 		}
 		
-//		assertEquals(end, lease.getEnd());
-//		
-//		try {
-//			office.reserve(null, start, 1, 1);
-//			fail();
-//		} catch (IllegalArgumentException e) {
-//			assertEquals(22, office.getFloor());
-//			assertEquals(11, office.getRoom());
-//			assertEquals(2, office.getCapacity());
-//		}
-//		
-//		try {
-//			office.reserve(client, start, 1, 3);
-//			fail();
-//		} catch (RentalCapacityException e) {
-//			assertEquals(22, office.getFloor());
-//			assertEquals(11, office.getRoom());
-//			assertEquals(2, office.getCapacity());
-//		}
-//		
-//		try {
-//			office.reserve(client, LocalDate.of(2020, 4, 10), 1, 1);
-//			fail();
-//		} catch (RentalDateException e) {
-//			assertEquals(22, office.getFloor());
-//			assertEquals(11, office.getRoom());
-//			assertEquals(2, office.getCapacity());
-//		}
-//		
-//		try {
-//			office.reserve(client, LocalDate.of(2020, 4, 26), 1, 3);
-//			fail();
-//		} catch (RentalCapacityException e) {
-//			assertEquals(22, office.getFloor());
-//			assertEquals(11, office.getRoom());
-//			assertEquals(2, office.getCapacity());
-//		}
-//		
-//		try {
-//			office.reserve(client, start, 1, 2);
-//			fail();
-//		} catch (RentalCapacityException e) {
-//			assertEquals(22, office.getFloor());
-//			assertEquals(11, office.getRoom());
-//			assertEquals(2, office.getCapacity());
-//		}
+		try {
+			office.reserve(client, start, 1, 3);
+			fail();
+		} catch (RentalCapacityException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(2, office.getCapacity());
+		}
+		
+		try {
+			office.reserve(client, LocalDate.of(2020, 4, 10), 1, 1);
+			fail();
+		} catch (RentalDateException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(2, office.getCapacity());
+		}
+		
+		try {
+			office.reserve(client, LocalDate.of(2020, 4, 26), 1, 3);
+			fail();
+		} catch (RentalCapacityException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(2, office.getCapacity());
+		}
+		
+		try {
+			office.reserve(client, start, 1, 2);
+			fail();
+		} catch (RentalCapacityException e) {
+			assertEquals(22, office.getFloor());
+			assertEquals(11, office.getRoom());
+			assertEquals(2, office.getCapacity());
+		}
 	}
 
 	/**

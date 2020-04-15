@@ -69,6 +69,23 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 */
 	@Override
 	public boolean add(E e) {
+//		if (e == null) {
+//			throw new NullPointerException();
+//		}
+//		if (contains(e)) {
+//			throw new IllegalArgumentException();
+//		}
+//		if (head == null || head.value.compareTo(e) > 0) {
+//			head = new Node<E>(e, head);
+//		} else {
+//			Node<E> current = head;
+//			while (current.next != null && current.next.value.compareTo(e) <= 0) {
+//				current = current.next;
+//			}
+//			current.next = new Node<E>(e, current.next);
+//		}
+//		return true;
+		
 		if (e == null) {
 			throw new NullPointerException();
 		}
