@@ -67,7 +67,7 @@ public class ConferenceRoom extends RentalUnit {
 			}
 		}
 		this.checkDates(startDate, endDate);
-		Lease lease = new Lease(0, client, this, startDate, endDate, occupants);
+		Lease lease = new Lease(client, this, startDate, endDate, occupants);
 		super.addLease(lease);
 		return lease;
 	}
