@@ -48,6 +48,7 @@ public class PropertyManager implements Landlord {
 	private PropertyManager() {
 		this.customerBase = new SimpleArrayList<Client>();
 		this.rooms = new SortedLinkedListWithIterator<RentalUnit>();
+		filterRentalUnits("", false);
 	}
 	
 	/**
@@ -130,18 +131,11 @@ public class PropertyManager implements Landlord {
 	 * @param startDate start date for the Lease
 	 * @param endDate end date for the Lease
 	 * @param numOccupants number of occupants for the Lease
-	 * @throws DuplicateClientException 
 	 * @throws IllegalArgumentException
 	 */
 	public void addLeaseFromFile(Client client, int confirmationNumber,
-			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) throws DuplicateRoomException, DuplicateClientException {
+			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) {
 		// TODO perform error checking
-		if (rooms.contains(unit)) {
-			throw new DuplicateRoomException("Rental Unit at this location already exists");
-		}
-		if (customerBase.contains(client)) {
-			throw new DuplicateClientException("Client with this ID already exists");
-		}
 		try {
 			Lease lease = unit.recordExistingLease(confirmationNumber, client, startDate, endDate, numOccupants);
 			client.addNewLease(lease);
@@ -263,7 +257,7 @@ public class PropertyManager implements Landlord {
 		String[] clients = new String[customerBase.size()];
 		for (int i = 0; i < customerBase.size(); i++) {
 			Client client = customerBase.get(i);
-			clients[i] = client.getName() + "(" + client.getId() + ")";
+			clients[i] = client.getName() + " (" + client.getId() + ")";
 		}
 		return clients;
 	}
@@ -375,7 +369,14 @@ public class PropertyManager implements Landlord {
 	 * @param inServiceFilter boolean type filter that rental units under consideration must meet
 	 */
 	public void filterRentalUnits(String kindFilter, boolean inServiceFilter) {
+		if (kindFilter == null) {
+			throw new IllegalArgumentException();
+		}
 		String kind = kindFilter.trim().toLowerCase();
+		if (kindFilter.equals("")) {
+			this.kindFilter = kindFilter;
+			return;
+		}
 		char letter = kind.charAt(0);
 		if (letter == 'c') {
 			kind = "Conference Room";
@@ -384,7 +385,7 @@ public class PropertyManager implements Landlord {
 		} else if (letter == 'o') {
 			kind = "Office";
 		} else {
-			kind = " ";
+			kind = "";
 		}
 		this.kindFilter = kind;
 		this.inServiceFilter = inServiceFilter;
