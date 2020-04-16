@@ -77,7 +77,7 @@ public class PropertyManagerTest {
 //		LocalDate end = LocalDate.of(2022, 3, 31);
 //		singleton.addLeaseFromFile(client, 1, office, start, end, 25);
 //		assertEquals(1, singleton.listLeasesForRentalUnit(0).length);
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
