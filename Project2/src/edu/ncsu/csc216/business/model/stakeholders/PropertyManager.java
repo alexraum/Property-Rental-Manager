@@ -135,6 +135,12 @@ public class PropertyManager implements Landlord {
 	 */
 	public void addLeaseFromFile(Client client, int confirmationNumber,
 			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) {
+		if (client == null || unit == null || startDate == null || endDate == null) {
+			throw new IllegalArgumentException();
+		}
+//		if (!customerBase.contains(client) || !rooms.contains(unit)) {
+//			throw new IllegalArgumentException();
+//		}
 		// TODO perform error checking
 		try {
 			Lease lease = unit.recordExistingLease(confirmationNumber, client, startDate, endDate, numOccupants);
@@ -142,7 +148,6 @@ public class PropertyManager implements Landlord {
 		} catch (RentalDateException | RentalCapacityException e) {
 			throw new IllegalArgumentException();
 		}
-
 //		Lease lease = new Lease(confirmationNumber, client, unit, startDate, endDate, numOccupants);
 //		client.addNewLease(lease);
 //		unit.addLease(lease);
