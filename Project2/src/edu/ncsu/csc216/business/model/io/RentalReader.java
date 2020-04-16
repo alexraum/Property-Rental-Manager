@@ -30,6 +30,7 @@ public class RentalReader {
 	 * @throws DuplicateRoomException 
 	 */
 	public static void readRentalData(String filename) {
+		manager.flushAllData();
 		try {
 
 			Scanner fileReader = new Scanner(new File(filename));
@@ -37,25 +38,25 @@ public class RentalReader {
 				fileReader.close();
 				throw new IllegalArgumentException();
 			}
-			fileReader.useDelimiter("#");
 			
-			Scanner unitScan = new Scanner(fileReader.next());
-			while(unitScan.hasNextLine()) {
-				String next = unitScan.nextLine();
-				if(next.isBlank()) {
+			Client lastClient = null;
+			while (fileReader.hasNextLine()) {
+				String next = fileReader.nextLine();
+				if (!next.isBlank()) {
+					if (next.startsWith("H") || next.startsWith("C") || next.startsWith("O")) {
+						try {
+							rentalUnitReader(next);
+						} catch (DuplicateRoomException e) {}
+					} else if (next.startsWith("#")) {
+						try {
+							lastClient = clientReader(next);
+						} catch (DuplicateClientException e) {}
+					} else if (Character.isDigit(next.trim().charAt(0))) {
+						leaseReader(next, lastClient);
+					}
+				} else {
 					continue;
 				}
-				try {
-					rentalUnitReader(next);
-				} catch (DuplicateRoomException e) {}
-			}
-			unitScan.close();
-			
-			while(fileReader.hasNext()) {
-				String next = fileReader.next();
-				try {
-					clientReader(next);
-				} catch (DuplicateClientException e) {}
 			}
 			fileReader.close();
 			
@@ -64,26 +65,23 @@ public class RentalReader {
 		}
 	}
 	
-	private static void clientReader(String next) throws DuplicateClientException {
+	private static Client clientReader(String next) throws DuplicateClientException {
 		Client c = null;
 		Scanner clientReader = new Scanner(next);
+
+		clientReader.useDelimiter("\\(|\\)");
+		String fullName = clientReader.next().trim().substring(1);
+		String id = clientReader.next();
+
+		c = new Client(fullName, id);
 		
-		Scanner fl = new Scanner(clientReader.nextLine());
-		String firstName = fl.next();
-		String lastName = fl.next();
-		String fullName = firstName + " " + lastName;
-		String id = fl.next();
-		String trimmedId = id.substring(1, id.length() - 1);
-		c = new Client(fullName, trimmedId);
-		fl.close();
-		
-		while(clientReader.hasNextLine()) {
-			leaseReader(clientReader.nextLine(), c);
-		}
 		clientReader.close();
+		
 		try {
-			manager.addNewClient(fullName, trimmedId);
+			manager.addNewClient(fullName, id);
 		} catch (DuplicateClientException e) {}
+		
+		return c;
 	}
 
 	private static void leaseReader(String line, Client c) {
@@ -98,9 +96,9 @@ public class RentalReader {
 		Scanner desc = new Scanner(leaseReader.next());
 		desc.useDelimiter(":");
 		desc.next();
-		String location = desc.next().substring(1);
+		String location = desc.next().substring(1).trim();
 		desc.close();
-				
+		
 		leaseReader.close();
 		RentalUnit ru = null;
 		ru = manager.getUnitAtLocation(location);
@@ -125,12 +123,12 @@ public class RentalReader {
 		int capacity = sh.nextInt();
 		
 		try {
-			manager.addNewUnit(type, location, capacity);
+			a = manager.addNewUnit(type, location, capacity);
 		} catch (DuplicateRoomException e) {}
 		
 		if (rentalUnitReader.hasNext()) {
 			if (sh.next().equals("Unavailable")) {
-				// manager.removeFromService(propertyIndex, start);
+				a.takeOutOfService();
 			}
 		}
 		sh.close();
