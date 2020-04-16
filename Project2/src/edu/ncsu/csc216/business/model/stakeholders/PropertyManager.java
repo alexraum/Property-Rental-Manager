@@ -120,17 +120,34 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Adds a lease
+	 * Adds the lease with the given information to the system:
+	 * client for the lease, lease confirmation number, rental 
+	 * unit, start date, end date, number of occupants.
 	 * 
-	 * @param client the client
-	 * @param i first number
-	 * @param unit the unit
-	 * @param startDate the start date
-	 * @param endDate the end date
-	 * @param j the second number
+	 * @param client the client for the Lease
+	 * @param confirmationNumber confirmation number for the Lease
+	 * @param unit rental unit for the Lease
+	 * @param startDate start date for the Lease
+	 * @param endDate end date for the Lease
+	 * @param numOccupants number of occupants for the Lease
+	 * @throws IllegalArgumentException
 	 */
-	public void addLeaseFromFile(Client client, int i, RentalUnit unit, LocalDate startDate, LocalDate endDate, int j) {
-		
+	public void addLeaseFromFile(Client client, int confirmationNumber,
+			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) {
+		// TODO perform error checking
+		try {
+			Lease lease = unit.recordExistingLease(confirmationNumber, client, startDate, endDate, numOccupants);
+			client.addNewLease(lease);
+		} catch (RentalDateException | RentalCapacityException e) {
+			throw new IllegalArgumentException();
+		}
+
+//		Lease lease = new Lease(confirmationNumber, client, unit, startDate, endDate, numOccupants);
+//		client.addNewLease(lease);
+//		unit.addLease(lease);
+//		
+//		customerBase.add(client);
+//		rooms.add(unit);
 	}
 	
 	/**
@@ -183,10 +200,10 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public RentalUnit removeFromService(int propertyIndex, LocalDate start) {
-		if (propertyIndex < 0 || propertyIndex >= rooms.size()) {
+		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
 			throw new IllegalArgumentException();
 		}
-		RentalUnit unit = rooms.get(propertyIndex);
+		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
 		unit.removeFromServiceStarting(start);
 		return unit;
 	}
@@ -199,10 +216,11 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public void closeRentalUnit(int propertyIndex) {
-		if (propertyIndex < 0 || propertyIndex >= rooms.size()) {
+		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
 			throw new IllegalArgumentException();
 		}
-		rooms.remove(propertyIndex);
+		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
+		rooms.remove(rooms.indexOf(unit));
 		// TODO Still need to cancel all Leases for the removed RentalUnit
 	}
 	
@@ -219,9 +237,9 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public Lease createLease(int clientIndex, int propertyIndex, LocalDate start, int duration, int people) {
-		Client client = customerBase.get(clientIndex);
-		RentalUnit unit = rooms.get(propertyIndex);
 		try {
+			Client client = customerBase.get(clientIndex);
+			RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
 			return unit.reserve(client, start, duration, people);
 		} catch (RentalOutOfServiceException | RentalDateException | RentalCapacityException e) {
 			throw new IllegalArgumentException();
@@ -314,9 +332,11 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public String[] listLeasesForRentalUnit(int propertyIndex) {
-		// GOES THROUGH FILTERED LIST
-		// TODO Auto-generated method stub
-		return null;
+		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
+			throw new IllegalArgumentException();
+		}
+		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
+		return unit.listLeases();
 	}
 	
 	/**
