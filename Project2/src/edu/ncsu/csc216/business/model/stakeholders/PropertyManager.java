@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
-import edu.ncsu.csc216.business.list_utils.SimpleListIterator;
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
@@ -45,8 +44,10 @@ public class PropertyManager implements Landlord {
 		this.customerBase = new SimpleArrayList<Client>();
 		this.rooms = new SortedLinkedListWithIterator<RentalUnit>();
 	}
+	
 	/**
 	 * Gets an instance of property manager
+	 * 
 	 * @return the instance
 	 */
 	public static PropertyManager getInstance() {
@@ -54,8 +55,6 @@ public class PropertyManager implements Landlord {
 			instance = new PropertyManager();
 		} 
 		return instance;
-		// TODO if there is no instance, this method calls the private constructor, 
-		// which simply initializes its customerBase and rooms to empty lists.
 	}
 	
 	/**
@@ -113,15 +112,11 @@ public class PropertyManager implements Landlord {
 		} catch (IllegalArgumentException e) {
 			throw new DuplicateRoomException("Rental Unit at this location already exists");
 		}
-//		if (rooms.contains(unit)) {
-//			throw new DuplicateRoomException("Rental Unit at this location already exists");
-//		}
-//		rooms.add();
-//		return null;
 	}
 	
 	/**
 	 * Adds a lease
+	 * 
 	 * @param client the client
 	 * @param i first number
 	 * @param unit the unit
@@ -162,7 +157,11 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public void returnToService(int propertyIndex) {
-		// TODO Auto-generated method stub
+		if (propertyIndex < 0 || propertyIndex >= rooms.size()) {
+			throw new IllegalArgumentException();
+		}
+		rooms.get(propertyIndex).returnToService();
+		// TODO Check what is meant by subject to filtering
 
 	}
 	
@@ -178,8 +177,13 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public RentalUnit removeFromService(int propertyIndex, LocalDate start) {
+		if (propertyIndex < 0 || propertyIndex >= rooms.size()) {
+			throw new IllegalArgumentException();
+		}
+		RentalUnit unit = rooms.get(propertyIndex);
+		unit.removeFromServiceStarting(start);
+		return unit;
 		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	/** 
@@ -190,7 +194,11 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public void closeRentalUnit(int propertyIndex) {
-		// TODO Auto-generated method stub
+		if (propertyIndex < 0 || propertyIndex >= rooms.size()) {
+			throw new IllegalArgumentException();
+		}
+		rooms.remove(propertyIndex);
+		// TODO Still need to cancel all Leases for the removed RentalUnit
 
 	}
 	
@@ -238,13 +246,36 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public String[] listRentalUnits() {
-		
-		String[] units = new String[rooms.size()];
+		int count = 0;
 		for (int i = 0; i < rooms.size(); i++) {
-			units[i] = rooms.get(i).getDescription();
+			if (inServiceFilter) {
+				if (rooms.get(i).getDescription().contains(kindFilter)
+						&& rooms.get(i).isInService()) {
+					count++;
+				}
+			} else {
+				if (rooms.get(i).getDescription().contains(kindFilter)) {
+					count++;
+				}
+	        }
 		}
-		// TODO Auto-generated method stub
-		return units;
+		String[] rentalArray = new String[count];
+		int newCount = 0;
+		for (int i = 0; i < rooms.size(); i++) {
+			if (inServiceFilter) {
+				if (rooms.get(i).getDescription().contains(kindFilter)
+						&& rooms.get(i).isInService()) {
+					rentalArray[newCount] = rooms.get(i).getDescription();
+					newCount++;
+				}
+			} else {
+				if (rooms.get(i).getDescription().contains(kindFilter)) {
+					rentalArray[newCount] = rooms.get(i).getDescription();
+					newCount++;
+				}
+			}
+		}
+		return rentalArray;
 	}
 	
 	/**
@@ -252,27 +283,31 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public String[] listLeasesForRentalUnit(int propertyIndex) {
+		// GOES THROUGH FILTERED LIST
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	/**
-	 * Gets the unit at the location
+	 * Returns the rental unit at given location
 	 * 
-	 * @param location the location
-	 * @return the unit
+	 * @param location the location of the unit to be returned
+	 * @return the unit with the specified location
+	 * @throws IllegalArgumentException if there is no such rental
+	 *         unit
 	 */
 	public RentalUnit getUnitAtLocation(String location) {
 		Scanner read = new Scanner(location);
+		read.useDelimiter("-");
 		int floor = read.nextInt();
 		int room = read.nextInt();
-		SimpleListIterator<RentalUnit> iterator = rooms.iterator();
-//		while (iterator.hasNext()) {
-//			if () {
-//				
-//			}
-//		}
-		return null;
+		read.close();
+		for (int i = 0; i < rooms.size(); i++) {
+			if (rooms.get(i).getFloor() == floor && rooms.get(i).getRoom() == room) {
+				return rooms.get(i);
+			}
+		}
+		throw new IllegalArgumentException();
 	}
 	
 	/**
@@ -282,15 +317,16 @@ public class PropertyManager implements Landlord {
 	 * @param inServiceFilter boolean type filter that rental units under consideration must meet
 	 */
 	public void filterRentalUnits(String kindFilter, boolean inServiceFilter) {
-		String kind;
-		if (kindFilter.equalsIgnoreCase("c")) {
+		String kind = kindFilter.trim().toLowerCase();
+		char letter = kind.charAt(0);
+		if (letter == 'c') {
 			kind = "Conference Room";
-		} else if (kindFilter.equalsIgnoreCase("h")) {
+		} else if (letter == 'h') {
 			kind = "Hotel Suite";
-		} else if (kindFilter.equalsIgnoreCase("o")) {
+		} else if (letter == 'o') {
 			kind = "Office";
 		} else {
-			kind = "";
+			kind = " ";
 		}
 		this.kindFilter = kind;
 		this.inServiceFilter = inServiceFilter;
@@ -306,7 +342,5 @@ public class PropertyManager implements Landlord {
 		this.customerBase = new SimpleArrayList<Client>();
 		this.rooms = new SortedLinkedListWithIterator<RentalUnit>();
 		Lease.resetConfirmationNumbering(0);
-		// TODO Auto-generated method stub
-
 	}
 }
