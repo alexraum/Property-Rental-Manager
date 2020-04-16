@@ -5,11 +5,7 @@ package edu.ncsu.csc216.business.model.stakeholders;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
-
 import org.junit.Test;
-
-import edu.ncsu.csc216.business.model.properties.Office;
 
 /**
  * @author Alex Raum
@@ -90,7 +86,7 @@ public class PropertyManagerTest {
 	@Test
 	public void testCancelClientsLease() {
 		//PropertyManager singleton = PropertyManager.getInstance();
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -98,7 +94,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testReturnToService() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -106,7 +102,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testRemoveFromService() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -114,7 +110,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testCloseRentalUnit() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -122,7 +118,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testCreateLease() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -130,7 +126,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testListClients() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -138,7 +134,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testListClientLeases() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -146,7 +142,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testListRentalUnits() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -154,7 +150,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testListLeasesForRentalUnit() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -162,7 +158,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testGetUnitAtLocation() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -170,7 +166,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testFilterRentalUnits() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -178,7 +174,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testFlushAllData() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 }
