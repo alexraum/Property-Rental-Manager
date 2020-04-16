@@ -29,7 +29,7 @@ public class RentalReader {
 	 * @throws DuplicateClientException 
 	 * @throws DuplicateRoomException 
 	 */
-	public static void readRentalData(String filename) throws DuplicateClientException, DuplicateRoomException {
+	public static void readRentalData(String filename) {
 		try {
 
 			Scanner fileReader = new Scanner(new File(filename));
