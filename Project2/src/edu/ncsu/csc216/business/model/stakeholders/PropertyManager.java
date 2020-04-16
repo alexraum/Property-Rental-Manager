@@ -130,11 +130,18 @@ public class PropertyManager implements Landlord {
 	 * @param startDate start date for the Lease
 	 * @param endDate end date for the Lease
 	 * @param numOccupants number of occupants for the Lease
+	 * @throws DuplicateClientException 
 	 * @throws IllegalArgumentException
 	 */
 	public void addLeaseFromFile(Client client, int confirmationNumber,
-			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) {
+			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) throws DuplicateRoomException, DuplicateClientException {
 		// TODO perform error checking
+		if (rooms.contains(unit)) {
+			throw new DuplicateRoomException("Rental Unit at this location already exists");
+		}
+		if (customerBase.contains(client)) {
+			throw new DuplicateClientException("Client with this ID already exists");
+		}
 		try {
 			Lease lease = unit.recordExistingLease(confirmationNumber, client, startDate, endDate, numOccupants);
 			client.addNewLease(lease);
