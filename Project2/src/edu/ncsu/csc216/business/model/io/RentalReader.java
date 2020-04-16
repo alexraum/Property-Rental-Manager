@@ -45,13 +45,17 @@ public class RentalReader {
 				if(next.isBlank()) {
 					continue;
 				}
-				rentalUnitReader(next);
+				try {
+					rentalUnitReader(next);
+				} catch (DuplicateRoomException e) {}
 			}
 			unitScan.close();
 			
 			while(fileReader.hasNext()) {
 				String next = fileReader.next();
-				clientReader(next);
+				try {
+					clientReader(next);
+				} catch (DuplicateClientException e) {}
 			}
 			fileReader.close();
 			
