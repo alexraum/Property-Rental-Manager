@@ -5,13 +5,14 @@ package edu.ncsu.csc216.business.model.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
-import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
-import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
-import edu.ncsu.csc216.business.model.properties.HotelSuite;
-import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
+import edu.ncsu.csc216.business.model.stakeholders.Client;
+import edu.ncsu.csc216.business.model.stakeholders.DuplicateClientException;
+import edu.ncsu.csc216.business.model.stakeholders.DuplicateRoomException;
+import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
  * Rental Reader class
@@ -19,33 +20,90 @@ import edu.ncsu.csc216.business.model.properties.RentalUnit;
  *
  */
 public class RentalReader {
+	
+	static PropertyManager manager = PropertyManager.getInstance();
+	
 	/**
 	 * Reads the rental data
 	 * @param filename the filename to read from
+	 * @throws DuplicateClientException 
+	 * @throws DuplicateRoomException 
 	 */
-	public static void readRentalData(String filename) {
+	public static void readRentalData(String filename) throws DuplicateClientException, DuplicateRoomException {
 		try {
+
 			Scanner fileReader = new Scanner(new File(filename));
 			if (!filename.substring(filename.length() - 3, filename.length()).equals(".md")) {
 				fileReader.close();
 				throw new IllegalArgumentException();
 			}
-			SimpleArrayList<RentalUnit> units = new SimpleArrayList<RentalUnit>();
-			int i = 0;
-			while(fileReader.hasNextLine()) {
-				units.add(rentalUnitReader(fileReader.nextLine()));
-				System.out.println(units.get(i).getDescription());
-				i++;
-			}
+			fileReader.useDelimiter("#");
 			
+			Scanner unitScan = new Scanner(fileReader.next());
+			while(unitScan.hasNextLine()) {
+				String next = unitScan.nextLine();
+				if(next.isBlank()) {
+					continue;
+				}
+				rentalUnitReader(next);
+			}
+			unitScan.close();
+			
+			while(fileReader.hasNext()) {
+				String next = fileReader.next();
+				clientReader(next);
+			}
 			fileReader.close();
-			return;
+			
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("Unable to load file.");
 		}
 	}
 	
-	public static RentalUnit rentalUnitReader(String line) {
+	private static void clientReader(String next) throws DuplicateClientException {
+		Client c = null;
+		Scanner clientReader = new Scanner(next);
+		
+		Scanner fl = new Scanner(clientReader.nextLine());
+		String firstName = fl.next();
+		String lastName = fl.next();
+		String fullName = firstName + " " + lastName;
+		String id = fl.next();
+		String trimmedId = id.substring(1, id.length() - 1);
+		c = new Client(fullName, trimmedId);
+		fl.close();
+		
+		while(clientReader.hasNextLine()) {
+			leaseReader(clientReader.nextLine(), c);
+		}
+		clientReader.close();
+		manager.addNewClient(fullName, trimmedId);
+	}
+
+	private static void leaseReader(String line, Client c) {
+		Scanner leaseReader = new Scanner(line);
+		leaseReader.useDelimiter("\\|");
+		String id = leaseReader.next().replaceAll("\\s", "");
+		String dates = leaseReader.next();
+		String startDate = dates.substring(1, 11);
+		String endDate = dates.substring(15, dates.length() - 1);
+		String occupants = leaseReader.next().replaceAll("\\s", "");
+		
+		Scanner desc = new Scanner(leaseReader.next());
+		desc.useDelimiter(":");
+		desc.next();
+		String location = desc.next().substring(1);
+		desc.close();
+				
+		leaseReader.close();
+		RentalUnit ru = null;
+		ru = manager.getUnitAtLocation(location);
+		LocalDate start = LocalDate.parse(startDate);
+		LocalDate end = LocalDate.parse(endDate);
+		manager.addLeaseFromFile(c, Integer.parseInt(id), ru, start, end, Integer.parseInt(occupants));
+	}
+
+	private static RentalUnit rentalUnitReader(String line) throws DuplicateRoomException {
 		RentalUnit a = null;
 
 		Scanner rentalUnitReader = new Scanner(line); // makes a reader for the first line
@@ -53,27 +111,18 @@ public class RentalReader {
 
 		Scanner fh = new Scanner(rentalUnitReader.next());
 		fh.useDelimiter(":");
-		String type = fh.next(); // gets the type with colon
-		System.out.println("type: " + type);
+		String type = fh.next();
 		String location = fh.next().replaceAll("\\s", "");
-		System.out.println("location: " + location);
 		fh.close();
 		
 		Scanner sh = new Scanner(rentalUnitReader.next());
 		int capacity = sh.nextInt();
-		System.out.println("capacity: " + capacity);
-		if (type.equals("Office")) {
-			a = new Office(location, capacity);
-		}
-		else if (type.equals("Conference Room")) {
-			a = new ConferenceRoom(location, capacity);
-		}
-		else if (type.equals("Hotel Suite")) {
-			a = new HotelSuite(location, capacity);
-		}
+		
+		manager.addNewUnit(type, location, capacity);
+
 		if (rentalUnitReader.hasNext()) {
 			if (sh.next().equals("Unavailable")) {
-				a.takeOutOfService();
+				// manager.removeFromService(propertyIndex, start);
 			}
 		}
 		sh.close();
