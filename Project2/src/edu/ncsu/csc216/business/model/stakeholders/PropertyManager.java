@@ -12,12 +12,17 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
 import edu.ncsu.csc216.business.model.properties.HotelSuite;
 import edu.ncsu.csc216.business.model.properties.Office;
+import edu.ncsu.csc216.business.model.properties.RentalCapacityException;
+import edu.ncsu.csc216.business.model.properties.RentalDateException;
+import edu.ncsu.csc216.business.model.properties.RentalOutOfServiceException;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 
 /**
- * Manages the properties
+ * The PropertyManager class represents the single property
+ * manager for the entire system. PropertyManager implements 
+ * the Singleton and Factory design patterns.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class PropertyManager implements Landlord {
 
@@ -162,7 +167,6 @@ public class PropertyManager implements Landlord {
 		}
 		rooms.get(propertyIndex).returnToService();
 		// TODO Check what is meant by subject to filtering
-
 	}
 	
 	/**
@@ -183,7 +187,6 @@ public class PropertyManager implements Landlord {
 		RentalUnit unit = rooms.get(propertyIndex);
 		unit.removeFromServiceStarting(start);
 		return unit;
-		// TODO Auto-generated method stub
 	}
 	
 	/** 
@@ -199,7 +202,6 @@ public class PropertyManager implements Landlord {
 		}
 		rooms.remove(propertyIndex);
 		// TODO Still need to cancel all Leases for the removed RentalUnit
-
 	}
 	
 	/**
@@ -215,25 +217,45 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public Lease createLease(int clientIndex, int propertyIndex, LocalDate start, int duration, int people) {
-		return null;
+		Client client = customerBase.get(clientIndex);
+		RentalUnit unit = rooms.get(propertyIndex);
+		try {
+			return unit.reserve(client, start, duration, people);
+		} catch (RentalOutOfServiceException | RentalDateException | RentalCapacityException e) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/**
-	 * List the clients
+	 * Who are the clients for this Landlord's properties?
+	 * 
+	 * @return an array of strings, where each string describes a client
 	 */
 	@Override
 	public String[] listClients() {
-		// TODO Auto-generated method stub
-		return null;
+		String[] clients = new String[customerBase.size()];
+		for (int i = 0; i < customerBase.size(); i++) {
+			Client client = customerBase.get(i);
+			clients[i] = client.getName() + "(" + client.getId() + ")";
+		}
+		return clients;
 	}
 	
 	/**
-	 * List the leases for client
+	 * What are the leases for a particular client?
+	 * 
+	 * @param clientIndex Index of the targeted client in the landlord's list of clients
+	 * @return an array of strings in which each string describes a lease for the
+	 *         targeted client
+	 * @throws IllegalArgumentException if the clientIndex does not correspond to any
+	 *         client.
 	 */
 	@Override
 	public String[] listClientLeases(int clientIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		if (clientIndex < 0 || clientIndex >= customerBase.size()) {
+			throw new IllegalArgumentException();
+		}
+		return customerBase.get(clientIndex).listLeases();
 	}
 	
 	/**
@@ -279,7 +301,14 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * List the leases for rental units
+	 * What are the leases for the rental unit at this particular index in the filtered
+	 * list of rental units?
+	 * 
+	 * @param propertyIndex Index of the targeted rental unit (subject to filtering)
+	 * @return an array of strings in which each string describes a lease for the
+	 *         targeted rental unit.
+	 * @throw IllegalArgumentException if propertyIndex is not a valid index for the 
+	 *         rental units currently under consideration
 	 */
 	@Override
 	public String[] listLeasesForRentalUnit(int propertyIndex) {
