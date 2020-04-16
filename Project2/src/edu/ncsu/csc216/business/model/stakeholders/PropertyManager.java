@@ -101,11 +101,11 @@ public class PropertyManager implements Landlord {
 	@Override
 	public RentalUnit addNewUnit(String kind, String location, int capacity) throws DuplicateRoomException {
 		RentalUnit unit;
-		if (kind == "C") {
+		if (kind.equals("Conference Room")) {
 			unit = new ConferenceRoom(location, capacity);
-		} else if (kind == "H") {
+		} else if (kind.equals("Hotel Suite")) {
 			unit = new HotelSuite(location, capacity);
-		} else if (kind == "O") {
+		} else if (kind.equals("Office")) {
 			unit = new Office(location, capacity);
 		} else {
 			throw new IllegalArgumentException("Invalid Rental Unit type");
@@ -162,11 +162,13 @@ public class PropertyManager implements Landlord {
 	 */
 	@Override
 	public void returnToService(int propertyIndex) {
-		if (propertyIndex < 0 || propertyIndex >= rooms.size()) {
+		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
 			throw new IllegalArgumentException();
 		}
-		rooms.get(propertyIndex).returnToService();
-		// TODO Check what is meant by subject to filtering
+		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
+		if (!unit.isInService()) {
+			unit.returnToService();
+		}
 	}
 	
 	/**
@@ -371,5 +373,25 @@ public class PropertyManager implements Landlord {
 		this.customerBase = new SimpleArrayList<Client>();
 		this.rooms = new SortedLinkedListWithIterator<RentalUnit>();
 		Lease.resetConfirmationNumbering(0);
+	}
+	
+	/**
+	 * A private helper method used to return the RentalUnit object
+	 * from the rooms list that matches the description of the rental 
+	 * unit at the propertyIndex.
+	 * 
+	 * @param propertyIndex Index of the rental unit description in 
+	 * 		  the filtered rental units array
+	 * @return The RentalUnit object from the rooms list that matches
+	 *         the description of the unit at the propertyIndex
+	 */
+	private RentalUnit getUnitAtFilteredIndex(int propertyIndex) {
+		String description = listRentalUnits()[propertyIndex];
+		for (int i = 0; i < rooms.size(); i++) {
+			if (description.equals(rooms.get(i).getDescription())) {
+				return rooms.get(i);
+			}
+		}
+		throw new IllegalArgumentException();
 	}
 }
