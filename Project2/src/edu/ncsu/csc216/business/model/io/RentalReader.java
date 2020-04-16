@@ -81,7 +81,9 @@ public class RentalReader {
 			leaseReader(clientReader.nextLine(), c);
 		}
 		clientReader.close();
-		manager.addNewClient(fullName, trimmedId);
+		try {
+			manager.addNewClient(fullName, trimmedId);
+		} catch (DuplicateClientException e) {}
 	}
 
 	private static void leaseReader(String line, Client c) {
@@ -122,8 +124,10 @@ public class RentalReader {
 		Scanner sh = new Scanner(rentalUnitReader.next());
 		int capacity = sh.nextInt();
 		
-		manager.addNewUnit(type, location, capacity);
-
+		try {
+			manager.addNewUnit(type, location, capacity);
+		} catch (DuplicateRoomException e) {}
+		
 		if (rentalUnitReader.hasNext()) {
 			if (sh.next().equals("Unavailable")) {
 				// manager.removeFromService(propertyIndex, start);
