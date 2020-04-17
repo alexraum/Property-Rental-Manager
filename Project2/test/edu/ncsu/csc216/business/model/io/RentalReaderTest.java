@@ -36,6 +36,21 @@ public class RentalReaderTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Unable to load file.");
 		}
+
+
+		try {
+			RentalReader.readRentalData("test-files/test2.md");
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(e.getMessage(), null);
+		}
+		
+		try {
+			RentalReader.readRentalData("test-files/test3.md");
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(e.getMessage(), null);
+		}
 	}
 
 }
