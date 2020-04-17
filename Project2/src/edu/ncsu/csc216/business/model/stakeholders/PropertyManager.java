@@ -241,7 +241,7 @@ public class PropertyManager implements Landlord {
 			throw new IllegalArgumentException();
 		}
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
-		removeFromService(propertyIndex, LocalDate.now());
+		removeFromService(propertyIndex, EARLIEST_DATE);
 		rooms.remove(rooms.indexOf(unit));
 		
 		// TODO Still need to cancel all Leases for the removed RentalUnit
