@@ -164,5 +164,4 @@ public class SimpleArrayListTest {
 		list.add("apricot");
 		assertEquals(2, list.indexOf("apricot"));
 	}
-
 }

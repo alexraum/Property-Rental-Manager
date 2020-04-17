@@ -5,17 +5,18 @@ package edu.ncsu.csc216.business.list_utils;
 
 /**
  * Implements the SimpleList interface with an array data structure.
+ * 
  * @param <E> the object in the list
  * 
  * @author Alex Raum, Walker Clem
  */
 public class SimpleArrayList<E> implements SimpleList<E> {
 
-	/** List Resize */
+	/** The initial size of the array that the list is built on */
 	private static final int RESIZE = 12;
-	/**  List object */
+	/** An object of arrays used to store data in the list */
 	private Object[] list;
-	/** List size */
+	/** The size of the list */
 	private int size;
 	
 	/**
@@ -27,7 +28,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	
 	/**
 	 * Constructor with a capacity set
+	 * 
 	 * @param capacity the capacity of the list
+	 * @throws IllegalArgumentException if the capacity
+	 *         is less than or equal to 0
 	 */
 	@SuppressWarnings("unchecked")
 	public SimpleArrayList(int capacity) {
@@ -39,9 +43,9 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/** 
-	 * Returns the size
+	 * Returns the size of the list
 	 * 
-	 * @return the size
+	 * @return the size of the list
 	 */
 	@Override
 	public int size() {
@@ -54,7 +58,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	/**
 	 * Returns whether the list is empty
 	 * 
-	 * @return if it is empty
+	 * @return if the list is empty
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -62,10 +66,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
-	 * Returns whether the list contains object e
+	 * Returns whether the list contains element e
 	 * 
-	 * @param e the object to check
-	 * @return whether the object contains
+	 * @param e the element to check for
+	 * @return whether the list contains the element
 	 */
 	@Override
 	public boolean contains(E e) { 
@@ -73,10 +77,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
-	 * Adds an item to the list
+	 * Adds an element to the list
 	 * 
-	 * @param e the object to add
-	 * @return if the object is added
+	 * @param e the element to add
+	 * @return if the element is successfully added
 	 * @throws NullPointerException If the specified element is null
 	 * @throws IllegalArgumentException if the list already contains e
 	 */
@@ -97,10 +101,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
-	 * Gets the item from an index
+	 * Gets the element at a specified index
 	 * 
-	 * @param idx the index of the item
-	 * @return the element
+	 * @param idx the index of the element
+	 * @return the element at the specified index
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@SuppressWarnings("unchecked")
@@ -113,10 +117,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
-	 * Adds an item at position e
+	 * Adds an element at a specified position
 	 * 
 	 * @param pos the position of the element
-	 * @param e the element
+	 * @param e the element to be added
 	 * @throws NullPointerException If the specified element is null
 	 * @throws IllegalArgumentException If the specified element is already in the list
 	 * @throws IndexOutOfBoundsException If the index is out of range
@@ -143,10 +147,10 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	}
 	
 	/**
-	 * Removes an item at index
+	 * Removes an element at an index
 	 * 
-	 * @param index the index of the element to remove
-	 * @return if the element is removed
+	 * @param index the index of the element to be removed
+	 * @return if the element is successfully removed
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@SuppressWarnings("unchecked")
@@ -167,8 +171,8 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	/**
 	 * Returns the index of an element
 	 * 
-	 * @param e the element
-	 * @return the index of the element
+	 * @param e the element to be located
+	 * @return the index of the specified element
 	 */
 	@Override
 	public int indexOf(E e) {
