@@ -54,7 +54,6 @@ public class Office extends RentalUnit {
 	 * 
 	 * @param client the client creating the lease
 	 * @param startDate the start date of the lease
-	 * @param endDate the end date of the lease
 	 * @param duration the duration of the lease
 	 * @param occupants the number of occupants for the lease
 	 * @return the Lease for the Office

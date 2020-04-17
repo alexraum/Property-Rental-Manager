@@ -5,7 +5,7 @@ package edu.ncsu.csc216.business.list_utils;
 
 /**
  * Implements the SimpleList interface with an array data structure.
- * @oaram E the object in the list
+ * @param E the object in the list
  * 
  * @author Alex Raum, Walker Clem
  */
@@ -117,7 +117,6 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	 * 
 	 * @param pos the position of the element
 	 * @param e the element
-	 * @return if the element was added
 	 * @throws NullPointerException If the specified element is null
 	 * @throws IllegalArgumentException If the specified element is already in the list
 	 * @throws IndexOutOfBoundsException If the index is out of range

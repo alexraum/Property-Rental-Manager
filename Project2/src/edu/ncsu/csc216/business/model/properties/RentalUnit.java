@@ -144,7 +144,6 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * 
 	 * @param client the client creating the lease
 	 * @param startDate the start date of the lease
-	 * @param endDate the end date of the lease
 	 * @param duration the duration of the lease
 	 * @param occupants the number of occupants for the lease
 	 * @return the new Lease that was reserved
@@ -192,7 +191,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * that they are met.
 	 * 
 	 * @param client the Client of the Lease
-	 * @param date the start date of the Lease
+	 * @param startDate the start date of the Lease
 	 * @param duration the duration of the Lease
 	 * @param numOccupants the number of occupants 
 	 * @throws IllegalArgumentException if the client or 

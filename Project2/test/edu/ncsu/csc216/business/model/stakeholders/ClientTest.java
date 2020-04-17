@@ -13,6 +13,7 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
 
 /**
+ * Tests the client class
  * @author Alex Raum
  *
  */

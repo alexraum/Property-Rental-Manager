@@ -10,8 +10,16 @@ import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
+/**
+ * Test for rental unit
+ * @author Walker Clem
+ *
+ */
 public class RentalUnitTest {
 
+	/**
+	 * Tests compare to method
+	 */
 	@Test
 	public void testCompareTo() {
 		ConferenceRoom room1 = new ConferenceRoom("23-11", 20);
@@ -22,6 +30,9 @@ public class RentalUnitTest {
 		assertTrue(room1.compareTo(room3) > 0);
 	}
 
+	/**
+	 * Tests return to service method
+	 */
 	@Test
 	public void testReturnToService() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -31,6 +42,9 @@ public class RentalUnitTest {
 		assertTrue(room.isInService());
 	}
 
+	/**
+	 * Tests take out of service method 
+	 */
 	@Test
 	public void testTakeOutOfService() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -39,6 +53,9 @@ public class RentalUnitTest {
 		assertFalse(room.isInService());
 	}
 
+	/**
+	 * tests check dates method
+	 */
 	@Test
 	public void testCheckDates() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -69,6 +86,10 @@ public class RentalUnitTest {
 		}
 	}
 
+	/**
+	 * Tests check lease conditions method
+	 * @throws RentalOutOfServiceException if there is a room out of service
+	 */
 	@Test
 	public void testCheckLeaseConditions() throws RentalOutOfServiceException {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -118,6 +139,9 @@ public class RentalUnitTest {
 		assertEquals(0, tail2.size());
 	}
 
+	/**
+	 * Tests the cut off index method
+	 */
 	@Test
 	public void testCutoffIndex() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -141,6 +165,9 @@ public class RentalUnitTest {
 		assertEquals(-1, room.cutoffIndex(LocalDate.of(2020, 4, 20)));
 	}
 
+	/**
+	 * Tests the cancel lease by number method
+	 */
 	@Test
 	public void testCancelLeaseByNumber() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -170,6 +197,9 @@ public class RentalUnitTest {
 		}
 	}
 
+	/**
+	 * Tests the add lease method
+	 */
 	@Test
 	public void testAddLease() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -187,6 +217,9 @@ public class RentalUnitTest {
 		assertEquals(leases[0], "000010 | 2020-04-08 to 2020-04-15 | 18 | Alex Raum (maraum)");
 	}
 
+	/**
+	 * Tests the list leases method
+	 */
 	@Test
 	public void testListLeases() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -204,6 +237,9 @@ public class RentalUnitTest {
 		assertEquals("000010 | 2020-04-08 to 2020-04-15 | 18 | Alex Raum (maraum)", leases[0]);
 	}
 
+	/**
+	 * Tests the get description method
+	 */
 	@Test
 	public void testGetDescription() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
@@ -214,6 +250,9 @@ public class RentalUnitTest {
 		assertEquals("Conference Room: 23-11 |  20 Unavailable", room.getDescription());
 	}
 
+	/**
+	 * Tests the test equals objects method
+	 */
 	@Test
 	public void testEqualsObject() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
