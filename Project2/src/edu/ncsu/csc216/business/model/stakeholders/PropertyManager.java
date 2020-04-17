@@ -178,7 +178,19 @@ public class PropertyManager implements Landlord {
 		if (leaseIndex < 0 || leaseIndex >= customerBase.get(clientIndex).listLeases().length) {
 			throw new IllegalArgumentException();
 		}
-		customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
+		Lease lease = customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
+		int num = lease.getConfirmationNumber();
+		String numString = lease.getConfirmationNumber() + "";
+		
+		for (int i = 0; i < rooms.size(); i++) {
+			String[] leases = rooms.get(i).listLeases();
+			for (String s : leases) {
+				if (s.contains(numString)) {
+					rooms.get(i).cancelLeaseByNumber(num);
+				}
+			}
+		}
+		//rooms.remove(indexOf(lease));
 	}
 	
 	/**
@@ -216,9 +228,6 @@ public class PropertyManager implements Landlord {
 		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
 			throw new IllegalArgumentException();
 		}
-//		List leasesCancelled = rentalUnit.removeFromServiceStarting(cutoff)
-//				for lease in leases:
-//				lease.getOwner.removeLease(lease)
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
 		SortedList<Lease> leases = unit.removeFromServiceStarting(start);
 		for (int i = 0; i < leases.size(); i++) {
@@ -227,8 +236,6 @@ public class PropertyManager implements Landlord {
 			lease.getClient().cancelLeaseWithNumber(confNum);
 		}
 		return unit;
-//		unit.removeFromServiceStarting(start);
-//		return unit;
 	}
 	
 	/** 
