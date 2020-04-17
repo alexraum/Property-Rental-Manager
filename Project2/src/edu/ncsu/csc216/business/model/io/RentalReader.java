@@ -48,13 +48,18 @@ public class RentalReader {
 						try {
 							rentalUnitReader(next);
 						} catch (DuplicateRoomException e) {
+							fileReader.close();
 							manager.flushAllData();
-							break;
+							throw new IllegalArgumentException();
 						}
 					} else if (next.startsWith("#")) {
 						try {
 							lastClient = clientReader(next);
-						} catch (DuplicateClientException e) {}
+						} catch (DuplicateClientException e) {
+							fileReader.close();
+							manager.flushAllData();
+							throw new IllegalArgumentException();
+						}
 					} else if (Character.isDigit(next.trim().charAt(0))) {
 						leaseReader(next, lastClient);
 					}
@@ -83,7 +88,10 @@ public class RentalReader {
 		
 		try {
 			manager.addNewClient(fullName, id);
-		} catch (DuplicateClientException e) {}
+		} catch (DuplicateClientException e) {
+			manager.flushAllData();
+			throw new IllegalArgumentException();
+		}
 		
 		return c;
 	}
@@ -131,7 +139,8 @@ public class RentalReader {
 		} catch (DuplicateRoomException e) {
 			sh.close();
 			rentalUnitReader.close();
-			throw e;
+			manager.flushAllData();
+			throw new IllegalArgumentException();
 		}
 		
 		if (sh.hasNext() && sh.next().equals("Unavailable")) {
