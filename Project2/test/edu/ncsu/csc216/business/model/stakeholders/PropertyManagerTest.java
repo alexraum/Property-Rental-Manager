@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import edu.ncsu.csc216.business.model.properties.Office;
+
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 
 /**
@@ -25,7 +26,6 @@ public class PropertyManagerTest {
 	public void testGetInstance() {
 		PropertyManager singleton = PropertyManager.getInstance();
 		assertTrue(singleton instanceof PropertyManager);
-//		fail("Not yet implemented");
 	}
 
 	/**
@@ -54,10 +54,10 @@ public class PropertyManagerTest {
 		PropertyManager singleton = PropertyManager.getInstance();
 		singleton.flushAllData();
 		try {
-			singleton.addNewUnit("Conference Room", "12-14", 10);
-			singleton.addNewUnit("Hotel Suite", "12-15", 1);
-			singleton.addNewUnit("Office", "12-16", 100);
-			singleton.addNewUnit("Conference Room", "12-14", 10);
+			singleton.addNewUnit("C", "12-14", 10);
+			singleton.addNewUnit("H", "12-15", 1);
+			singleton.addNewUnit("O", "12-16", 100);
+			singleton.addNewUnit("C", "12-14", 10);
 			fail();
 		} catch (DuplicateRoomException e) {
 			assertEquals(3, singleton.listRentalUnits().length);
@@ -83,9 +83,10 @@ public class PropertyManagerTest {
 		Office office = new Office("15-15", 50);
 		LocalDate start = LocalDate.of(2022, 1, 1);
 		LocalDate end = LocalDate.of(2022, 3, 31);
+		
 		try {
 			singleton.addNewClient("Walker Clem", "waclem");
-			singleton.addNewUnit("Office", "15-15", 50);
+			singleton.addNewUnit("O", "15-15", 50);
 			singleton.addLeaseFromFile(client, 1, office, start, end, 25);
 		} catch (DuplicateClientException | DuplicateRoomException e) {
 			assertEquals(1, singleton.listClients().length);
@@ -119,8 +120,8 @@ public class PropertyManagerTest {
 		
 		try {
 			Client client = singleton.addNewClient("Walker Clem", "waclem");
-			RentalUnit unit = singleton.addNewUnit("Office", "15-15", 50);
-			RentalUnit unit2 = singleton.addNewUnit("Office", "15-16", 50);
+			RentalUnit unit = singleton.addNewUnit("O", "15-15", 50);
+			RentalUnit unit2 = singleton.addNewUnit("O", "15-16", 50);
 			singleton.addLeaseFromFile(client, 1, unit, start, end, 25);
 			singleton.addLeaseFromFile(client, 2, unit2, start2, end2, 25);
 			singleton.cancelClientsLease(0, 1);
@@ -189,9 +190,9 @@ public class PropertyManagerTest {
 		singleton.flushAllData();
 		
 		try {
-			singleton.addNewUnit("Conference Room", "12-14", 10);
-			singleton.addNewUnit("Hotel Suite", "12-15", 1);
-			singleton.addNewUnit("Office", "12-16", 100);
+			singleton.addNewUnit("C", "12-14", 10);
+			singleton.addNewUnit("H", "12-15", 1);
+			singleton.addNewUnit("O", "12-16", 100);
 		} catch (DuplicateRoomException e) {
 			assertEquals(3, singleton.listRentalUnits().length);
 			assertEquals("Rental Unit at this location already exists", e.getMessage());
@@ -212,8 +213,31 @@ public class PropertyManagerTest {
 	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#createLease(int, int, java.time.LocalDate, int, int)}.
 	 */
 	@Test
-	public void testCreateLease() {
-		fail("Not yet implemented");
+	public void testCreateLease() {	
+		PropertyManager singleton = PropertyManager.getInstance();
+		singleton.flushAllData();
+		LocalDate start = LocalDate.of(2022, 1, 1);
+		LocalDate end = LocalDate.of(2022, 3, 31);
+		LocalDate start2 = LocalDate.of(2022, 4, 1);
+		
+		try {
+			Client client = singleton.addNewClient("Walker Clem", "waclem");
+			RentalUnit unit = singleton.addNewUnit("O", "15-15", 50);
+			singleton.addLeaseFromFile(client, 1, unit, start, end, 25);
+			singleton.createLease(0, 0, start2, 1, 35);
+			assertEquals(2, singleton.listClientLeases(0).length);
+		} catch (DuplicateClientException | DuplicateRoomException e) {
+			assertEquals(1, singleton.listClients().length);
+			assertEquals(1, singleton.listRentalUnits().length);
+		}
+		
+		try {
+			singleton.createLease(-1, 0, start2, 1, 5);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(1, singleton.listClients().length);
+			assertEquals(1, singleton.listRentalUnits().length);
+		}
 	}
 
 	/**
@@ -242,7 +266,7 @@ public class PropertyManagerTest {
 		
 		try {
 			Client client = singleton.addNewClient("Walker Clem", "waclem");
-			RentalUnit unit = singleton.addNewUnit("Office", "15-15", 50);
+			RentalUnit unit = singleton.addNewUnit("O", "15-15", 50);
 			singleton.addLeaseFromFile(client, 1, unit, start, end, 25);
 			assertEquals(1, singleton.listClientLeases(0).length);
 		} catch (DuplicateClientException | DuplicateRoomException e) {
@@ -280,7 +304,7 @@ public class PropertyManagerTest {
 		
 		try {
 			Client client = singleton.addNewClient("Walker Clem", "waclem");
-			RentalUnit unit = singleton.addNewUnit("Office", "15-15", 50);
+			RentalUnit unit = singleton.addNewUnit("O", "15-15", 50);
 			singleton.addLeaseFromFile(client, 1, unit, start, end, 25);
 			singleton.addLeaseFromFile(client, 2, unit, start2, end2, 25);
 			assertEquals(2, singleton.listLeasesForRentalUnit(0).length);
@@ -307,9 +331,9 @@ public class PropertyManagerTest {
 		singleton.flushAllData();
 		
 		try {
-			singleton.addNewUnit("Conference Room", "12-14", 10);
-			singleton.addNewUnit("Hotel Suite", "12-15", 1);
-			singleton.addNewUnit("Office", "12-16", 100);
+			singleton.addNewUnit("C", "12-14", 10);
+			singleton.addNewUnit("H", "12-15", 1);
+			singleton.addNewUnit("O", "12-16", 100);
 		} catch (DuplicateRoomException e) {
 			assertEquals(3, singleton.listRentalUnits().length);
 			assertEquals("Rental Unit at this location already exists", e.getMessage());
@@ -339,9 +363,9 @@ public class PropertyManagerTest {
 		singleton.flushAllData();
 		
 		try {
-			singleton.addNewUnit("Conference Room", "12-14", 10);
-			singleton.addNewUnit("Hotel Suite", "12-15", 1);
-			singleton.addNewUnit("Office", "12-16", 100);
+			singleton.addNewUnit("C", "12-14", 10);
+			singleton.addNewUnit("H", "12-15", 1);
+			singleton.addNewUnit("O", "12-16", 100);
 		} catch (DuplicateRoomException e) {
 			assertEquals(3, singleton.listRentalUnits().length);
 			assertEquals("Rental Unit at this location already exists", e.getMessage());
@@ -360,12 +384,12 @@ public class PropertyManagerTest {
 		singleton.filterRentalUnits("", false);
 	}
 
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#flushAllData()}.
-	 */
-	@Test
-	public void testFlushAllData() {
-		fail("Not yet implemented");
-	}
+//	/**
+//	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#flushAllData()}.
+//	 */
+//	@Test
+//	public void testFlushAllData() {
+//		fail("Not yet implemented");
+//	}
 
 }
