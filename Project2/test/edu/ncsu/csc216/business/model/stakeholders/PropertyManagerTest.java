@@ -345,12 +345,4 @@ public class PropertyManagerTest {
 		singleton.filterRentalUnits("", false);
 	}
 
-//	/**
-//	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#flushAllData()}.
-//	 */
-//	@Test
-//	public void testFlushAllData() {
-//		fail("Not yet implemented");
-//	}
-
 }

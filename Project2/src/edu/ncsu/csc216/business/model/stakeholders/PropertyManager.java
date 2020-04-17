@@ -27,19 +27,19 @@ import edu.ncsu.csc216.business.model.properties.RentalUnit;
  */
 public class PropertyManager implements Landlord {
 
-	/** the earliest date */
-	public static final LocalDate EARLIEST_DATE = LocalDate.of(2020, 1, 1); // need to double check this value with TA
-	/** the latest date */
-	public static final LocalDate LATEST_DATE = LocalDate.of(2029, 12, 31); // need to double check this value with TA
-	/** the kind of filter  */
+	/** the earliest date a Lease may start on */
+	public static final LocalDate EARLIEST_DATE = LocalDate.of(2020, 1, 1);
+	/** the latest date a Lease may start on */
+	public static final LocalDate LATEST_DATE = LocalDate.of(2029, 12, 31);
+	/** String used to filter rental units by their kind  */
 	private String kindFilter;
-	/** filter if in service */
+	/** Boolean used to filter rental units by their service status */
 	private boolean inServiceFilter;
-	/** instance of property manager */
+	/** instance of PropertyManager class */
 	private static PropertyManager instance;
-	/** list of customers */
+	/** A SimpleArrayList of Client objects */
 	private SimpleArrayList<Client> customerBase;
-	/** list of rooms */
+	/** A sorted linked list of RentalUnit objects */
 	private SortedLinkedListWithIterator<RentalUnit> rooms;
 	
 	/**
@@ -53,9 +53,9 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Gets an instance of property manager
+	 * Gets an instance of PropertyManager class
 	 * 
-	 * @return the instance
+	 * @return the instance of PropertyManager
 	 */
 	public static PropertyManager getInstance() {
 		if (instance == null) {
@@ -132,7 +132,8 @@ public class PropertyManager implements Landlord {
 	 * @param startDate start date for the Lease
 	 * @param endDate end date for the Lease
 	 * @param numOccupants number of occupants for the Lease
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if the provided parameters
+	 *         are invalid
 	 */
 	public void addLeaseFromFile(Client client, int confirmationNumber,
 			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) {
@@ -149,18 +150,6 @@ public class PropertyManager implements Landlord {
 		} catch (RentalDateException | RentalCapacityException e) {
 			throw new IllegalArgumentException();
 		}
-//		Lease lease = new Lease(confirmationNumber, client, unit, startDate, endDate, numOccupants);
-//		client.addNewLease(lease);
-//		unit.addLease(lease);
-//		
-//		customerBase.add(client);
-//		rooms.add(unit);
-		
-		// TODO fix these first
-		// testremoveofficefromservice
-		// testremoveconferenceroomfromservice
-		// testremovehotelsuitefromservice
-		// testfilterrentalunits ---- exception from lease.setenddateearlier
 	}
 	
 	/**
@@ -237,6 +226,8 @@ public class PropertyManager implements Landlord {
 	 * all leases for that rental unit.
 	 * 
 	 * @param propertyIndex  Index for the rental unit to be closed (subject to filtering)
+	 * @throws IllegalArgumentException if the propertyIndex is less than zero or greater
+	 *         than the length of the filtered rental units array
 	 */
 	@Override
 	public void closeRentalUnit(int propertyIndex) {
@@ -245,10 +236,7 @@ public class PropertyManager implements Landlord {
 		}
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
 		removeFromService(propertyIndex, EARLIEST_DATE);
-		//unit.removeFromServiceStarting(EARLIEST_DATE);
 		rooms.remove(rooms.indexOf(unit));
-		
-		// TODO Still need to cancel all Leases for the removed RentalUnit
 	}
 	
 	/**
@@ -276,7 +264,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * Who are the clients for this Landlord's properties?
+	 * Returns an array of Clients for the Landlord's properties.
 	 * 
 	 * @return an array of strings, where each string describes a client
 	 */
@@ -291,7 +279,7 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * What are the leases for a particular client?
+	 * Returns an array of all the leases for a particular client.
 	 * 
 	 * @param clientIndex Index of the targeted client in the landlord's list of clients
 	 * @return an array of strings in which each string describes a lease for the
@@ -308,8 +296,8 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * What are the rental units for this landlord? (Consider only the units that meet
-	 * filters currently in place.)
+	 * Returns an array of the Landlords rental units, this list is subject to 
+	 * the filter that is currently in place. 
 	 * 
 	 * @return an array of strings in which each string describes a rental unit that
 	 *         meets all filters in place. There are exactly as many strings in the
@@ -350,8 +338,8 @@ public class PropertyManager implements Landlord {
 	}
 	
 	/**
-	 * What are the leases for the rental unit at this particular index in the filtered
-	 * list of rental units?
+	 * Returns an array of Leases for a rental unit at a specified index in the 
+	 * filtered list of rental units.
 	 * 
 	 * @param propertyIndex Index of the targeted rental unit (subject to filtering)
 	 * @return an array of strings in which each string describes a lease for the
@@ -440,6 +428,9 @@ public class PropertyManager implements Landlord {
 	 * 		  the filtered rental units array
 	 * @return The RentalUnit object from the rooms list that matches
 	 *         the description of the unit at the propertyIndex
+	 * @throws IllegalArgumentException if the rooms field does not 
+	 *         contain a rental unit whose description matches that 
+	 *         of the rental unit at propertyIndex                 
 	 */
 	private RentalUnit getUnitAtFilteredIndex(int propertyIndex) {
 		String description = listRentalUnits()[propertyIndex];

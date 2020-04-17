@@ -23,6 +23,10 @@ import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
  */
 public class RentalReader {
 	
+	/** 
+	 * An instance of the PropertyManager class used to store
+	 * data that is read into PropertyManagers fields.
+	 */
 	static PropertyManager manager = PropertyManager.getInstance();
 	
 	/**
@@ -79,7 +83,7 @@ public class RentalReader {
 	}
 	
 	/**
-	 * Read in a client
+	 * Read in a Client.
 	 * 
 	 * @param next the next line to read
 	 * @return the client
@@ -108,7 +112,7 @@ public class RentalReader {
 	}
 
 	/**
-	 * Reads in a lease
+	 * Reads in a Lease.
 	 * 
 	 * @param line the line to read in 
 	 * @param c the client to add to lease
@@ -144,7 +148,7 @@ public class RentalReader {
 	}
 
 	/**
-	 * Reads in a unit
+	 * Reads in a Unit.
 	 * 
 	 * @param line the line to read
 	 * @return the Rental Unit

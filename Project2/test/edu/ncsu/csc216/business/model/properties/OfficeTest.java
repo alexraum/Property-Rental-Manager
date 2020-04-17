@@ -24,7 +24,7 @@ public class OfficeTest {
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#reserve(edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, int, int)}.
 	 * @throws RentalCapacityException if the office cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or computed end dates are not valid
 	 * @throws RentalOutOfServiceException if the office is currently out of service
 	 */
@@ -35,12 +35,6 @@ public class OfficeTest {
 		LocalDate start = LocalDate.of(2021, 4, 1);
 		LocalDate end = LocalDate.of(2021, 4, 30);
 		Lease lease = office.reserve(client, start, 1, 1);
-//		Lease lease2 = office.reserve(client, start, 1, 10);
-//		Lease lease3 = office.reserve(client, start, 1, 30);
-//		SimpleListIterator<Lease> iterator = office.myLeases.iterator();
-//		while (iterator.hasNext()) {
-//			System.out.println(iterator.next().getConfirmationNumber());
-//		}
 		
 		assertEquals(end, lease.getEnd());
 		
@@ -94,9 +88,9 @@ public class OfficeTest {
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#recordExistingLease(int, edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, java.time.LocalDate, int)}.
 	 * 
 	 * @throws RentalCapacityException if the office cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date is not the first day of the
-	 * month and the end date is not the last day of the month
+	 *         month and the end date is not the last day of the month
 	 */
 	@Test
 	public void testRecordExistingLease() throws RentalCapacityException, RentalDateException {
@@ -172,9 +166,9 @@ public class OfficeTest {
 	 * Checks the proper functionality of the cancelLeaseByNumber method.
 	 * 
 	 * @throws RentalCapacityException if the office cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date is not the first day of the
-	 * month and the end date is not the last day of the month
+	 *         month and the end date is not the last day of the month
 	 */
 	@Test
 	public void testCancelLeaseByNumber() throws RentalDateException, RentalCapacityException {
@@ -198,16 +192,6 @@ public class OfficeTest {
 		}
 	}
 	
-//	/**
-//	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#removeFromServiceStarting(java.time.LocalDate)}.
-//	 */
-//	@Test
-//	public void testRemoveFromServiceStarting() {
-	    // TODO error stems from while loop and how I'm moving date back, try adding multiple leases to the list
-	    // then truncate the end date for each lease in the list.  (to resolve IllegalArgumentException failure)
-//		//fail("Not yet implemented");
-//	}
-
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#getDescription()}.
 	 */
@@ -221,9 +205,9 @@ public class OfficeTest {
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.Office#remainingCapacityFor(java.time.LocalDate)}.
 	 * 
 	 * @throws RentalCapacityException if the office cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date is not the first day of the
-	 * month and the end date is not the last day of the month
+	 *         month and the end date is not the last day of the month
 	 */
 	@Test
 	public void testRemainingCapacityFor() throws RentalCapacityException, RentalDateException {
