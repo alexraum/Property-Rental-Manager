@@ -29,7 +29,7 @@ public class RentalReader {
 	 * @throws DuplicateClientException 
 	 * @throws DuplicateRoomException 
 	 */
-	public static void readRentalData(String filename) {
+	public static void readRentalData(String filename) throws DuplicateRoomException {
 		manager.flushAllData();
 		try {
 
@@ -46,7 +46,10 @@ public class RentalReader {
 					if (next.startsWith("H") || next.startsWith("C") || next.startsWith("O")) {
 						try {
 							rentalUnitReader(next);
-						} catch (DuplicateRoomException e) {}
+						} catch (DuplicateRoomException e) {
+							fileReader.close();
+							throw e;
+						}
 					} else if (next.startsWith("#")) {
 						try {
 							lastClient = clientReader(next);
@@ -124,7 +127,11 @@ public class RentalReader {
 		
 		try {
 			a = manager.addNewUnit(type.substring(0, 1), location, capacity);
-		} catch (DuplicateRoomException e) {}
+		} catch (DuplicateRoomException e) {
+			sh.close();
+			rentalUnitReader.close();
+			throw e;
+		}
 		
 		if (rentalUnitReader.hasNext()) {
 			if (sh.next().equals("Unavailable")) {
