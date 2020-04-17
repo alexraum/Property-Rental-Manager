@@ -211,10 +211,11 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	}
 	
 	/**
-	 * Removes from service
+	 * Removes from service on a specified date
 	 * 
-	 * @param date start date
-	 * @return the lease
+	 * @param date the cutoff date for the unit to be removed
+	 * @return a list of leases with whose start date is after
+	 *         the cutoff date
 	 */
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
 		takeOutOfService();
