@@ -227,5 +227,4 @@ public class SortedLinkedListWithIteratorTest {
 			assertEquals(4, list.size());
 		}
 	}
-
 }

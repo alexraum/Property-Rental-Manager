@@ -24,9 +24,9 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 	
 	/** 
-	 * Returns the size
+	 * Returns the size of the list
 	 * 
-	 * @return the size
+	 * @return the size the list
 	 */
 	@Override
 	public int size() {
@@ -42,7 +42,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	/**
 	 * Returns whether the list is empty
 	 * 
-	 * @return if it is empty
+	 * @return if the list is empty
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -61,7 +61,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
-	 * Adds an item to the list
+	 * Adds an item to the list in sorted order
 	 * 
 	 * @param e the object to add
 	 * @return if the object is added
@@ -86,25 +86,6 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 			current.next = new Node<E>(e, current.next);
 		}
 		return true;
-		
-//		if (e == null) {
-//			throw new NullPointerException();
-//		}
-//		if (contains(e)) {
-//			throw new IllegalArgumentException();
-//		}
-//		if (head == null || head.value.compareTo(e) <= 0) {
-//			head = new Node<E>(e, head);
-//		} else {
-//			Node<E> prev = head;
-//			Node<E> current = head.next;
-//			while (current != null && current.value.compareTo(e) > 0) {
-//				prev = current;
-//				current = current.next;
-//			}
-//			prev.next = new Node<E>(e, prev.next);
-//		}
-//		return true;
 	}
 
 	/**
@@ -117,10 +98,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
-	 * Gets the item from an index
+	 * Gets an element in the list at a 
+	 * specified index
 	 * 
-	 * @param index the index of the item
-	 * @return the element
+	 * @param index the index of the element
+	 * @return the element at the specified index
 	 * @throws IndexOutOfBoundsException if the index is out of range
 	 */
 	@Override
@@ -136,7 +118,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
-	 * Remove an item at index
+	 * Remove an item at a specified index
 	 * 
 	 * @param index the index of the element to remove
 	 * @return if the element is removed
@@ -163,9 +145,11 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
-	 * Shorten the list
+	 * The truncate method removes every element in the list
+	 * that is equal to or greater than the specified index.
+	 * The "tail" or section that was removed is returned.
 	 * 
-	 * @param start of the truncate
+	 * @param index of the truncation
 	 * @return the truncated sorted list
 	 * @throws IllegalArgumentException if the index is out of range
 	 */
@@ -194,14 +178,13 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	/**
 	 * Returns the index of an element
 	 * 
-	 * @param e the element
+	 * @param e the element to be located
 	 * @return the index of the element
 	 */
 	@Override
 	public int indexOf(E e) {
 		Node<E> current = head;
 		for (int i = 0; i < size(); i++) {
-			// TODO may need to use ==
 			if (current.value.equals(e)) {
 				return i;
 			}
@@ -232,7 +215,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	}
 
 	/**
-	 * The iterator
+	 * Creates and returns an iterator for the list
 	 * 
 	 * @return the new iterator
 	 */
@@ -296,9 +279,9 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 		}
 		
 		/**
-		 * the next element
+		 * returns the next element in the list
 		 * 
-		 * @return the next element
+		 * @return the next element in the list
 		 * @throws NoSuchElementException if the list has already been traversed
 		 */
 		@Override
