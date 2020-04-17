@@ -151,39 +151,6 @@ public class PropertyManagerTest {
 	}
 
 	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#returnToService(int)}.
-	 */
-	@Test
-	public void testReturnToService() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#removeFromService(int, java.time.LocalDate)}.
-	 */
-	@Test
-	public void testRemoveFromService() {
-//		PropertyManager singleton = PropertyManager.getInstance();
-//		singleton.flushAllData();
-//
-//		try {
-//			singleton.addNewUnit("Conference Room", "12-14", 10);
-//			singleton.addNewUnit("Hotel Suite", "12-15", 1);
-//			singleton.addNewUnit("Office", "12-16", 100);
-//			singleton.addNewClient("Donald Knuth", "deknuth");
-//		} catch (DuplicateClientException | DuplicateRoomException e) {
-//			assertEquals(3, singleton.listRentalUnits().length);
-//			assertEquals("Rental Unit at this location already exists", e.getMessage());
-//		}
-//		singleton.createLease(0, 0, LocalDate.of(2020, 7, 7), 7, 10);
-//		singleton.removeFromService(0, LocalDate.of(2020, 7, 10));
-//		singleton.filterRentalUnits("", true);
-//		
-//		assertEquals(0, singleton.listRentalUnits().length);
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#closeRentalUnit(int)}.
 	 */
 	@Test
@@ -282,14 +249,6 @@ public class PropertyManagerTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals(1, singleton.listClientLeases(0).length);
 		}
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#listRentalUnits()}.
-	 */
-	@Test
-	public void testListRentalUnits() {
-		fail("Not yet implemented");
 	}
 
 	/**
