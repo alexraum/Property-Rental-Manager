@@ -220,7 +220,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 		takeOutOfService();
 		SortedLinkedListWithIterator<Lease> removed = new SortedLinkedListWithIterator<Lease>();
 		int cutoff = cutoffIndex(date);
-		if (cutoff > 0) {
+		if (cutoff >= 0) {
 			removed = (SortedLinkedListWithIterator<Lease>) myLeases.truncate(cutoff);
 		} else {
 			return removed;
