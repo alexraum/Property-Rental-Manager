@@ -14,8 +14,10 @@ import edu.ncsu.csc216.business.model.properties.Office;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 
 /**
- * @author Alex Raum
- *
+ * The PropertyManagerTest class checks for the correct functionality of 
+ * the methods in PropertyManager
+ * 
+ * @author Alex Raum, Walker Clem
  */
 public class PropertyManagerTest {
 

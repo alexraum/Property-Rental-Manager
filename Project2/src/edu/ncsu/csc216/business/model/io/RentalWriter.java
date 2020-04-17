@@ -30,7 +30,7 @@ public class RentalWriter {
 	 * 
 	 * @param filename the name of the file that data is to be written to
 	 */
-	public static void writeRentalData(String filename) {
+	public static void writeRentalFile(String filename) {
 //		try {
 //			PrintStream fileWriter = new PrintStream(new File(filename));
 //		} catch (IOException e) {
