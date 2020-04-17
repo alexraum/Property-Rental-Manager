@@ -42,11 +42,13 @@ public class RentalReader {
 			Client lastClient = null;
 			while (fileReader.hasNextLine()) {
 				String next = fileReader.nextLine().trim();
+
 				if (!next.isBlank()) {
 					if (next.startsWith("H") || next.startsWith("C") || next.startsWith("O")) {
 						try {
 							rentalUnitReader(next);
 						} catch (DuplicateRoomException e) {
+							manager.flushAllData();
 							break;
 						}
 					} else if (next.startsWith("#")) {
