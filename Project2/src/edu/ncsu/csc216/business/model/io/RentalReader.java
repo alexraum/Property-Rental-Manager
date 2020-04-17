@@ -46,7 +46,9 @@ public class RentalReader {
 					if (next.startsWith("H") || next.startsWith("C") || next.startsWith("O")) {
 						try {
 							rentalUnitReader(next);
-						} catch (DuplicateRoomException e) {}
+						} catch (DuplicateRoomException e) {
+							break;
+						}
 					} else if (next.startsWith("#")) {
 						try {
 							lastClient = clientReader(next);
