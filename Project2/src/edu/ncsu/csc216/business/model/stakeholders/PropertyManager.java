@@ -427,10 +427,9 @@ public class PropertyManager implements Landlord {
 	 *         the description of the unit at the propertyIndex
 	 */
 	private RentalUnit getUnitAtFilteredIndex(int propertyIndex) {
-		// String description = listRentalUnits()[propertyIndex];
-		RentalUnit a = rooms.get(propertyIndex);
+		String description = listRentalUnits()[propertyIndex];
 		for (int i = 0; i < rooms.size(); i++) {
-			if (a.equals(rooms.get(i))) {
+			if (description.equals(rooms.get(i).getDescription())) {
 				return rooms.get(i);
 			}
 		}
