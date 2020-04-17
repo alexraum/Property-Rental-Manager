@@ -135,7 +135,7 @@ public class Lease implements Comparable<Lease> {
 	 * date of the lease
 	 */
 	public void setEndDateEarlier(LocalDate date) {
-		if (date.isAfter(endDate) || date.isBefore(startDate)) {
+		if (date.compareTo(endDate) >= 0 || date.compareTo(startDate) <= 0) {
 			throw new IllegalArgumentException();
 		}
 		this.endDate = date;
