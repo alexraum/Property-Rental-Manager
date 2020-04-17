@@ -182,15 +182,15 @@ public class PropertyManager implements Landlord {
 		int num = lease.getConfirmationNumber();
 		String numString = lease.getConfirmationNumber() + "";
 		
-		for (int i = 0; i < rooms.size(); i++) {
-			String[] leases = rooms.get(i).listLeases();
-			for (String s : leases) {
-				if (s.contains(numString)) {
-					rooms.get(i).cancelLeaseByNumber(num);
-				}
-			}
-		}
-		//rooms.remove(indexOf(lease));
+//		for (int i = 0; i < rooms.size(); i++) {
+//			String[] leases = rooms.get(i).listLeases();
+//			for (String s : leases) {
+//				if (s.contains(numString)) {
+//					rooms.get(i).cancelLeaseByNumber(num);
+//				}
+//			}
+//		}
+//		//rooms.remove(indexOf(lease));
 	}
 	
 	/**
