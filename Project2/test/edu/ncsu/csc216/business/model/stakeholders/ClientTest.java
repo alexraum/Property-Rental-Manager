@@ -13,8 +13,10 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
 
 /**
- * Tests the client class
- * @author Alex Raum
+ * The RentalReaderTest class checks for the correct functionality
+ * of the methods in the RentalReader class
+ * 
+ * @author Alex Raum, Walker Clem
  *
  */
 public class ClientTest {

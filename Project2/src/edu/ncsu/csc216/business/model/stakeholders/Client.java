@@ -14,34 +14,29 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
  */
 public class Client {
 	
-	/** name of client */
+	/** the name of the client */
 	private String name;
-	/** id of client */
+	/** the id of the client */
 	private String id;
-	/** leases for client */
+	/** a list representing all of the current Leases for the client */
 	private SimpleArrayList<Lease> myLeases;
 	
 	/**
 	 * Client constructor
 	 * 
-	 * @param name of client
-	 * @param id of client
+	 * @param the name of the client
+	 * @param the id of the client
 	 * @throws IllegalArgumentException if the name or id parameters
-	 * are null, if length of the ID is less than 3, the name is blank
-	 * or the ID contains whitespace
+	 *         are null, if length of the ID is less than 3, the name is blank
+	 *         or the ID contains whitespace
 	 */
 	public Client(String name, String id) {
-		// TODO need to loop through name and id and check each 
-		// element to see if it an acceptable character
 		if (name == null || id == null) {
 			throw new IllegalArgumentException();
 		}
 		if (id.length() < 3 || name.isBlank()) {
 			throw new IllegalArgumentException();
 		}
-		// TODO make sure name has lower or upper case letters or 0-9
-		// TODO make sure ID is alphanumeric or @, #, $ and length > 3
-		// do these checks through REGEX, the function is String.matches()
 		String newName = name.trim();
 		String newId = id.trim();
 		if (newId.contains(" ")) {
@@ -53,7 +48,7 @@ public class Client {
 	}
 	
 	/**
-	 * Gets the name of Client
+	 * Gets the name of the Client
 	 * 
 	 * @return the name of the Client
 	 */
@@ -62,7 +57,7 @@ public class Client {
 	}
 	
 	/**
-	 * Gets the id of Client
+	 * Gets the id of the Client
 	 * 
 	 * @return the Clients id
 	 */
@@ -88,7 +83,7 @@ public class Client {
 	 * 
 	 * @param obj an object for this Client to be compared to
 	 * @return boolean representing if this Client is equal to the parameter
-	 * that it was compared to
+	 *         that it was compared to
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -112,7 +107,7 @@ public class Client {
 	 * 
 	 * @param lease the Lease to be added
 	 * @throws IllegalArgumentException if the Lease does not
-	 * belong to this Client
+	 *         belong to this Client
 	 */
 	public void addNewLease(Lease lease) {
 		if (!lease.getClient().equals(this)) {
@@ -148,11 +143,11 @@ public class Client {
 	 * index, returns that Lease to the user.
 	 * 
 	 * @param index index in the myLeases field of the Lease to 
-	 * be canceled
+	 *        be canceled
 	 * @return the canceled Lease
 	 * @throws IllegalArgumentException if the index is less than
-	 * 0 or greater than or equal to the length of the myLeases 
-	 * list
+	 *         0 or greater than or equal to the length of the myLeases 
+	 *         list
 	 */
 	public Lease cancelLeaseAt(int index) {
 		if (index < 0 || index >= this.myLeases.size()) {
@@ -166,10 +161,10 @@ public class Client {
 	 * matches the confirmationNumber search parameter.
 	 * 
 	 * @param confirmationNumber the confirmationNumber of the desired Lease 
-	 * in the myLeases field to be canceled
+	 *        in the myLeases field to be canceled
 	 * @return the canceled Lease
 	 * @throws IllegalArgumentException if no Lease with the confirmationNumber
-	 * parameter is in the list
+	 *         parameter is in the list
 	 */
 	public Lease cancelLeaseWithNumber(int confirmationNumber) {
 		for (int i = 0; i < myLeases.size(); i++) {
