@@ -38,7 +38,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param location the location of the Suite
 	 * @param capacity the capacity of the Suite
 	 * @throws IllegalArgumentException if the capacity 
-	 * parameter is greater than the maximum capacity
+	 *         parameter is greater than the maximum capacity
 	 */
 	public HotelSuite(String location, int capacity) {
 		super(location, capacity);
@@ -56,7 +56,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param occupants the number of occupants for the lease
 	 * @return the Lease for the HotelSuite
 	 * @throws RentalCapacityException if the hotel suite cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or computed end dates are not valid
 	 * @throws RentalOutOfServiceException if the hotel suite is currently out of service
 	 */
@@ -65,13 +65,6 @@ public class HotelSuite extends RentalUnit {
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		checkLeaseConditions(client, startDate, duration, occupants);
 		LocalDate endDate = startDate.plusWeeks(duration);
-//		if (client == null || startDate == null || duration < 1 || occupants < 1) {
-//			throw new IllegalArgumentException();
-//		}
-//		if (!this.isInService()) {
-//			throw new RentalOutOfServiceException("Not in service");
-//		}
-		// TODO throw exception if not in service
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || 
 			!(startDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) ||
 			!(endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY))) {
@@ -86,9 +79,6 @@ public class HotelSuite extends RentalUnit {
 				throw new RentalDateException("Invalid date");
 			}
 		}
-//		if (the non-Sunday dates in the lease overlap with another lease) {
-//			throw new RentalDateException();
-//		}
 		if (occupants > super.getCapacity()) {
 			throw new RentalCapacityException("Too many occupants");
 		}
@@ -108,7 +98,7 @@ public class HotelSuite extends RentalUnit {
 	 * @param numOccupants the number of occupants of the lease 
 	 * @return the Lease that the hotel suite is being reserved for
 	 * @throws RentalCapacityException if the hotel suite cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or end dates are not on Sunday
 	 */
 	@Override
@@ -138,7 +128,7 @@ public class HotelSuite extends RentalUnit {
 	 * 
 	 * @param date the cutoff date for the leases
 	 * @return a list of leases whose end dates have been adjusted 
-	 * according to their rental unit type
+	 *         according to their rental unit type
 	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {
@@ -154,11 +144,6 @@ public class HotelSuite extends RentalUnit {
 				}
 				l.setEndDateEarlier(date);
 			}
-//			if (l.getEnd().equals(date)) {
-//				list.add(myLeases.remove(i));
-//			}
-			// TODO If either of these lease modifications would force the lease to cover only
-			// one day rather than at least one week, then the lease is canceled.
 		}
 		return list;
 	}
@@ -180,20 +165,11 @@ public class HotelSuite extends RentalUnit {
 	 * @param startDate the start date
 	 * @param endDate the end date
 	 * @throws RentalDateException if the either date is outside 
-	 * of the earliest and latest date range or if the start date
-	 * is earlier than the end date
+	 *         of the earliest and latest date range or if the start date
+	 *         is earlier than the end date
 	 */
 	@Override
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
-//		if (endDate.isAfter(PropertyManager.EARLIEST_DATE)) {
-//			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
-//		}
-//		if (startDate.isBefore(PropertyManager.LATEST_DATE)) {
-//			throw new RentalDateException("Lease date cannot end after " + PropertyManager.LATEST_DATE);
-//		}
-//		if (startDate.isAfter(endDate)) {
-//			throw new RentalDateException("End date for lease cannot be after the start date");
-//		}
 		if (startDate.isBefore(PropertyManager.EARLIEST_DATE)) {
 			throw new RentalDateException("Lease date cannot start before " + PropertyManager.EARLIEST_DATE);
 		}

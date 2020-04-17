@@ -29,7 +29,6 @@ public class RentalReaderTest {
 	 */
 	@Test
 	public void testReadRentalData() throws DuplicateClientException, DuplicateRoomException {
-		//fail("Not yet implemented");
 		RentalReader.readRentalData("test-files/test.md");
 		
 		try {
@@ -39,7 +38,6 @@ public class RentalReaderTest {
 			assertEquals(e.getMessage(), "Unable to load file.");
 		}
 
-
 		try {
 			RentalReader.readRentalData("test-files/test2.md");
 			fail();
@@ -48,7 +46,7 @@ public class RentalReaderTest {
 		}
 		
 		try {
-			RentalReader.readRentalData("test-files/test3.md");
+			RentalReader.readRentalData("test-files/test4.md");
 			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), null);

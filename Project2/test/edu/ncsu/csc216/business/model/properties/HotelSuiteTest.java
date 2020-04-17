@@ -23,6 +23,9 @@ public class HotelSuiteTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.HotelSuite#reserve(edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, int, int)}.
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
+	 * @throws RentalOutOfServiceException if the unit is out of service
 	 */
 	@Test
 	public void testReserve() throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
@@ -72,6 +75,8 @@ public class HotelSuiteTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.HotelSuite#recordExistingLease(int, edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, java.time.LocalDate, int)}.
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
 	 */
 	@Test
 	public void testRecordExistingLease() throws RentalCapacityException, RentalDateException {
@@ -137,6 +142,8 @@ public class HotelSuiteTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.HotelSuite#removeFromServiceStarting(java.time.LocalDate)}.
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
 	 */
 	@Test
 	public void testRemoveFromServiceStarting() throws RentalCapacityException, RentalDateException {
@@ -164,5 +171,4 @@ public class HotelSuiteTest {
 		assertEquals(1, tail.size());
 		assertEquals(2, suite1.listLeases().length);
 	}
-
 }
