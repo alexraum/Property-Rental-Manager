@@ -134,10 +134,8 @@ public class RentalReader {
 			throw e;
 		}
 		
-		if (rentalUnitReader.hasNext()) {
-			if (sh.next().equals("Unavailable")) {
-				a.takeOutOfService();
-			}
+		if (sh.hasNext() && sh.next().equals("Unavailable")) {
+			a.takeOutOfService();
 		}
 		sh.close();
 
