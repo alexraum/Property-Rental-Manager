@@ -116,7 +116,14 @@ public class RentalReader {
 		ru = manager.getUnitAtLocation(location);
 		LocalDate start = LocalDate.parse(startDate);
 		LocalDate end = LocalDate.parse(endDate);
-		manager.addLeaseFromFile(c, Integer.parseInt(id), ru, start, end, Integer.parseInt(occupants));
+		if (!ru.isInService()) {
+			ru.returnToService();
+			manager.addLeaseFromFile(c, Integer.parseInt(id), ru, start, end, Integer.parseInt(occupants));
+			ru.takeOutOfService();
+		} else {
+			manager.addLeaseFromFile(c, Integer.parseInt(id), ru, start, end, Integer.parseInt(occupants));
+		}
+
 	}
 
 	private static RentalUnit rentalUnitReader(String line) throws DuplicateRoomException {
