@@ -178,10 +178,11 @@ public class PropertyManager implements Landlord {
 		if (leaseIndex < 0 || leaseIndex >= customerBase.get(clientIndex).listLeases().length) {
 			throw new IllegalArgumentException();
 		}
-		customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
-//		int num = lease.getConfirmationNumber();
+		Lease lease = customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
+		int num = lease.getConfirmationNumber();
 //		String numString = lease.getConfirmationNumber() + "";
-		
+		RentalUnit unit = lease.getProperty();
+		unit.cancelLeaseByNumber(num);
 //		for (int i = 0; i < rooms.size(); i++) {
 //			String[] leases = rooms.get(i).listLeases();
 //			for (String s : leases) {
@@ -251,6 +252,8 @@ public class PropertyManager implements Landlord {
 		}
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
 		rooms.remove(rooms.indexOf(unit));
+		//unit.
+		
 		// TODO Still need to cancel all Leases for the removed RentalUnit
 	}
 	
