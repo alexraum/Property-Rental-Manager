@@ -114,7 +114,8 @@ public class ConferenceRoom extends RentalUnit {
 		for (int i = 0; i < myLeases.size(); i++) {
 			Lease l = myLeases.get(i);
 			if (l.getEnd().compareTo(date) >= 0) {
-				l.setEndDateEarlier(date.minusDays(1));
+				LocalDate newDate = date.minusDays(1);
+				l.setEndDateEarlier(newDate);
 			}
 		}
 		return list;
