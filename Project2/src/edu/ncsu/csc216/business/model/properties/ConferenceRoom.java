@@ -28,6 +28,8 @@ public class ConferenceRoom extends RentalUnit {
 	 * 
 	 * @param location the location of the room
 	 * @param capacity the capacity of the room
+	 * @throws IllegalArgumentException if the 
+	 *         capacity is greater than MAX_CAPACITY
 	 */
 	public ConferenceRoom(String location, int capacity) {
 		super(location, capacity);
@@ -45,7 +47,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * @param occupants the number of occupants for the lease
 	 * @return the Lease reserving the RentalUnit
 	 * @throws RentalCapacityException if the conference room cannot hold the number of 
-	 * occupants over the dates of the proposed lease
+	 *         occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or computed end dates are not valid
 	 * @throws RentalOutOfServiceException if the conference room is currently out of service
 	 */
@@ -54,7 +56,6 @@ public class ConferenceRoom extends RentalUnit {
 			int occupants) throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
 		LocalDate endDate = startDate.plusDays(duration - 1);
 		checkLeaseConditions(client, startDate, duration, occupants);
-		// TODO throw exception if not in service
 		if (!(startDate instanceof LocalDate) || !(endDate instanceof LocalDate) || duration > MAX_DURATION) {
 			throw new RentalDateException("Invalid date");
 		}
@@ -82,7 +83,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * @param numOccupants the number of occupants of the lease 
 	 * @return the Lease that the rental unit is being reserved for
 	 * @throws RentalCapacityException if the conference room cannot hold the
-	 * number of occupants over the dates of the proposed lease
+	 *         number of occupants over the dates of the proposed lease
 	 * @throws RentalDateException if the start date or end dates are not valid
 	 */
 	@Override
@@ -106,7 +107,7 @@ public class ConferenceRoom extends RentalUnit {
 	 * 
 	 * @param date the cutoff date for the leases
 	 * @return a list of leases whose end dates have been adjusted 
-	 * according to their rental unit type
+	 *         according to their rental unit type
 	 */
 	@Override
 	public SortedList<Lease> removeFromServiceStarting(LocalDate date) {

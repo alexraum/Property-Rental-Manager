@@ -13,15 +13,19 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
- * Tests the conference room test
+ * The ConferenceRoomTest class checks the functionality of all methods in the 
+ * ConferenceRoom class to ensure their proper implementation.
  * 
- * @author Alex Raum
+ * @author Alex Raum, Walker Clem
  *
  */
 public class ConferenceRoomTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.ConferenceRoom#reserve(edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, int, int)}.
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
+	 * @throws RentalOutOfServiceException if the unit is out of service
 	 */
 	@Test
 	public void testReserve() throws RentalCapacityException, RentalDateException, RentalOutOfServiceException {
@@ -62,8 +66,8 @@ public class ConferenceRoomTest {
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.business.model.properties.ConferenceRoom#recordExistingLease(int, edu.ncsu.csc216.business.model.stakeholders.Client, java.time.LocalDate, java.time.LocalDate, int)}.
-	 * @throws RentalDateException 
-	 * @throws RentalCapacityException 
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
 	 */
 	@Test
 	public void testRecordExistingLease() throws RentalCapacityException, RentalDateException {
