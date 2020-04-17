@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import edu.ncsu.csc216.business.list_utils.SimpleArrayList;
 import edu.ncsu.csc216.business.list_utils.SortedLinkedListWithIterator;
+import edu.ncsu.csc216.business.list_utils.SortedList;
 import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.properties.ConferenceRoom;
 import edu.ncsu.csc216.business.model.properties.HotelSuite;
@@ -215,9 +216,19 @@ public class PropertyManager implements Landlord {
 		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
 			throw new IllegalArgumentException();
 		}
+//		List leasesCancelled = rentalUnit.removeFromServiceStarting(cutoff)
+//				for lease in leases:
+//				lease.getOwner.removeLease(lease)
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
-		unit.removeFromServiceStarting(start);
+		SortedList<Lease> leases = unit.removeFromServiceStarting(start);
+		for (int i = 0; i < leases.size(); i++) {
+			Lease lease = leases.get(i);
+			int confNum = lease.getConfirmationNumber();
+			lease.getClient().cancelLeaseWithNumber(confNum);
+		}
 		return unit;
+//		unit.removeFromServiceStarting(start);
+//		return unit;
 	}
 	
 	/** 
