@@ -152,7 +152,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testReturnToService() {
-		//fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class PropertyManagerTest {
 //		singleton.filterRentalUnits("", true);
 //		
 //		assertEquals(0, singleton.listRentalUnits().length);
-		//fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -206,7 +206,6 @@ public class PropertyManagerTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals(2, singleton.listRentalUnits().length);
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -214,7 +213,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testCreateLease() {
-		//fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -229,7 +228,6 @@ public class PropertyManagerTest {
 		singleton.addNewClient("Alex Raum", "maraum");
 		
 		assertEquals(3, singleton.listClients().length);
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -265,7 +263,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testListRentalUnits() {
-		//fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	/**
@@ -298,7 +296,6 @@ public class PropertyManagerTest {
 			assertEquals(1, singleton.listClients().length);
 			assertEquals(1, singleton.listRentalUnits().length);
 		}
-		//fail("Not yet implemented");
 	}
 
 	/**
@@ -368,7 +365,7 @@ public class PropertyManagerTest {
 	 */
 	@Test
 	public void testFlushAllData() {
-		//fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 }

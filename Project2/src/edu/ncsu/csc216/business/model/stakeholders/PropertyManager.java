@@ -102,11 +102,11 @@ public class PropertyManager implements Landlord {
 	@Override
 	public RentalUnit addNewUnit(String kind, String location, int capacity) throws DuplicateRoomException {
 		RentalUnit unit;
-		if (kind.equals("Conference Room")) {
+		if (kind.equals("C")) {
 			unit = new ConferenceRoom(location, capacity);
-		} else if (kind.equals("Hotel Suite")) {
+		} else if (kind.equals("H")) {
 			unit = new HotelSuite(location, capacity);
-		} else if (kind.equals("Office")) {
+		} else if (kind.equals("O")) {
 			unit = new Office(location, capacity);
 		} else {
 			throw new IllegalArgumentException("Invalid Rental Unit type");
@@ -135,12 +135,13 @@ public class PropertyManager implements Landlord {
 	 */
 	public void addLeaseFromFile(Client client, int confirmationNumber,
 			RentalUnit unit, LocalDate startDate, LocalDate endDate, int numOccupants) {
-		if (client == null || unit == null || startDate == null || endDate == null) {
+		if (client == null || unit == null || startDate == null || 
+				endDate == null || numOccupants <= 0) {
 			throw new IllegalArgumentException();
 		}
-//		if (!customerBase.contains(client) || !rooms.contains(unit)) {
-//			throw new IllegalArgumentException();
-//		}
+		if (!customerBase.contains(client) || !rooms.contains(unit)) {
+			throw new IllegalArgumentException();
+		}
 		// TODO perform error checking
 		try {
 			Lease lease = unit.recordExistingLease(confirmationNumber, client, startDate, endDate, numOccupants);
@@ -154,6 +155,12 @@ public class PropertyManager implements Landlord {
 //		
 //		customerBase.add(client);
 //		rooms.add(unit);
+		
+		// TODO fix these first
+		// testremoveofficefromservice
+		// testremoveconferenceroomfromservice
+		// testremovehotelsuitefromservice
+		// testfilterrentalunits ---- exception from lease.setenddateearlier
 	}
 	
 	/**
@@ -246,8 +253,10 @@ public class PropertyManager implements Landlord {
 		try {
 			Client client = customerBase.get(clientIndex);
 			RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
-			return unit.reserve(client, start, duration, people);
-		} catch (RentalOutOfServiceException | RentalDateException | RentalCapacityException e) {
+			Lease lease = unit.reserve(client, start, duration, people);
+			client.addNewLease(lease);
+			return lease;
+		} catch (RentalOutOfServiceException | RentalDateException | RentalCapacityException | IndexOutOfBoundsException e) {
 			throw new IllegalArgumentException();
 		}
 	}

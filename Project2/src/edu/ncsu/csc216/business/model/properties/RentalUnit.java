@@ -147,6 +147,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * @param endDate the end date of the lease
 	 * @param duration the duration of the lease
 	 * @param occupants the number of occupants for the lease
+	 * @return the new Lease that was reserved
 	 */
 	public abstract Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException; 
@@ -159,6 +160,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * @param startDate the start date of the lease
 	 * @param endDate the end date of the lease 
 	 * @param numOccupants the number of occupants of the lease 
+	 * @return the new Lease that was reserved
 	 */
 	public abstract Lease recordExistingLease(int confirmationNumber, Client client,
 			LocalDate startDate, LocalDate endDate, int numOccupants) throws RentalDateException, RentalCapacityException;
