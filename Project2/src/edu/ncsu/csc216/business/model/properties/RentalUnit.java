@@ -58,18 +58,18 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 		}
 		Scanner scan = new Scanner(location);
 		scan.useDelimiter("-");
-		int floor = scan.nextInt();
-		int room = scan.nextInt();
+		int f = scan.nextInt();
+		int r = scan.nextInt();
 		scan.close();
-		if (floor > MAX_FLOOR || floor < MIN_FLOOR) {
+		if (f > MAX_FLOOR || f < MIN_FLOOR) {
 			throw new IllegalArgumentException();
 		}
-		if (room > MAX_ROOM || room < MIN_ROOM) {
+		if (r > MAX_ROOM || r < MIN_ROOM) {
 			throw new IllegalArgumentException();
 		}
 		this.inService = true;
-		this.floor = floor;
-		this.room = room;
+		this.floor = f;
+		this.room = r;
 		this.capacity = capacity;
 		this.myLeases = new SortedLinkedListWithIterator<Lease>();
 	}

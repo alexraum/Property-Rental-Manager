@@ -13,6 +13,8 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
+ * Tests the conference room test
+ * 
  * @author Alex Raum
  *
  */

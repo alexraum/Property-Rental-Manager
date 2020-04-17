@@ -112,6 +112,9 @@ public class RentalUnitTest {
 		}
 	}
 
+	/**
+	 * Tests the remove from service starting method
+	 */
 	@Test
 	public void testRemoveFromServiceStarting() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
