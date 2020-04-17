@@ -251,6 +251,7 @@ public class PropertyManager implements Landlord {
 			throw new IllegalArgumentException();
 		}
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
+		removeFromService(propertyIndex, EARLIEST_DATE);
 		rooms.remove(rooms.indexOf(unit));
 		//unit.
 		
