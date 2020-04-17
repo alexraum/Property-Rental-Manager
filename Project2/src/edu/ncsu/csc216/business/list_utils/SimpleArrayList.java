@@ -5,6 +5,7 @@ package edu.ncsu.csc216.business.list_utils;
 
 /**
  * Implements the SimpleList interface with an array data structure.
+ * @oaram E the object in the list
  * 
  * @author Alex Raum, Walker Clem
  */
@@ -17,7 +18,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	/** List size */
 	private int size;
 	
-	/*
+	/**
 	 * Constructor for the ArrayList
 	 */
 	public SimpleArrayList() {
@@ -26,6 +27,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	
 	/**
 	 * Constructor with a capacity set
+	 * @param capacity the capacity of the list
 	 */
 	@SuppressWarnings("unchecked")
 	public SimpleArrayList(int capacity) {
@@ -113,7 +115,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	/**
 	 * Adds an item at position e
 	 * 
-	 * @param pos the position of the elemeent
+	 * @param pos the position of the element
 	 * @param e the element
 	 * @return if the element was added
 	 * @throws NullPointerException If the specified element is null
@@ -166,7 +168,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
 	/**
 	 * Returns the index of an element
 	 * 
-	 * @param the element
+	 * @param e the element
 	 * @return the index of the element
 	 */
 	@Override

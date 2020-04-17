@@ -79,11 +79,11 @@ public class RentalReader {
 	}
 	
 	/**
+	 * Read in a client
 	 * 
-	 * 
-	 * @param next
-	 * @return
-	 * @throws DuplicateClientException
+	 * @param next the next line to read
+	 * @return the client
+	 * @throws DuplicateClientException if there is an error
 	 */
 	private static Client clientReader(String next) throws DuplicateClientException {
 		Client c = null;
@@ -108,10 +108,10 @@ public class RentalReader {
 	}
 
 	/**
+	 * Reads in a lease
 	 * 
-	 * 
-	 * @param line
-	 * @param c
+	 * @param line the line to read in 
+	 * @param c the client to add to lease
 	 */
 	private static void leaseReader(String line, Client c) {
 		Scanner leaseReader = new Scanner(line);
@@ -144,11 +144,11 @@ public class RentalReader {
 	}
 
 	/**
+	 * Reads in a unit
 	 * 
-	 * 
-	 * @param line
-	 * @return
-	 * @throws DuplicateRoomException
+	 * @param line the line to read
+	 * @return the Rental Unit
+	 * @throws DuplicateRoomException if there is an error
 	 */
 	private static RentalUnit rentalUnitReader(String line) throws DuplicateRoomException {
 		RentalUnit a = null;

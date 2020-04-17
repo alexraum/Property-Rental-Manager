@@ -35,11 +35,11 @@ public class Lease implements Comparable<Lease> {
 	/**
 	 * The Lease constructor
 	 * 
-	 * @param client the client for the least
-	 * @param unit the unit for the lease
+	 * @param owner the client for the least
+	 * @param property the unit for the lease
 	 * @param startDate start of the lease
 	 * @param endDate end of the lease
-	 * @param the number of occupants for the lease
+	 * @param numOccupants the number of occupants for the lease
 	 */
 	public Lease(Client owner, RentalUnit property, LocalDate startDate, LocalDate endDate, int numOccupants) {
 		this(confirmationCounter++, owner, property, startDate, endDate, numOccupants);
@@ -49,12 +49,12 @@ public class Lease implements Comparable<Lease> {
 	 * The Lease constructor primary constructor, contains
 	 * confirmationNumber parameter.
 	 * 
-	 * @param the confirmation number of  the Lease
-	 * @param client the client for the Lease
-	 * @param unit the unit for the Lease
+	 * @param confirmationNumber the confirmation number of  the Lease
+	 * @param owner the client for the Lease
+	 * @param property the unit for the Lease
 	 * @param startDate start of the Lease
 	 * @param endDate end of the Lease
-	 * @param the number of occupants for the Lease
+	 * @param numOccupants the number of occupants for the Lease
 	 */
 	public Lease(int confirmationNumber, Client owner, RentalUnit property, LocalDate startDate, LocalDate endDate, int numOccupants) {
 		if (confirmationCounter > MAX_CONF_NUM) {

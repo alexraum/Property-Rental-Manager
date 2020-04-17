@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Implements the SortedList interface with a data structure of linked Nodes.
+ * @param E the object to go in list
  * 
  * @author Alex Raum, Walker Clem
  */
@@ -193,7 +194,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	/**
 	 * Returns the index of an element
 	 * 
-	 * @param the element
+	 * @param e the element
 	 * @return the index of the element
 	 */
 	@Override
@@ -245,6 +246,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * to define all state and behavior for a Node object.
 	 * 
 	 * @author Alex Raum, Walker Clem
+	 * @param E the object to go in node
 	 */
 	private static class Node<E> {
 		
