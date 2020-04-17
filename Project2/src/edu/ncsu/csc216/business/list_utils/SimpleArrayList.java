@@ -5,7 +5,7 @@ package edu.ncsu.csc216.business.list_utils;
 
 /**
  * Implements the SimpleList interface with an array data structure.
- * @param E the object in the list
+ * @param <E> the object in the list
  * 
  * @author Alex Raum, Walker Clem
  */
