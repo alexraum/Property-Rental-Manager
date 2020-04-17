@@ -11,14 +11,16 @@ import edu.ncsu.csc216.business.model.contracts.Lease;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
- * Test for rental unit
- * @author Walker Clem
+ * The RentalUnitTest class checks the functionality of all methods in the 
+ * RentalUnit class to ensure their proper implementation.
+ * 
+ * @author Walker Clem, Alex Raum
  *
  */
 public class RentalUnitTest {
 
 	/**
-	 * Tests compare to method
+	 * Checks the proper functionality of the compareTo method
 	 */
 	@Test
 	public void testCompareTo() {
@@ -31,7 +33,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests return to service method
+	 * Checks the proper functionality of the returnToService method
 	 */
 	@Test
 	public void testReturnToService() {
@@ -43,7 +45,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests take out of service method 
+	 * Checks the proper functionality of the takeOutOfService method
 	 */
 	@Test
 	public void testTakeOutOfService() {
@@ -54,7 +56,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * tests check dates method
+	 * Checks the proper functionality of the checkDates method
 	 */
 	@Test
 	public void testCheckDates() {
@@ -87,7 +89,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests check lease conditions method
+	 * Checks the proper functionality of the checkLeaseConditions method
 	 * @throws RentalOutOfServiceException if there is a room out of service
 	 */
 	@Test
@@ -113,7 +115,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the remove from service starting method
+	 * Checks the proper functionality of the removeFromServiceStarting method
 	 */
 	@Test
 	public void testRemoveFromServiceStarting() {
@@ -121,8 +123,6 @@ public class RentalUnitTest {
 		
 		Client client = new Client("Alex Raum", "maraum");
 		Client client2 = new Client("Walker Clem", "waclem");
-//		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
-//		ConferenceRoom room3 = new ConferenceRoom("15-11", 20);
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
 		LocalDate start2 = LocalDate.of(2020, 4, 12);
@@ -143,7 +143,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the cut off index method
+	 * Checks the proper functionality of the cutoffIndex method
 	 */
 	@Test
 	public void testCutoffIndex() {
@@ -151,8 +151,6 @@ public class RentalUnitTest {
 		
 		Client client = new Client("Alex Raum", "maraum");
 		Client client2 = new Client("Walker Clem", "waclem");
-//		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
-//		ConferenceRoom room3 = new ConferenceRoom("15-11", 20);
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
 		LocalDate start2 = LocalDate.of(2020, 4, 12);
@@ -169,7 +167,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the cancel lease by number method
+	 * Checks the proper functionality of the cancelLeaseByNumber method
 	 */
 	@Test
 	public void testCancelLeaseByNumber() {
@@ -177,8 +175,6 @@ public class RentalUnitTest {
 		
 		Client client = new Client("Alex Raum", "maraum");
 		Client client2 = new Client("Walker Clem", "waclem");
-//		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
-//		ConferenceRoom room3 = new ConferenceRoom("15-11", 20);
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
 		LocalDate start2 = LocalDate.of(2020, 4, 12);
@@ -201,14 +197,13 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the add lease method
+	 * Checks the proper functionality of the addLease method
 	 */
 	@Test
 	public void testAddLease() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
 		
 		Client client = new Client("Alex Raum", "maraum");
-//		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
 		int occupants = 18;
@@ -221,14 +216,13 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the list leases method
+	 * Checks the proper functionality of the listLeases method
 	 */
 	@Test
 	public void testListLeases() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
 		
 		Client client = new Client("Alex Raum", "maraum");
-//		ConferenceRoom room2 = new ConferenceRoom("14-11", 20);
 		LocalDate start = LocalDate.of(2020, 4, 8);
 		LocalDate end = LocalDate.of(2020, 4, 15);
 		int occupants = 18;
@@ -241,7 +235,7 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the get description method
+	 * Checks the proper functionality of the getDescription method
 	 */
 	@Test
 	public void testGetDescription() {
@@ -254,27 +248,20 @@ public class RentalUnitTest {
 	}
 
 	/**
-	 * Tests the test equals objects method
+	 * Checks the proper functionality of the equals method
 	 */
 	@Test
 	public void testEqualsObject() {
 		ConferenceRoom room = new ConferenceRoom("23-11", 20);
 		ConferenceRoom room2 = new ConferenceRoom("23-11", 20);
-//		ConferenceRoom room3 = new ConferenceRoom("23-11", 21);
 		ConferenceRoom room4 = new ConferenceRoom("22-11", 20);
 		ConferenceRoom room5 = new ConferenceRoom("23-12", 20);
-//		String test = new String();
 		
 		assertTrue(room.equals(room2));
 		assertFalse(room == null);
-//		assertFalse(room.equals(test));
-//		assertFalse(room.equals(room3));
 		assertFalse(room.equals(room4));
 		assertFalse(room.equals(room5));
 		
 		room2.takeOutOfService();
-		
-//		assertFalse(room.equals(room2));
 	}
-
 }

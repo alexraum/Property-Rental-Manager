@@ -22,35 +22,35 @@ import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
  */
 public abstract class RentalUnit implements Comparable<RentalUnit> { // implements Comparable<RentalUnit> ?
 
-	/** the max floor */
+	/** the maximum floor a unit can have */
 	public static final int MAX_FLOOR = 45;
-	/** the minimum floor */
+	/** the minimum floor a unit can have */
 	public static final int MIN_FLOOR = 1;
-	/** the max room */
+	/** the maximum room a unit can have */
 	public static final int MAX_ROOM = 99;
-	/** the min room */
+	/** the minimum room a unit can have */
 	public static final int MIN_ROOM = 10;
-	/** if in service */
+	/** if the unit is in service */
 	private boolean inService;
-	/** the floor number */
+	/** the floor number of the unit */
 	private int floor;
-	/** the room number*/
+	/** the room number of the unit */
 	private int room;
-	/** the room capacity */
+	/** the units capacity */
 	private int capacity;
-	/** the leases list */
+	/** a list of all the current Leases for the unit */
 	protected SortedLinkedListWithIterator<Lease> myLeases;
 	
 	/**
 	 * Constructor for the Rental unit
 	 * 
 	 * @param location String that contains the floor and room number
-	 * of the RentalUnit
+	 *        of the RentalUnit
 	 * @param capacity the capacity of the RentalUnit
 	 * @throws IllegalArgumentException if the capacity parameter is 
-	 * less than 0, if the floor parameter is greater than the max 
-	 * floor or less than the min floor, or if the room parameter is 
-	 * greater than the max room or less than the min room
+	 *         less than 0, if the floor parameter is greater than the max 
+	 *         floor or less than the min floor, or if the room parameter is 
+	 *         greater than the max room or less than the min room
 	 */
 	public RentalUnit(String location, int capacity) {
 		if (capacity <= 0) {
@@ -75,7 +75,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	}
 	
 	/**
-	 * Gets the capacity of the room
+	 * Gets the capacity of the unit
 	 * 
 	 * @return the capacity
 	 */
@@ -102,10 +102,13 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	}
 	
 	/**
-	 * Compares 2 units
+	 * Compares two units by examining their floor 
+	 * and room numbers.
 	 * 
 	 * @param unit the unit to compare to
-	 * @return which one comes first
+	 * @return an integer representing the relative 
+	 *         values between the two units based 
+	 *         on the comparison criteria
 	 */
 	public int compareTo(RentalUnit unit) {
 		if (getFloor() != unit.getFloor()) {
@@ -116,24 +119,24 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	}
 	
 	/**
-	 * Returns the room to service
+	 * Returns the unit to service
 	 */
 	public void returnToService() {
 		this.inService = true;
 	}
 	
 	/**
-	 * If the room is in service
+	 * If the unit is in service
 	 * 
 	 * @return a boolean indicating if the 
-	 * unit is in service
+	 *         unit is currently in service
 	 */
 	public boolean isInService() {
 		return this.inService;
 	}
 	
 	/**
-	 * take the room out of service
+	 * removes the unit from service
 	 */
 	public void takeOutOfService() {
 		this.inService = false;
@@ -147,6 +150,9 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * @param duration the duration of the lease
 	 * @param occupants the number of occupants for the lease
 	 * @return the new Lease that was reserved
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
+	 * @throws RentalOutOfServiceException if the unit is out of service
 	 */
 	public abstract Lease reserve(Client client, LocalDate startDate, int duration,
 			int occupants) throws RentalOutOfServiceException, RentalDateException, RentalCapacityException; 
@@ -160,6 +166,8 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * @param endDate the end date of the lease 
 	 * @param numOccupants the number of occupants of the lease 
 	 * @return the new Lease that was reserved
+	 * @throws RentalCapacityException if the maximum capacity is exceeded
+	 * @throws RentalDateException if the date is invalid
 	 */
 	public abstract Lease recordExistingLease(int confirmationNumber, Client client,
 			LocalDate startDate, LocalDate endDate, int numOccupants) throws RentalDateException, RentalCapacityException;
@@ -171,8 +179,8 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * @param startDate the start date
 	 * @param endDate the end date
 	 * @throws RentalDateException if the either date is outside 
-	 * of the earliest and latest date range or if the start date
-	 * is earlier than the end date
+	 *         of the earliest and latest date range or if the start date
+	 *         is earlier than the end date
 	 */
 	public void checkDates(LocalDate startDate, LocalDate endDate) throws RentalDateException {
 		if (startDate.isBefore(PropertyManager.EARLIEST_DATE)) {
@@ -195,10 +203,10 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * @param duration the duration of the Lease
 	 * @param numOccupants the number of occupants 
 	 * @throws IllegalArgumentException if the client or 
-	 * startDate are null, or if the duration or numOccupants
-	 * parameters are less than 1 
+	 *         startDate are null, or if the duration or numOccupants
+	 *         parameters are less than 1 
 	 * @throws RentalOutOfServiceException if any of the 
-	 * conditions are not met 
+	 *         conditions are not met 
 	 */
 	protected void checkLeaseConditions(Client client, LocalDate startDate, int duration,
 			int numOccupants) throws RentalOutOfServiceException {
@@ -235,7 +243,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * 
 	 * @param date for the Lease dates to be compared to
 	 * @return the index of the first date on or after the 
-	 * parameter date
+	 *         parameter date
 	 */
 	protected int cutoffIndex(LocalDate date) {
 		for (int i = 0; i < myLeases.size(); i++) {
@@ -251,20 +259,17 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * confirmation number.
 	 * 
 	 * @param confirmationNumber the confirmation number of the
-	 * Lease to be canceled
+	 *        Lease to be canceled
 	 * @return the Lease that has been canceled
 	 * @throws IllegalArgumentException if confirmationNumber parameter
-	 * does not match any leases in the myLeases list 
+	 *         does not match any leases in the myLeases list 
 	 */
 	public Lease cancelLeaseByNumber(int confirmationNumber) {
-		// TODO need to determine if we need to remove occupants and clear up
-		// time frame in this method (see UC10)
 		for (int i = 0; i < myLeases.size(); i++) {
 			if (myLeases.get(i).getConfirmationNumber() == confirmationNumber) {
 				return myLeases.remove(i);
 			}
 		}
-		// increment each day in the calendar by the number of occupants in lease
 		throw new IllegalArgumentException();
 	}
 	
@@ -273,7 +278,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 *
 	 * @param lease the Lease to be add
 	 * @throws IllegalArgumentException if the lease is for a different
-	 * rental unit
+	 *         rental unit
 	 */
 	public void addLease(Lease lease) {
 		if (!inService) {
@@ -282,8 +287,6 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 		if (!this.equals(lease.getProperty())) {
 			throw new IllegalArgumentException();
 		}
-		// TODO verify if we need to check exceeding capacity, date conflicts, etc.
-		// before in this method before adding Lease to list
 		this.myLeases.add(lease);
 	}
 	
@@ -292,7 +295,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * as an array of Strings.
 	 * 
 	 * @return each Lease for this RentalUnit stored in
-	 * an array
+	 *         an array
 	 */
 	public String[] listLeases() {
 		String[] leases = new String[myLeases.size()];
@@ -346,7 +349,7 @@ public abstract class RentalUnit implements Comparable<RentalUnit> { // implemen
 	 * 
 	 * @param obj an object for this RentalUnit to be compared to
 	 * @return boolean representing if this RentalUnit is equal to the parameter
-	 * that it was compared to
+	 *         that it was compared to
 	 */
 	@Override
 	public boolean equals(Object obj) {
