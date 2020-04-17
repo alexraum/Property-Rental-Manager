@@ -142,7 +142,6 @@ public class PropertyManager implements Landlord {
 		if (!customerBase.contains(client) || !rooms.contains(unit)) {
 			throw new IllegalArgumentException();
 		}
-		// TODO perform error checking
 		try {
 			Lease lease = unit.recordExistingLease(confirmationNumber, client, startDate, endDate, numOccupants);
 			client.addNewLease(lease);

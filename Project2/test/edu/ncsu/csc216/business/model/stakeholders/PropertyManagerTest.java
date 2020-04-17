@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import edu.ncsu.csc216.business.model.properties.Office;
+
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 
 /**
@@ -82,6 +83,7 @@ public class PropertyManagerTest {
 		Office office = new Office("15-15", 50);
 		LocalDate start = LocalDate.of(2022, 1, 1);
 		LocalDate end = LocalDate.of(2022, 3, 31);
+		
 		try {
 			singleton.addNewClient("Walker Clem", "waclem");
 			singleton.addNewUnit("O", "15-15", 50);
@@ -211,8 +213,31 @@ public class PropertyManagerTest {
 	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#createLease(int, int, java.time.LocalDate, int, int)}.
 	 */
 	@Test
-	public void testCreateLease() {
-		fail("Not yet implemented");
+	public void testCreateLease() {	
+		PropertyManager singleton = PropertyManager.getInstance();
+		singleton.flushAllData();
+		LocalDate start = LocalDate.of(2022, 1, 1);
+		LocalDate end = LocalDate.of(2022, 3, 31);
+		LocalDate start2 = LocalDate.of(2022, 4, 1);
+		
+		try {
+			Client client = singleton.addNewClient("Walker Clem", "waclem");
+			RentalUnit unit = singleton.addNewUnit("O", "15-15", 50);
+			singleton.addLeaseFromFile(client, 1, unit, start, end, 25);
+			singleton.createLease(0, 0, start2, 1, 35);
+			assertEquals(2, singleton.listClientLeases(0).length);
+		} catch (DuplicateClientException | DuplicateRoomException e) {
+			assertEquals(1, singleton.listClients().length);
+			assertEquals(1, singleton.listRentalUnits().length);
+		}
+		
+		try {
+			singleton.createLease(-1, 0, start2, 1, 5);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(1, singleton.listClients().length);
+			assertEquals(1, singleton.listRentalUnits().length);
+		}
 	}
 
 	/**
@@ -359,12 +384,12 @@ public class PropertyManagerTest {
 		singleton.filterRentalUnits("", false);
 	}
 
-	/**
-	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#flushAllData()}.
-	 */
-	@Test
-	public void testFlushAllData() {
-		fail("Not yet implemented");
-	}
+//	/**
+//	 * Test method for {@link edu.ncsu.csc216.business.model.stakeholders.PropertyManager#flushAllData()}.
+//	 */
+//	@Test
+//	public void testFlushAllData() {
+//		fail("Not yet implemented");
+//	}
 
 }
