@@ -219,6 +219,9 @@ public class PropertyManager implements Landlord {
 		if (propertyIndex < 0 || propertyIndex >= listRentalUnits().length) {
 			throw new IllegalArgumentException();
 		}
+		if (start.isBefore(EARLIEST_DATE) || start.isAfter(LATEST_DATE)) {
+			throw new IllegalArgumentException();
+		}
 		RentalUnit unit = getUnitAtFilteredIndex(propertyIndex);
 		SortedList<Lease> leases = unit.removeFromServiceStarting(start);
 		for (int i = 0; i < leases.size(); i++) {
