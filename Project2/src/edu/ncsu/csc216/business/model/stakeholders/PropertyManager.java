@@ -115,7 +115,7 @@ public class PropertyManager implements Landlord {
 		try {
 			rooms.add(unit);
 			return unit;
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			throw new DuplicateRoomException("Rental Unit at this location already exists");
 		}
 	}

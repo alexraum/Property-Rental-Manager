@@ -123,7 +123,7 @@ public class RentalReader {
 		int capacity = sh.nextInt();
 		
 		try {
-			a = manager.addNewUnit(type, location, capacity);
+			a = manager.addNewUnit(type.substring(0, 1), location, capacity);
 		} catch (DuplicateRoomException e) {}
 		
 		if (rentalUnitReader.hasNext()) {
