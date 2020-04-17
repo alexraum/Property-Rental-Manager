@@ -10,8 +10,10 @@ import org.junit.Test;
 import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
- * @author Alex Raum
- *
+ * The RentalWriterTest class checks for the correct functionality
+ * of the methods in the RentalWriter class
+ * 
+ * @author Walker Clem, Alex Raum
  */
 public class RentalWriterTest {
 

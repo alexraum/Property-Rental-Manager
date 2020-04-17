@@ -18,7 +18,6 @@ import java.io.File;
  * PropertyManager to obtain all necessary date to be written.
  * 
  * @author Walker Clem, Alex Raum
- *
  */
 public class RentalWriter {
 	

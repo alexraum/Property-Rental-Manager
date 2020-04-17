@@ -15,19 +15,23 @@ import edu.ncsu.csc216.business.model.stakeholders.DuplicateRoomException;
 import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
- * Rental Reader class
- * @author Alex Raum, Walker Clem
- *
+ * The RentalReader class reads data into the system from a specified input
+ * file. It uses a single instance of  PropertyManager to populate the necessary
+ * field in the PropertyManager class.
+ * 
+ * @author Walker Clem, Alex Raum
  */
 public class RentalReader {
 	
 	static PropertyManager manager = PropertyManager.getInstance();
 	
 	/**
-	 * Reads the rental data
-	 * @param filename the filename to read from
-	 * @throws DuplicateClientException 
-	 * @throws DuplicateRoomException 
+	 * Reads the rental data from a file and stores it in
+	 * the PropertyManager.
+	 * 
+	 * @param filename the name of the file to be read from
+	 * @throws DuplicateClientException if the client already exists
+	 * @throws DuplicateRoomException if the rental unit already exists
 	 */
 	public static void readRentalData(String filename) {
 		manager.flushAllData();
@@ -74,6 +78,13 @@ public class RentalReader {
 		}
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param next
+	 * @return
+	 * @throws DuplicateClientException
+	 */
 	private static Client clientReader(String next) throws DuplicateClientException {
 		Client c = null;
 		Scanner clientReader = new Scanner(next);
@@ -96,6 +107,12 @@ public class RentalReader {
 		return c;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param line
+	 * @param c
+	 */
 	private static void leaseReader(String line, Client c) {
 		Scanner leaseReader = new Scanner(line);
 		leaseReader.useDelimiter("\\|");
@@ -126,6 +143,13 @@ public class RentalReader {
 
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param line
+	 * @return
+	 * @throws DuplicateRoomException
+	 */
 	private static RentalUnit rentalUnitReader(String line) throws DuplicateRoomException {
 		RentalUnit a = null;
 

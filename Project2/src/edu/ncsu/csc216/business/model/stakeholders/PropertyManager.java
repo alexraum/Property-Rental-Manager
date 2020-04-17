@@ -178,9 +178,9 @@ public class PropertyManager implements Landlord {
 		if (leaseIndex < 0 || leaseIndex >= customerBase.get(clientIndex).listLeases().length) {
 			throw new IllegalArgumentException();
 		}
-		Lease lease = customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
-		int num = lease.getConfirmationNumber();
-		String numString = lease.getConfirmationNumber() + "";
+		customerBase.get(clientIndex).cancelLeaseAt(leaseIndex);
+//		int num = lease.getConfirmationNumber();
+//		String numString = lease.getConfirmationNumber() + "";
 		
 //		for (int i = 0; i < rooms.size(); i++) {
 //			String[] leases = rooms.get(i).listLeases();
