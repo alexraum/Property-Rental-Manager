@@ -8,7 +8,9 @@ import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
 
 /**
- * Creates the Lease object
+ * The Lease class provides all necessary state and behavior
+ * for a Lease object. Leases are stored in lists that are 
+ * used my Client and RentalUnit objects.
  * 
  * @author Alex Raum, Walker Clem
  *
@@ -131,8 +133,8 @@ public class Lease implements Comparable<Lease> {
 	 * 
 	 * @param date the new date
 	 * @throws IllegalArgumentException if the date parameter
-	 * is after the end date of the lease or before the start 
-	 * date of the lease
+	 *        is after the end date of the lease or before the start 
+	 *        date of the lease
 	 */
 	public void setEndDateEarlier(LocalDate date) {
 		if (date.isAfter(endDate) || date.isBefore(startDate)) {
@@ -163,7 +165,7 @@ public class Lease implements Comparable<Lease> {
 	 * 
 	 * @param newCounter the value to reset the counter to
 	 * @throws IllegalArgumentException if the newCounter parameter
-	 * is less than 0 or greater than the MAX_CONF_NUM constant
+	 *         is less than 0 or greater than the MAX_CONF_NUM constant
 	 */
 	public static void resetConfirmationNumbering(int newCounter) {
 		if (newCounter < 0 || newCounter > MAX_CONF_NUM) {

@@ -15,7 +15,7 @@ import edu.ncsu.csc216.business.model.stakeholders.Client;
 /**
  * LeaseTest provides methods to check the functionality of the Lease class. 
  *
- * @author Alex Raum
+ * @author Alex Raum, Walker Clem
  */
 public class LeaseTest {
 
@@ -48,12 +48,6 @@ public class LeaseTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals(18, lease.getNumOccupants());
 		}
-		
-//		suiteLease.setEndDateEarlier(newSuiteEnd);
-//		assertEquals(LocalDate.of(2020, 4, 19), suiteLease.getEnd());
-//		
-//		officeLease.setEndDateEarlier(newOfficeEnd);
-//		assertEquals(LocalDate.of(2020, 5, 31), officeLease.getEnd());
 	}
 
 	/**
@@ -124,7 +118,5 @@ public class LeaseTest {
 		Lease lease3 = new Lease(client, room3, roomStart, roomEnd, numRoomOccupants2);
 		assertTrue(lease.compareTo(lease2) != 0);
 		assertTrue(lease.compareTo(lease3) != 0);
-		//fail("Not yet implemented");
 	}
-
 }
