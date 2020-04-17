@@ -6,7 +6,6 @@ package edu.ncsu.csc216.business.model.contracts;
 import java.time.LocalDate;
 import edu.ncsu.csc216.business.model.properties.RentalUnit;
 import edu.ncsu.csc216.business.model.stakeholders.Client;
-import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
  * Creates the Lease object
@@ -136,7 +135,7 @@ public class Lease implements Comparable<Lease> {
 	 * date of the lease
 	 */
 	public void setEndDateEarlier(LocalDate date) {
-		if (date.isAfter(PropertyManager.LATEST_DATE) || date.isBefore(PropertyManager.EARLIEST_DATE)) {
+		if (date.isAfter(endDate) || date.isBefore(startDate)) {
 			throw new IllegalArgumentException();
 		}
 		this.endDate = date;
