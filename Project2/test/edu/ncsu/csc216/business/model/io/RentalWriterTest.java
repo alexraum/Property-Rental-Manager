@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
+
 /**
  * @author Alex Raum
  *
@@ -18,7 +20,10 @@ public class RentalWriterTest {
 	 */
 	@Test
 	public void testWriteRentalFile() {
-		fail("Not yet implemented");
+		RentalReader.readRentalData("test-files/test.md");
+		RentalWriter.writeRentalFile("test-files/output.md");
+		PropertyManager a = PropertyManager.getInstance();
+		assertEquals(a.listClients()[0], "Amanda Smith (a12#smL)");
 	}
 
 }

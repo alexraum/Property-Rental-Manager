@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import edu.ncsu.csc216.business.model.stakeholders.DuplicateClientException;
 import edu.ncsu.csc216.business.model.stakeholders.DuplicateRoomException;
-import edu.ncsu.csc216.business.model.stakeholders.PropertyManager;
 
 /**
  * @author Alex Raum
