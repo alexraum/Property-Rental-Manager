@@ -30,7 +30,7 @@ public class RentalReaderTest {
 	@Test
 	public void testReadRentalData() throws DuplicateClientException, DuplicateRoomException {
 		RentalReader.readRentalData("test-files/test.md");
-		
+				
 		try {
 			RentalReader.readRentalData("test-files/test");
 			fail();
