@@ -34,8 +34,6 @@ public class RentalReader {
 	 * the PropertyManager.
 	 * 
 	 * @param filename the name of the file to be read from
-	 * @throws DuplicateClientException if the client already exists
-	 * @throws DuplicateRoomException if the rental unit already exists
 	 */
 	public static void readRentalData(String filename) {
 		manager.flushAllData();

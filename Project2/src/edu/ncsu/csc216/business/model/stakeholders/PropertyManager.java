@@ -344,7 +344,7 @@ public class PropertyManager implements Landlord {
 	 * @param propertyIndex Index of the targeted rental unit (subject to filtering)
 	 * @return an array of strings in which each string describes a lease for the
 	 *         targeted rental unit.
-	 * @throw IllegalArgumentException if propertyIndex is not a valid index for the 
+	 * @throws IllegalArgumentException if propertyIndex is not a valid index for the 
 	 *         rental units currently under consideration
 	 */
 	@Override
