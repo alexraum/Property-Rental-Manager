@@ -24,8 +24,8 @@ public class Client {
 	/**
 	 * Client constructor
 	 * 
-	 * @param the name of the client
-	 * @param the id of the client
+	 * @param name the of the client
+	 * @param id the id of the client
 	 * @throws IllegalArgumentException if the name or id parameters
 	 *         are null, if length of the ID is less than 3, the name is blank
 	 *         or the ID contains whitespace

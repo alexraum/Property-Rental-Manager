@@ -149,7 +149,7 @@ public class SortedLinkedListWithIterator<E extends Comparable<E>> implements So
 	 * that is equal to or greater than the specified index.
 	 * The "tail" or section that was removed is returned.
 	 * 
-	 * @param index of the truncation
+	 * @param start index of the truncation
 	 * @return the truncated sorted list
 	 * @throws IllegalArgumentException if the index is out of range
 	 */
