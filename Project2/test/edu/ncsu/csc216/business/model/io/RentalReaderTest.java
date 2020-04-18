@@ -46,7 +46,7 @@ public class RentalReaderTest {
 		}
 		
 		try {
-			RentalReader.readRentalData("test-files/test4.md");
+			RentalReader.readRentalData("test-files/test3.md");
 			fail();
 		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), null);
