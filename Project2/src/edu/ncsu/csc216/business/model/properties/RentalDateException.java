@@ -4,9 +4,11 @@
 package edu.ncsu.csc216.business.model.properties;
 
 /**
- * Throws when the date is wrong
+ * The RentalDateException class defines an exception
+ * that is thrown when a provided date is invalid, it
+ * extends the Exception class.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class RentalDateException extends Exception {
 
@@ -16,8 +18,10 @@ public class RentalDateException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The exception
-	 * @param message message to show
+	 * The RentalDateException Constructor
+	 * 
+	 * @param message message to be displayed when the 
+	 *        exception is thrown
 	 */
 	public RentalDateException(String message) {
 		super(message);

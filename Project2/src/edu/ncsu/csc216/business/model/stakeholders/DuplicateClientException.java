@@ -4,9 +4,11 @@
 package edu.ncsu.csc216.business.model.stakeholders;
 
 /**
- * Throws if there is a duplicate client
+ * The DuplicateClientException class defines an exception
+ * that is thrown when a specified Client already exists, it
+ * extends the Exception class.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class DuplicateClientException extends Exception {
 
@@ -16,8 +18,10 @@ public class DuplicateClientException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The exception
-	 * @param message message to show
+	 * The DuplicateClientException Constructor
+	 * 
+	 * @param message message to be displayed when the 
+	 *        exception is thrown
 	 */
 	public DuplicateClientException(String message) {
 		super(message);

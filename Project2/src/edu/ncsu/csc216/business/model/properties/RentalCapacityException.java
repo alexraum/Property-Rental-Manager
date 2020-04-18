@@ -4,9 +4,11 @@
 package edu.ncsu.csc216.business.model.properties;
 
 /**
- * Throws when the capacity is wrong
+ * The RentalCapacityException class defines an exception
+ * that is thrown when a specified capacity is exceeded, it
+ * extends the Exception class.
+ * 
  * @author Alex Raum, Walker Clem
- *
  */
 public class RentalCapacityException extends Exception {
 	
@@ -16,8 +18,10 @@ public class RentalCapacityException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The exception
-	 * @param message message to show
+	 * The RentalCapacityException Constructor
+	 * 
+	 * @param message message to be displayed when the 
+	 *        exception is thrown
 	 */
 	public RentalCapacityException(String message) {
 		super(message);
